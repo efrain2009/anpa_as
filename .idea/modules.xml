@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/anpacr.iml" filepath="$PROJECT_DIR$/anpacr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anpa AS version.iml" filepath="$PROJECT_DIR$/anpa AS version.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
