@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.anpa.anpacr"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
+
+    <!-- for most things, including card.io & paypal -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <provider
+        android:name="com.facebook.FacebookContentProvider"
+        android:authorities="com.facebook.app.FacebookContentProvider915274545177488"
+        android:exported="true" />
+
+    <application
+        android:name="com.anpa.anpacr.AnpacrApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_app_logo"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_app_logo_white"
+        android:theme="@style/Theme.Anpa_theme" >
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <!--
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        -->
+        <activity android:name="com.anpa.anpacr.activities.SplashScreenActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.anpa.anpacr.activities.NewsActivity" />
+        <activity android:name="com.anpa.anpacr.activities.LostActivity" />
+        <activity android:name="com.anpa.anpacr.activities.CastrationActivity" />
+        <activity android:name="com.anpa.anpacr.activities.ContactusActivity" />
+        <activity android:name="com.anpa.anpacr.activities.DonationActivity" />
+        <activity android:name="com.anpa.anpacr.activities.TipsActivity" />
+        <activity android:name="com.anpa.anpacr.activities.DetailNewsActivity" />
+        <activity android:name="com.anpa.anpacr.activities.DetailCastrationActivity" />
+        <activity android:name="com.anpa.anpacr.activities.DetailTipActivity" />
+        <activity android:name="com.anpa.anpacr.activities.DetailLostActivity" />
+        <activity android:name="com.anpa.anpacr.activities.HomeActivity" />
+        <activity android:name="com.anpa.anpacr.activities.TipSearchActivity" />
+        <activity android:name="com.anpa.anpacr.activities.AddTipActivity" />
+        <activity android:name="com.anpa.anpacr.activities.AddLostActivity" />
+
+        <!-- Facebook -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- Paypal payments -->
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
+
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity" />
+        <activity
+            android:name="io.card.payment.CardIOActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="io.card.payment.DataEntryActivity" />
+
+        <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"
+            android:theme="@style/Theme.IAPTheme" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

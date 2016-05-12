@@ -1,0 +1,7 @@
+CHANGED,C:\Users\Susanita\AndroidStudioProjects\anpacr\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\anpa\anpacr\activities\NewsActivity$override.class
+CHANGED,C:\Users\Susanita\AndroidStudioProjects\anpacr\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\anpa\anpacr\activities\TipsActivity$override.class
+CHANGED,C:\Users\Susanita\AndroidStudioProjects\anpacr\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\anpa\anpacr\common\Constants$override.class
+CHANGED,C:\Users\Susanita\AndroidStudioProjects\anpacr\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\anpa\anpacr\activities\CastrationActivity$override.class
+CHANGED,C:\Users\Susanita\AndroidStudioProjects\anpacr\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\anpa\anpacr\app42\AsyncApp42ServiceApi$override.class
+CHANGED,C:\Users\Susanita\AndroidStudioProjects\anpacr\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\anpa\anpacr\activities\LostActivity$override.class
+CHANGED,C:\Users\Susanita\AndroidStudioProjects\anpacr\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class

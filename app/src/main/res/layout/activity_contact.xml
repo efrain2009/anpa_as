@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/anpa_background"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+  <TextView
+        android:id="@+id/txt_title_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/txt_title_contact"
+        android:textColor="@color/red"
+        android:textSize="14sp" />
+  
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp" >
+
+                <ImageView
+                    android:id="@+id/img_map"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/txt_description_image"
+                    android:src="@drawable/icon_map" />
+
+                <TextView
+                    android:id="@+id/txt_description_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/txt_description_location"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp" >
+
+                <ImageView
+                    android:id="@+id/img_phone"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/txt_description_image"
+                    android:src="@drawable/icon_phone" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp" >
+
+                    <TextView
+                        android:id="@+id/txt_description_phone1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="@string/txt_description_phone1"
+                        android:textColor="@color/hiperlink"/>
+
+                    <TextView
+                        android:id="@+id/txt_description_phone2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/hiperlink"
+                        android:text="@string/txt_description_phone2"  />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp" >
+
+                <ImageView
+                    android:id="@+id/img_mail"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/txt_description_image"
+                    android:src="@drawable/icon_mail" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp" >
+
+                    <TextView
+                        android:id="@+id/txt_description_mail1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:linksClickable="true"
+                        android:text="@string/txt_description_mail1"
+                        android:autoLink="email"
+                         />
+                    
+                    <TextView
+                        android:id="@+id/txt_description_mail2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="@string/txt_description_mail2"
+                        android:autoLink="email" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp" >
+
+                <ImageView
+                    android:id="@+id/img_facebook"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/txt_description_image"
+                    android:src="@drawable/icon_facebook" />
+
+                <TextView
+                    android:id="@+id/txt_description_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/hiperlink"
+                    android:text="@string/txt_description_facebook"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp" >
+
+                <ImageView
+                    android:id="@+id/img_twitter"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/txt_description_image"
+                    android:src="@drawable/icon_twitter" />
+
+                <TextView
+                    android:id="@+id/txt_description_twitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/hiperlink"
+                    android:text="@string/txt_description_twitter" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp" >
+
+                <ImageView
+                    android:id="@+id/img_webPage"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/txt_description_image"
+                    android:src="@drawable/icon_web" />
+
+                <TextView
+                    android:id="@+id/txt_description_webPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:autoLink="web"
+                    android:text="@string/txt_description_webPage" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,77 @@
+<resources>
+
+    <string name="app_name">ANPA</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="facebook_app_id">915274545177488</string>
+
+    <string name="txt_news">Noticias</string>
+    <string name="txt_tips">Consejos</string>
+    <string name="txt_castration">Castraciones</string>
+    <string name="txt_adoption">Perdidos</string>
+    <string name="txt_donation">¡Yo Dono!</string>
+    <string name="txt_contactus">Contáctenos</string>
+    <string name="txt_description_image">Descripción imagen</string>
+   
+    <!-- donation -->
+    <string name="txt_donation_description">La transacción al donar es el 100% segura, debido a que se realiza mediante la plataforma de Paypal. ¡Gracias por tu colaboración! Para más información podés visitar: http://www.anpacostarica.org/done_aqui</string>
+    <string name="txt_donation_link">http://www.anpacostarica.org/done_aqui</string>
+    <string name="txt_donation_text1">Deseo donar: $</string>
+    <string name="bt_send_donation">¡Donar!</string>
+    
+    <!-- Castration -->
+     <string name="txt_subtitle_castration_date">Fecha:</string>
+     <string name="txt_subtitle_schedule">Horario:</string>
+     <string name="txt_subtitle_doctor">Doctor:</string>
+     <string name="txt_subtitle_attendant">Encargado:</string>
+     <string name="txt_subtitle_amount">Monto:</string>
+     <string name="txt_subtitle_info">Información Adicional:</string>
+     <string name="bt_buton_How_arrive">¿Cómo llegar?</string>
+    
+     <!-- Tips --> 
+     <string name="txt_subtitle_autor">Autor:</string>
+     <string name="txt_breed_author">Por</string>     
+     <string name="txt_public_fb">Compartir en Facebook</string>
+     <string name="txt_add_tip">Agregar consejo</string>
+     <string name="bt_buton_add_tip">Agregar consejo</string>
+     <string name="txt_search_tip">Buscar</string>
+     <string name="txt_specie">Especie:</string>
+     <string name="txt_race">Raza:</string>
+     <string name="txt_subtitle_raza_consejo">Raza:</string>
+     <string name="txt_list_title_tip">Lista de consejos</string>
+     <string name="txt_disclaimer">*Aclaración: Los siguientes consejos no son elaborados por personal de ANPA, sino por la comunidad de usuarios. Queda a tu juicio el ponerlos en práctica o no.</string>
+     <string name="txt_agrega_consejo">Agrega tu consejo</string>
+     <string name="txt_tip_opinion">¿Qué te pareció este consejo?</string>
+     
+     
+     <!-- Lost -->  
+     <string name="txt_search_lost">Buscar</string>
+     <string name="txt_disclaimer_lost">*Aclaración: Los siguientes anuncios de mascotas pérdidas son elaborados por la comunidad de usuarios.</string>
+     <string name="txt_list_title_lost">Lista de pérdidos cerca de mi</string>
+     <string name="txt_detail_lost_title">Aviso</string>
+     <string name="txt_subtitle_nom_mascota">Nombre mascota*: </string>
+     <string name="txt_subtitle_raza_mascota">Raza*: </string>
+     <string name="txt_subtitle_contacto">Contacto*: </string>
+     <string name="txt_subtitle_telefono">Teléfono*: </string>
+     <string name="txt_subtitle_short_direction">¿Dónde se pérdio?</string>
+     <string name="txt_subtitle_detalle">Detalles*: </string>
+     <string name="txt_add_lost">Encontrar a mi mascota</string>
+     <string name="txt_add_lost_photo">Seleccionar Foto</string>
+     <string name="txt_subtitle_canton">Cantón*:</string>
+     <string name="txt_subtitle_provincia">Provincia*:</string>  
+     
+     
+     <!-- Contacts -->
+     <string name="txt_description_location">Sabanilla de Montes de Oca, 300 oeste del Mas x Menos frente al residencial La Alahambra edificio esquinero color gris con verde, altos de la veterinaria</string>
+     <string name="txt_description_phone1"><u>(+506) 4000-ANPA</u></string>
+     <string name="txt_description_phone2"><u>(+506) 2255-2722</u></string>
+     <string name="txt_description_mail1">Info: <u>info@anpacostarica.org</u></string>
+     <string name="txt_description_mail2">Castrac.: <u>educa@anpacostarica.org</u></string>
+     <string name="txt_description_facebook"><u>ANPA-Costa-Rica</u></string>
+     <string name="txt_description_twitter"><u>@anpacr</u></string>
+     <string name="txt_description_webPage">www.anpacostarica.org</string>
+     <string name="txt_title_contact">Información General</string>
+    
+     
+</resources>

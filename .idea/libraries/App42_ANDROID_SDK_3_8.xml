@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="App42_ANDROID_SDK_3.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/App42_ANDROID_SDK_3.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

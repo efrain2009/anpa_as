@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#FF0000</color>
+    <color name="black">#000000</color>
+    <color name="gray">#B0B0B0</color>
+<!--     <color name="item_semitransparent_parent">#7F040404</color> -->
+	<color name="item_semitransparent_parent">#7F1F3A93</color>
+    <color name="item_semitransparent_child">#59FFFFFF</color>
+    
+    <color name="action_bar_background">#F22613</color>
+    <color name="tabs_background">#F22613</color>
+    <color name="tabs_indicator">#FFFFFF</color>
+    <color name="tabs_spaces_background">#F1A9A0</color>
+    <color name="hiperlink">#49BCE7</color>
+    <color name="button_unpressed">#F22613</color>
+    <color name="button_pressed">#1F3A93</color>
+    
+</resources>
