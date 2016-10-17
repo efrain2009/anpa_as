@@ -55,12 +55,13 @@
         <activity android:name="com.anpa.anpacr.activities.AddLostActivity"></activity>
 
         <!-- Facebook -->
+        <!--
         <activity android:name="com.facebook.FacebookActivity"
           android:configChanges=
                  "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
           android:theme="@android:style/Theme.Translucent.NoTitleBar"
           android:label="@string/app_name" />
-
+        -->
         <!-- Paypal payments -->
         <service android:name="com.paypal.android.sdk.payments.PayPalService" android:exported="false" />
 
