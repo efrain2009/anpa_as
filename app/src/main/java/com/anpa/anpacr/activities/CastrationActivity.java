@@ -90,6 +90,9 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			showMessage(Constants.MSJ_ERROR_CASTRATION);
 			e.printStackTrace();
 		}
+		finally {
+			progressDialog.dismiss();
+		}
 
 		/*Asigna a los tabs el listener*/
 		tab_last_castration.setTabListener(new CastrationListener());

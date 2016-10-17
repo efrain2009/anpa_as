@@ -93,6 +93,9 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 			showMessage(Constants.MSJ_ERROR_NOTICIA);
 			e.printStackTrace();
 		}
+		finally {
+			progressDialog.dismiss();
+		}
 				
 		/*Asigna a los tabs el listener*/
 		tab_last_news.setTabListener(new NewsListener());

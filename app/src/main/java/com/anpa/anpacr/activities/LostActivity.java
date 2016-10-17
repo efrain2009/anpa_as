@@ -54,6 +54,9 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_lost);
 
+		//App42:
+		asyncService = AsyncApp42ServiceApi.instance(this);
+
 		lostList = new ArrayList<Lost>();
 		
 		//Btn de back (anterior)
@@ -66,6 +69,7 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		lv_lost = (ListView) findViewById(R.id.list_lost);
 		lostAdapter = new LostListAdapter(this, lostList);
 		lv_lost.setOnItemClickListener(onclickListLost);
+		lv_lost.setAdapter(lostAdapter);
 		
 
 		//Se carga la lista de perdidos
@@ -78,6 +82,9 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		} catch (Exception e) {
 			showMessage(Constants.MSJ_ERROR_NOTICIA);
 			e.printStackTrace();
+		}
+		finally {
+			lostAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -153,6 +160,9 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 				e.printStackTrace();
 			}
 		}
+		lostAdapter = new LostListAdapter(this, lostList);
+		lostAdapter.notifyDataSetChanged();
+		lv_lost.setAdapter(lostAdapter);
 	}
 
 	/**

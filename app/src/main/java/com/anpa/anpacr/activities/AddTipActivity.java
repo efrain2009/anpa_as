@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,12 +23,24 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.adapter.SpinnerAdapter;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.GenericNameValue;
 import com.anpa.anpacr.domain.Tip;
-import com.parse.ParseObject;
+import com.shephertz.app42.paas.sdk.android.App42CallBack;
+import com.shephertz.app42.paas.sdk.android.ServiceAPI;
+import com.shephertz.app42.paas.sdk.android.storage.Storage;
+import com.shephertz.app42.paas.sdk.android.storage.StorageService;
+
+import org.json.JSONObject;
 
 public class AddTipActivity extends AnpaAppFraqmentActivity {
-	
+
+	//App42:
+	private String docId = "";
+	private ProgressDialog progressDialog;
+	ServiceAPI api;
+	StorageService storageService;
+
 	EditText editxt_description_tip, editxt_breed_author;
 	private Spinner raceSpinner, specieSpinner;
 	private SpinnerAdapter adapter;
@@ -40,9 +53,15 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_tip);
 
+		// Instancia la BD App 42
+		api = new ServiceAPI(Constants.App42ApiKey, Constants.App42ApiSecret);
+
 		// Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
+
+		saveTip = (Button) findViewById(R.id.btn_add_tip);
+		saveTip.setOnClickListener(onSave);
 
 		editxt_description_tip = (EditText) findViewById(R.id.editxt_description_tip);
 
@@ -71,23 +90,47 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 	private OnClickListener onSave = new OnClickListener() {
 		
 		@Override
-		public void onClick(View v) {				
-			
-			ParseObject objTip = new ParseObject(Constants.TABLE_CONSEJO);
-			objTip.put(Constants.DESCR_CONSEJO, editxt_description_tip.getText().toString());
-			objTip.put(Constants.AUTOR_CONSEJO, editxt_breed_author.getText().toString());
-			objTip.put(Constants.RAZA_CONSEJO, Integer.parseInt(raceSpinner.getSelectedItem().toString()));
-			objTip.put(Constants.ESPECIE_CONSEJO, Integer.parseInt(specieSpinner.getSelectedItem().toString()));
-			objTip.saveInBackground();	
+		public void onClick(View v) {
+
+			String dbName = Constants.App42DBName;
+			String collectionName = Constants.TABLE_CONSEJO;
+
+			JSONObject tipJSON = new JSONObject();
+			Util.textAsJSON(tipJSON, Constants.DESCR_CONSEJO, editxt_description_tip.getText().toString() , -1);
+			Util.textAsJSON(tipJSON, Constants.AUTOR_CONSEJO, editxt_breed_author.getText().toString() , -1);
+			Util.textAsJSON(tipJSON, Constants.RAZA_CONSEJO, "" , raceSpinner.getAdapter().getItemId(raceSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(tipJSON, Constants.ESPECIE_CONSEJO, "" ,  specieSpinner.getAdapter().getItemId(specieSpinner.getSelectedItemPosition()));
+
+			// instacia Storage App42
+			storageService = api.buildStorageService();
+			/* Below snippet will save JSON object in App42 Cloud */
+			storageService.insertJSONDocument(dbName,collectionName,tipJSON,new App42CallBack() {
+				public void onSuccess(Object response)
+				{
+					Storage storage  = (Storage )response;
+					ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+					for(int i=0;i<jsonDocList.size();i++)
+					{
+						System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+						//Above line will return object id of saved JSON object
+						System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+						System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+						System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+					}
+				}
+				public void onException(Exception ex)
+				{
+					System.out.println("Exception Message"+ex.getMessage());
+				}
+			});
 			alertDialog ();
-			saveTip.setEnabled(false);
 		}
 	};
 	
 	public void alertDialog (){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Dentro de poco se publicara tu aviso")
-               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setMessage(Constants.MSJ_SUCCESS_TIP)
+               .setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                        // FIRE ZE MISSILES!
                    }

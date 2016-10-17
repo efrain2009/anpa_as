@@ -72,10 +72,12 @@ public class DetailLostActivity extends ActionBarActivity {
 			TextView txt_detail_lost_date = (TextView) findViewById(R.id.txt_detail_lost_date);
 			txt_detail_lost_date.setText(value.get_sDate());
 
-			ImageView img_detail_lost = (ImageView) findViewById(R.id.img_detail_lost);
-			Bitmap bmpImage = BitmapFactory.decodeByteArray(
-				      value.get_bFoto(), 0, value.get_bFoto().length);
-			img_detail_lost.setImageBitmap(bmpImage);
+			if (value.get_bFoto() != null) {
+				ImageView img_detail_lost = (ImageView) findViewById(R.id.img_detail_lost);
+				Bitmap bmpImage = BitmapFactory.decodeByteArray(
+						value.get_bFoto(), 0, value.get_bFoto().length);
+				img_detail_lost.setImageBitmap(bmpImage);
+			}
 		}
 		
 		Button btnAddLost = (Button)findViewById(R.id.btn_add_lost);

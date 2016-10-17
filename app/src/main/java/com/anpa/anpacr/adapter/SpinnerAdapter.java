@@ -36,7 +36,7 @@ public class SpinnerAdapter extends ArrayAdapter<GenericNameValue>{
     }
 
     public long getItemId(int position){
-       return position;
+       return Long.valueOf(values.get(position).getValue());
     }
 
 

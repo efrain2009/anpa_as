@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,12 +32,26 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.adapter.SpinnerAdapter;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.GenericNameValue;
 import com.anpa.anpacr.domain.Gps;
 import com.anpa.anpacr.domain.Lost;
 import com.parse.ParseObject;
+import com.shephertz.app42.paas.sdk.android.App42CallBack;
+import com.shephertz.app42.paas.sdk.android.ServiceAPI;
+import com.shephertz.app42.paas.sdk.android.storage.Storage;
+import com.shephertz.app42.paas.sdk.android.storage.StorageService;
+
+import org.json.JSONObject;
 
 public class AddLostActivity extends AnpaAppFraqmentActivity {
+
+	//App42:
+	private String docId = "";
+	private ProgressDialog progressDialog;
+	ServiceAPI api;
+	StorageService storageService;
+
 	private Spinner provinciaSpinner, cantonSpinner, specieSpinner;
 	private SpinnerAdapter adapter;
 	private SpinnerAdapter adapter1;
@@ -57,6 +72,9 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_add_lost);
+
+			// Instancia la BD App 42
+			api = new ServiceAPI(Constants.App42ApiKey, Constants.App42ApiSecret);
 			
 			//Btn de back (anterior)
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -145,12 +163,13 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		private OnClickListener onSave = new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {				
-				
-				ParseObject objLost = new ParseObject(Constants.TABLE_PERDIDOS);
-				objLost.put(Constants.NOM_MASCOTA, editxt_nomMascota.getText().toString());
-				objLost.put(Constants.NOM_DUENO, editxt_contacto.getText().toString());
-			
+			public void onClick(View v) {
+
+				String dbName = Constants.App42DBName;
+				String collectionName = Constants.TABLE_PERDIDOS;
+
+				JSONObject lostJSON = new JSONObject();
+
 				//Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
 				//		R.drawable.ic);
 				/*
@@ -158,32 +177,55 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				// Compress image to lower quality scale 1 - 100
 				bitMapPhoto.compress(Bitmap.CompressFormat.PNG, 100, stream);
-				byte[] image = stream.toByteArray(); 
+				byte[] image = stream.toByteArray();
 				// Create the ParseFile
 				ParseFile file = new ParseFile("androidbegin.png", image);
 				// Upload the image into Parse Cloud
-				file.saveInBackground();	 
+				file.saveInBackground();
 
  				// Create a column named "ImageFile" and insert the image
 				objLost.put(Constants.FOTO_PERDIDO, file);
 				*/
-				objLost.put(Constants.LATITUD_PERDIDO, _sLatitud);
-				objLost.put(Constants.LONGITUD_PERDIDO, _sLongitud);
-				objLost.put(Constants.PROVINCIA_PERDIDO, Integer.valueOf(provinciaSpinner.getSelectedItem().toString()));
-				objLost.put(Constants.CANTON_PERDIDO, Integer.valueOf(cantonSpinner.getSelectedItem().toString()));
-				objLost.put(Constants.RAZA_PERDIDO, _sRaza);
-				objLost.put(Constants.TELEFONO_PERDIDO, editxt_telefono.getText().toString());
-				objLost.put(Constants.DETALLE_PERDIDO, editxt_detail_lost_description.getText().toString());
-				objLost.saveInBackground();	
+				Util.textAsJSON(lostJSON, Constants.NOM_MASCOTA, editxt_nomMascota.getText().toString() , -1);
+				Util.textAsJSON(lostJSON, Constants.NOM_DUENO, editxt_contacto.getText().toString() , -1);
+				Util.textAsJSON(lostJSON, Constants.LATITUD_PERDIDO, _sLatitud , -1);
+				Util.textAsJSON(lostJSON, Constants.LONGITUD_PERDIDO, _sLongitud , -1);
+				Util.textAsJSON(lostJSON, Constants.PROVINCIA_PERDIDO, "" , provinciaSpinner.getAdapter().getItemId(provinciaSpinner.getSelectedItemPosition()));
+				Util.textAsJSON(lostJSON, Constants.CANTON_PERDIDO, "" , cantonSpinner.getAdapter().getItemId(cantonSpinner.getSelectedItemPosition()));
+				Util.textAsJSON(lostJSON, Constants.RAZA_PERDIDO, _sRaza , -1);
+				Util.textAsJSON(lostJSON, Constants.TELEFONO_PERDIDO, editxt_telefono.getText().toString() , -1);
+				Util.textAsJSON(lostJSON, Constants.DETALLE_PERDIDO, editxt_detail_lost_description.getText().toString() , -1);
+
+				// instacia Storage App42
+				storageService = api.buildStorageService();
+			/* Below snippet will save JSON object in App42 Cloud */
+				storageService.insertJSONDocument(dbName,collectionName,lostJSON,new App42CallBack() {
+					public void onSuccess(Object response)
+					{
+						Storage storage  = (Storage )response;
+						ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+						for(int i=0;i<jsonDocList.size();i++)
+						{
+							System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+							//Above line will return object id of saved JSON object
+							System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+							System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+							System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+						}
+					}
+					public void onException(Exception ex)
+					{
+						System.out.println("Exception Message"+ex.getMessage());
+					}
+				});
 				alertDialog ();
-				saveLost.setEnabled(false);
 			}
 		};
-		
+
 		public void alertDialog (){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        builder.setMessage("Dentro de poco se publicara tu aviso")
-	               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+	        builder.setMessage(Constants.MSJ_SUCCESS_TIP)
+	               .setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
 	                   public void onClick(DialogInterface dialog, int id) {
 	                       // FIRE ZE MISSILES!
 	                   }

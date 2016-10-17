@@ -54,10 +54,10 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_tip);
 
-		tipsList = new ArrayList<Tip>();
-
 		//App42:
 		asyncService = AsyncApp42ServiceApi.instance(this);
+
+		tipsList = new ArrayList<Tip>();
 
 
 		// Btn de back (anterior)
@@ -70,17 +70,21 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 		lv_tips = (ListView) findViewById(R.id.list_tips);
 		tipsAdapter = new TipListAdapter(this, tipsList);
 		lv_tips.setOnItemClickListener(onclickListTips);
+		lv_tips.setAdapter(tipsAdapter);
 
 		// Se carga la lista de tips
 		try {
 			/* App42 */
 			progressDialog = ProgressDialog.show(TipsActivity.this,
-					"Espera un momento", "Olfateando consejos....");
+					Constants.ESPERA, Constants.ESPERA_CONSEJO);
 			asyncService.findDocByColletion(Constants.App42DBName, Constants.TABLE_CONSEJO, 1, this);
 
 		} catch (Exception e) {
-			showMessage("Ups! Perdimos el rastro de los consejos. Intenta más tarde.");
+			showMessage(Constants.MSJ_ERROR_CONSEJO);
 			e.printStackTrace();
+		}
+		finally {
+			tipsAdapter.notifyDataSetChanged();
 		}
 
 	}
@@ -117,7 +121,7 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 		@Override
 		public void onFindDocFailed(App42Exception ex) {
-			showMessage("Ups! Perdimos el rastro de la información. Intenta más tarde.");
+			showMessage(Constants.MSJ_ERROR);
 		}
 
 		@Override
@@ -143,7 +147,7 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 				try {
 					jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
 					sAutor = jsonObject.getString(Constants.AUTOR_CONSEJO);
-					sConsejo = jsonObject.getString(Constants.CONSEJOS_PARA);
+					sConsejo = jsonObject.getString(Constants.DESCR_CONSEJO);
 					unoEstrellas = jsonObject.getInt(Constants.ESTRELLA1_CONSEJO);
 					dosEstrellas = jsonObject.getInt(Constants.ESTRELLA2_CONSEJO);
 					tresEstrellas = jsonObject.getInt(Constants.ESTRELLA3_CONSEJO);
@@ -158,6 +162,9 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 					e.printStackTrace();
 				}
 			}
+			tipsAdapter = new TipListAdapter(this, tipsList);
+			tipsAdapter.notifyDataSetChanged();
+			lv_tips.setAdapter(tipsAdapter);
 		}
 
 

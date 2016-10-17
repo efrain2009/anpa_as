@@ -14,6 +14,8 @@ public class Constants {
 
 	public final static String ESPERA = "Espera un momento";
 	public final static String MSJ_ERROR ="Ups! Perdimos el rastro de la información. Intenta más tarde.";
+	public final static String MSJ_SUCCESS_TIP ="Dentro de poco se publicara tu aviso";
+	public final static String BTN_ACEPTAR ="Aceptar";
 
 	/*Table Perdidos*/
 	//public final static String TABLE_PERDIDOS = "ANPA03_PERDIDOS";
@@ -85,7 +87,9 @@ public class Constants {
 	public final static String ESTRELLA4_CONSEJO = "ANPA02_4ESTRELLAS";
 	public final static String ESTRELLA5_CONSEJO = "ANPA02_5ESTRELLAS";
 	public final static String VOTOS_CONSEJO = "ANPA02_TOTAL_VOTOS";
-	
+	public final static String ESPERA_CONSEJO = "Olfateando consejos....";
+	public final static String MSJ_ERROR_CONSEJO = "Ups! Perdimos el rastro de las consejos. Intenta más tarde.";
+
 	/*Home Activity*/	
 	public final static String TITLE_DESCRIPTION_CONTACTUS = "Contáctenos";
 	public final static String TITLE_DESCRIPTION_DONATION = "Donaciones";
