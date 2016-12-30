@@ -17,8 +17,9 @@ public class Sponsor implements Serializable{
 	private Integer _iorden;
 	private byte[] _bImagen;	
 	private String _dCreationDate;
+	private Integer _iHabilitado;
 
-	public Sponsor(String _lId, String _snombre, String _sdescripcion, String _sURL, Integer _iorden, byte[] _bImagen, String _dCreationDate) {
+	public Sponsor(String _lId, String _snombre, String _sdescripcion, String _sURL, Integer _iorden, byte[] _bImagen, String _dCreationDate, Integer _iHabilitado) {
 		this._lId = _lId;
 		this._snombre = _snombre;
 		this._sdescripcion = _sdescripcion;
@@ -26,6 +27,7 @@ public class Sponsor implements Serializable{
 		this._iorden = _iorden;
 		this._bImagen = _bImagen;
 		this._dCreationDate = _dCreationDate;
+		this._iHabilitado = _iHabilitado;
 	}
 
 	public Sponsor() {
@@ -87,6 +89,13 @@ public class Sponsor implements Serializable{
 	public void set_sURL(String _sURL) {
 		this._sURL = _sURL;
 	}
-	
+
+	public Integer get_iHabilitado() {
+		return _iHabilitado;
+	}
+
+	public void set_iHabilitado(Integer _iHabilitado) {
+		this._iHabilitado = _iHabilitado;
+	}
 }
 	

@@ -31,6 +31,7 @@ public class Constants {
 	public final static String PROVINCIA_PERDIDO = "ANPA03_PROVINCIA";
 	public final static String CANTON_PERDIDO = "ANPA03_CANTON";
 	public final static String ESPERA_PERDIDO = "Olfateando perdidos....";
+	public final static String HABILITADO_PERDIDO = "ANPA03_HABILITADO";
 	public final static String MSJ_ERROR_PERDIDO ="Ups! Perdimos el rastro de las mascotas perdidas. Intenta más tarde.";
 	
 	/*Table Castraciones
@@ -47,7 +48,7 @@ public class Constants {
 	public final static String LATITUD_CASTRACION = "ANPA04_LATITUD";
 	public final static String HORARIO_FIN_CASTRACION = "ANPA04_HORARIO_FIN";
 	public final static String LONGITUD_CASTRACION = "ANPA04_LONGITUD";
-	public final static String IMAGE_CASTRACION = "ANPA04_IMAGE";
+	public final static String HABILITADO_CASTRACION = "ANPA04_HABILITADO";
 	public final static String ESPERA_CASTRACION = "Olfateando castraciones....";
 	public final static String MSJ_ERROR_CASTRATION ="Ups! Perdimos el rastro de las castraciones. Intenta más tarde.";
 	
@@ -57,6 +58,7 @@ public class Constants {
 	public final static String ORDEN_PREGUNTA = "ANPA05_ORDEN";
 	public final static String RESPESTA_PREGUNTA = "ANPA05_RESPUESTA";
 	public final static String TIPO_PREGUNTA = "ANPA05_TIPO";
+	public final static String HABILITADO_PREGUNTA = "ANPA05_HABILITADO";
 	
 	/*Table Noticias*/
 	//public final static String TABLE_NOTICIA = "ANPA01_NOTICIAS";
@@ -64,6 +66,7 @@ public class Constants {
 	public final static String TITULO_NOTICIA = "ANPA01_TITULO";
 	public final static String CONTENIDO_NOTICIA = "ANPA01_CONTENIDO";
 	public final static String IMAGEN_NOTICIA = "ANPA01_IMAGE";
+	public final static String HABILITADO_NOTICIA = "ANPA01_HABILITADO";
 	public final static String ESPERA_NOTICIAS = "Olfateando noticias....";
 	public final static String MSJ_ERROR_NOTICIA = "Ups! Perdimos el rastro de las noticias. Intenta más tarde.";
 	
@@ -74,6 +77,7 @@ public class Constants {
 	public final static String DESCRIPCION_PATROCINIO = "ANPA06_DESCRIPCION";
 	public final static String URL_PATROCINIO = "ANPA06_URL";
 	public final static String IMAGEN_PATROCINIO = "ANPA06_IMAGEN";
+	public final static String HABILITADO_PATROCINIO = "ANPA06_HABILITADO";
 	
 	/*Table Consejo*/
 	public final static String TABLE_CONSEJO = "consejos";
@@ -87,6 +91,8 @@ public class Constants {
 	public final static String ESTRELLA4_CONSEJO = "ANPA02_4ESTRELLAS";
 	public final static String ESTRELLA5_CONSEJO = "ANPA02_5ESTRELLAS";
 	public final static String VOTOS_CONSEJO = "ANPA02_TOTAL_VOTOS";
+	public final static String ESTADO_CONSEJO = "ANPA02_ESTADO";
+	public final static String HABILITADO_CONSEJO = "ANPA02_HABILITADO";
 	public final static String ESPERA_CONSEJO = "Olfateando consejos....";
 	public final static String MSJ_ERROR_CONSEJO = "Ups! Perdimos el rastro de las consejos. Intenta más tarde.";
 
@@ -156,6 +162,14 @@ public class Constants {
 	public static final String App42ApiKey = "7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4";
 	public static final String App42ApiSecret = "454319ede4caf512ed8ef92628fbc3b838b76bbfee9e812dd3f6eab76d602c46";
 	public static final String App42DBName = "ANPAPRD";
+
+	/*upload Image*/
+	public final static String FILE = "_files";
+	public final static String URL_FILE = "url";
+	public final static String NAME_FILE = "name";
+	public final static String TYPE_FILE = "type";
+	public final static String ID_FILE = "fileId";
 }
+
 
 

@@ -28,6 +28,7 @@ public class Castration implements Serializable{
 	private String _sLatitud;
 	private String _sLongitud;
 	private byte[] _bImagen;
+	private Integer habilitado;
 
 			
 	public Castration() {
@@ -38,7 +39,7 @@ public class Castration implements Serializable{
 			Double _bgdMonto, String _sdireccion, String _sdescription,
 			String _sEncargado, String _sDateInicio, String _sDateFin,
 			Integer _sTipo, String _sDate, String _sLatitud, String _sLongitud,
-			byte[] _bImagen) {
+			byte[] _bImagen, Integer habilitado) {
 		super();
 		this._lId = _lId;
 		this._snombre = _snombre;
@@ -54,6 +55,7 @@ public class Castration implements Serializable{
 		this._sLatitud = _sLatitud;
 		this._sLongitud = _sLongitud;
 		this._bImagen = _bImagen;
+		this.habilitado = habilitado;
 	}
 
 	public String get_sLatitud() {
@@ -198,6 +200,14 @@ public class Castration implements Serializable{
 
 	public void set_dDateFin(Date _dDateFin) {
 		this._dDateFin = _dDateFin;
+	}
+
+	public Integer getHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(Integer habilitado) {
+		this.habilitado = habilitado;
 	}
 }
 

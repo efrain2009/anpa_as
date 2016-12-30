@@ -16,13 +16,14 @@ public class News implements Serializable{
 	private String _sDate;
 	private Date _dDate;
 	private byte[] _bImagen;
+	private Integer _iHabilitado;
 
 	public News() {
 		super();
 	}
 	
 	public News(String _lId, String _stitle, String _sdescription, String _sDate,
-			byte[] _bImagen, Date _dDate) {
+			byte[] _bImagen, Date _dDate, Integer _iHabilitado) {
 		super();
 		this._lId = _lId;
 		this._stitle = _stitle;
@@ -30,6 +31,7 @@ public class News implements Serializable{
 		this._sDate = _sDate;
 		this._bImagen = _bImagen;
 		this._dDate = _dDate;
+		this._iHabilitado = _iHabilitado;
 	}
 
 

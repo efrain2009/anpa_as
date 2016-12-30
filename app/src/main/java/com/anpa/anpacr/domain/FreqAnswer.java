@@ -16,14 +16,16 @@ public class FreqAnswer implements Serializable{
 	private Integer _iorden;
 	private Integer _itipo;
 	private String _dCreationDate;
+	private Integer _iHabilitado;
 
-	public FreqAnswer(String _lId, String _spregunta, String _srespuesta, Integer _iorden, Integer _itipo, String _dCreationDate) {
+	public FreqAnswer(String _lId, String _spregunta, String _srespuesta, Integer _iorden, Integer _itipo, String _dCreationDate, Integer iHabilitado) {
 		this._lId = _lId;
 		this._spregunta = _spregunta;
 		this._srespuesta = _srespuesta;
 		this._iorden = _iorden;
 		this._itipo = _itipo;
 		this._dCreationDate = _dCreationDate;
+		this._iHabilitado = iHabilitado;
 	}
 
 	public FreqAnswer() {
@@ -76,6 +78,14 @@ public class FreqAnswer implements Serializable{
 
 	public void set_itipo(Integer _itipo) {
 		this._itipo = _itipo;
+	}
+
+	public Integer get_iHabilitado() {
+		return _iHabilitado;
+	}
+
+	public void set_iHabilitado(Integer _iHabilitado) {
+		this._iHabilitado = _iHabilitado;
 	}
 }
 

@@ -131,7 +131,7 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
 		String sIdLost = "", sNomMascota = "", dCreationDate = "", sNomDueno = "", date = "", sTelefono ="", sDetalle ="", sLatitud ="", sLongitud ="", sRaza ="";
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
-		int iProvincia = 0, iCanton = 0;
+		int iProvincia = 0, iCanton = 0, iHabilitado = 0;
 
 		for(int i=0; i < jsonDocList.size(); i ++){
 			sIdLost = jsonDocList.get(i).getDocId();
@@ -150,12 +150,15 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 				sLatitud = jsonObject.getString(Constants.LATITUD_PERDIDO);
 				sLongitud = jsonObject.getString(Constants.LONGITUD_PERDIDO);
 				sRaza = jsonObject.getString(Constants.RAZA_PERDIDO);
+				iHabilitado =jsonObject.getInt(Constants.HABILITADO_PERDIDO);
 				/*
 				ParseFile imageFile = lostParse
 						.getParseFile(Constants.FOTO_PERDIDO);
 				*/
-				Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno,sTelefono, iProvincia, iCanton, sDetalle, sRaza, date, null, sLatitud, sLongitud);
-				lostList.add(newLost);
+				if(iHabilitado == 1) {
+					Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, sRaza, date, null, sLatitud, sLongitud, iHabilitado);
+					lostList.add(newLost);
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

@@ -23,13 +23,14 @@ public class Tip implements Serializable{
 	private Integer _iRaza;
 	private Integer _iEspecie;
 	private String _sDate;
-
+	private Integer _iEstado;
+	private Integer _iHabilitado;
 	
 	public Tip() {
 		super();
 	}
 
-	public Tip(String _lId, String _sAuthor, String _sConsejo, Date _dDate, Integer _i1Estrella, Integer _i2Estrella, Integer _i3Estrella, Integer _i4Estrella, Integer _i5Estrella, Integer _iTotalVotos, Integer _iRaza, Integer _iEspecie, String _sDate) {
+	public Tip(String _lId, String _sAuthor, String _sConsejo, Date _dDate, Integer _i1Estrella, Integer _i2Estrella, Integer _i3Estrella, Integer _i4Estrella, Integer _i5Estrella, Integer _iTotalVotos, Integer _iRaza, Integer _iEspecie, String _sDate, Integer _iEstado, Integer iHabilitado) {
 		this._lId = _lId;
 		this._sAuthor = _sAuthor;
 		this._sConsejo = _sConsejo;
@@ -43,6 +44,8 @@ public class Tip implements Serializable{
 		this._iRaza = _iRaza;
 		this._iEspecie = _iEspecie;
 		this._sDate = _sDate;
+		this._iEstado = _iEstado;
+		this._iHabilitado = iHabilitado;
 	}
 
 	public String get_lId() {
@@ -134,7 +137,22 @@ public class Tip implements Serializable{
 	}
 	public void set_iTotalVotos(Integer _iTotalVotos) {
 		this._iTotalVotos = _iTotalVotos;
-	}	
-	
+	}
+
+	public Integer get_iEstado() {
+		return _iEstado;
+	}
+
+	public void set_iEstado(Integer _iEstado) {
+		this._iEstado = _iEstado;
+	}
+
+	public Integer get_iHabilitado() {
+		return _iHabilitado;
+	}
+
+	public void set_iHabilitado(Integer _iHabilitado) {
+		this._iHabilitado = _iHabilitado;
+	}
 }
 

@@ -216,6 +216,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 	private void decodeNewsJson(Storage response){
 		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
 		String sIdNews = "", sTitle = "", dCreationDate = "", sContent = "", date = "";
+		Integer iHabilitado = 0;
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 		
 		for(int i=0; i < jsonDocList.size(); i ++){
@@ -228,8 +229,11 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 				jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
 				sTitle = jsonObject.getString(Constants.TITULO_NOTICIA);
 				sContent = jsonObject.getString(Constants.CONTENIDO_NOTICIA);
-				News newNews = new News(sIdNews, sTitle, sContent, dCreationDate, null, null);
-				newsList.add(newNews);
+				iHabilitado = jsonObject.getInt(Constants.HABILITADO_NOTICIA);
+				if(iHabilitado == 1) {
+					News newNews = new News(sIdNews, sTitle, sContent, dCreationDate, null, null, iHabilitado);
+					newsList.add(newNews);
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -247,7 +251,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
 
 		String sIdPreg = "", sPregunta = "", sRespuesta = "", dCreationDate = "";
-		Integer iOrden = 0, itipo = 0;
+		Integer iOrden = 0, itipo = 0, iHabilitado = 0;
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 
 		for(int i=0; i < jsonDocList.size(); i ++){
@@ -261,8 +265,9 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 				sRespuesta = jsonObject.getString(Constants.RESPESTA_PREGUNTA);
 				iOrden = jsonObject.getInt(Constants.ORDEN_PREGUNTA);
 				itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
-				if(itipo == 1) {
-					FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate);
+				iHabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
+				if(itipo == 1 && iHabilitado == 1) {
+					FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate, iHabilitado);
 					freqAnswerList.add(newPreg);
 				}
 			} catch (JSONException e) {
@@ -276,7 +281,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
 
 		String sIdPatrocinios = "", sNombre = "", sDescripcion = "", sURL = "", dCreationDate="";
-		Integer iOrden = 0;
+		Integer iOrden = 0, iHabilitado = 0;
 
 		/*Ver como se hace las imagenes - pegadero*/
 		//	ParseFile imageFile
@@ -292,9 +297,11 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 				sDescripcion = jsonObject.getString(Constants.DESCRIPCION_PATROCINIO);
 				sURL = jsonObject.getString(Constants.URL_PATROCINIO);
 				iOrden = jsonObject.getInt(Constants.ORDEN_PATROCINIO);
-
-				Sponsor newSponsor = new Sponsor(sIdPatrocinios, sNombre, sDescripcion, sURL, iOrden, null, dCreationDate);
-				sponsorList.add(newSponsor);
+				iHabilitado = jsonObject.getInt(Constants.HABILITADO_PATROCINIO);
+				if(iHabilitado == 1) {
+					Sponsor newSponsor = new Sponsor(sIdPatrocinios, sNombre, sDescripcion, sURL, iOrden, null, dCreationDate, iHabilitado);
+					sponsorList.add(newSponsor);
+				}
 
 			} catch (JSONException e) {
 				e.printStackTrace();

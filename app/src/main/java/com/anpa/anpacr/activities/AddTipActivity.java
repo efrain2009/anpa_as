@@ -100,6 +100,13 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 			Util.textAsJSON(tipJSON, Constants.AUTOR_CONSEJO, editxt_breed_author.getText().toString() , -1);
 			Util.textAsJSON(tipJSON, Constants.RAZA_CONSEJO, "" , raceSpinner.getAdapter().getItemId(raceSpinner.getSelectedItemPosition()));
 			Util.textAsJSON(tipJSON, Constants.ESPECIE_CONSEJO, "" ,  specieSpinner.getAdapter().getItemId(specieSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(tipJSON, Constants.ESTRELLA1_CONSEJO, "" , 0);
+			Util.textAsJSON(tipJSON, Constants.ESTRELLA2_CONSEJO, "" , 0);
+			Util.textAsJSON(tipJSON, Constants.ESTRELLA3_CONSEJO, "" , 0);
+			Util.textAsJSON(tipJSON, Constants.ESTRELLA4_CONSEJO, "" , 0);
+			Util.textAsJSON(tipJSON, Constants.ESTRELLA5_CONSEJO, "" , 0);
+			Util.textAsJSON(tipJSON, Constants.VOTOS_CONSEJO, "" , 0);
+			Util.textAsJSON(tipJSON, Constants.ESTADO_CONSEJO, "" , 0);
 
 			// instacia Storage App42
 			storageService = api.buildStorageService();

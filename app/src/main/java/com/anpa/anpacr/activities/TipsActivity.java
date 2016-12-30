@@ -135,7 +135,7 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 			ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
 
 			String sIdTip = "", sAutor = "", sConsejo = "", dCreationDate = "";
-			Integer totalVotos = 0, cincoEstrellas = 0, cuatroEstrellas = 0, tresEstrellas = 0, dosEstrellas = 0, unoEstrellas = 0, especie = 0, raza = 0;
+			Integer totalVotos = 0, cincoEstrellas = 0, cuatroEstrellas = 0, tresEstrellas = 0, dosEstrellas = 0, unoEstrellas = 0, especie = 0, raza = 0, estado = 0, iHabilitado = 0;
 			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 
 			for(int i=0; i < jsonDocList.size(); i ++){
@@ -156,8 +156,12 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 					totalVotos = jsonObject.getInt(Constants.VOTOS_CONSEJO);
 					raza = jsonObject.getInt(Constants.RAZA_CONSEJO);
 					especie = jsonObject.getInt(Constants.ESPECIE_CONSEJO);
-					Tip newTip = new Tip(sIdTip, sAutor, sConsejo, null, unoEstrellas, dosEstrellas, tresEstrellas, cuatroEstrellas,cincoEstrellas,totalVotos,raza,especie,dCreationDate);
-					tipsList.add(newTip);
+					estado = jsonObject.getInt(Constants.ESTADO_CONSEJO);
+					iHabilitado = jsonObject.getInt(Constants.HABILITADO_CONSEJO);
+					if(iHabilitado == 1) {
+						Tip newTip = new Tip(sIdTip, sAutor, sConsejo, null, unoEstrellas, dosEstrellas, tresEstrellas, cuatroEstrellas, cincoEstrellas, totalVotos, raza, especie, dCreationDate, estado, iHabilitado);
+						tipsList.add(newTip);
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
