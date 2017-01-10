@@ -1,5 +1,8 @@
 package com.anpa.anpacr.activities;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +11,8 @@ import java.util.List;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -100,10 +105,11 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocSuccess(Storage response, int type) {
-		progressDialog.dismiss();
+		//progressDialog.dismiss();
 		switch (type) {
 			case 1://Perdidos
-				decodeLostJson(response);
+				//decodeLostJson(response);
+				new AsyncLoadListTask().execute(response);
 				break;
 			default:
 				break;
@@ -117,7 +123,8 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
-
+		progressDialog.dismiss();
+		Toast.makeText(getApplicationContext(), "¡Que suerte! No hay mascotas perdidas por el momento", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -127,9 +134,9 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 
 	/* Metodo para decodificar el json de noticias */
-	private void decodeLostJson(Storage response){
+	/*private void decodeLostJson(Storage response){
 		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
-		String sIdLost = "", sNomMascota = "", dCreationDate = "", sNomDueno = "", date = "", sTelefono ="", sDetalle ="", sLatitud ="", sLongitud ="", sRaza ="";
+		String sIdLost = "", sNomMascota = "", dCreationDate = "", sNomDueno = "", date = "", sTelefono ="", sDetalle ="", sLatitud ="", sLongitud ="", sRaza ="", sPhotoURL = "";
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 		int iProvincia = 0, iCanton = 0, iHabilitado = 0;
 
@@ -151,12 +158,12 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 				sLongitud = jsonObject.getString(Constants.LONGITUD_PERDIDO);
 				sRaza = jsonObject.getString(Constants.RAZA_PERDIDO);
 				iHabilitado =jsonObject.getInt(Constants.HABILITADO_PERDIDO);
-				/*
-				ParseFile imageFile = lostParse
-						.getParseFile(Constants.FOTO_PERDIDO);
-				*/
+				sPhotoURL =jsonObject.getString(Constants.FOTO_PERDIDO);
+
+				Bitmap photo = getBitmap(sPhotoURL);
+
 				if(iHabilitado == 1) {
-					Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, sRaza, date, null, sLatitud, sLongitud, iHabilitado);
+					Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, sRaza, date, photo, sLatitud, sLongitud, iHabilitado);
 					lostList.add(newLost);
 				}
 			} catch (JSONException e) {
@@ -166,6 +173,22 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		lostAdapter = new LostListAdapter(this, lostList);
 		lostAdapter.notifyDataSetChanged();
 		lv_lost.setAdapter(lostAdapter);
+	}*/
+
+	//Obtiene la imagen desde una URL
+	public static byte[] getBitmap(String url) {
+		try {
+			InputStream is = (InputStream) new URL(url).getContent();
+			Bitmap d = BitmapFactory.decodeStream(is);
+			is.close();
+
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			d.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+			byte[] byteArray = stream.toByteArray();
+			return byteArray;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	/**
@@ -198,4 +221,66 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 			startActivity(new Intent(LostActivity.this, AddLostActivity.class));
 		}
 	};
+
+
+	private class AsyncLoadListTask extends AsyncTask<Storage, Integer, Boolean> {
+		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		protected Boolean doInBackground(Storage... storage) {
+			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
+			String sIdLost = "", sNomMascota = "", dCreationDate = "", sNomDueno = "", date = "", sTelefono ="", sDetalle ="", sLatitud ="", sLongitud ="", sRaza ="", sPhotoURL = "";
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+			int iProvincia = 0, iCanton = 0, iHabilitado = 0;
+
+			for(int i=0; i < jsonDocList.size(); i ++){
+				sIdLost = jsonDocList.get(i).getDocId();
+				dCreationDate = jsonDocList.get(i).getCreatedAt();
+				//date = dt.format(dCreationDate);
+
+				JSONObject jsonObject;
+				try {
+					jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
+					sNomMascota = jsonObject.getString(Constants.NOM_MASCOTA);
+					sNomDueno = jsonObject.getString(Constants.NOM_DUENO);
+					sTelefono = jsonObject.getString(Constants.TELEFONO_PERDIDO);
+					iProvincia = jsonObject.getInt(Constants.PROVINCIA_PERDIDO);
+					iCanton = jsonObject.getInt(Constants.CANTON_PERDIDO);
+					sDetalle = jsonObject.getString(Constants.DETALLE_PERDIDO);
+					sLatitud = jsonObject.getString(Constants.LATITUD_PERDIDO);
+					sLongitud = jsonObject.getString(Constants.LONGITUD_PERDIDO);
+					sRaza = jsonObject.getString(Constants.RAZA_PERDIDO);
+					iHabilitado =jsonObject.getInt(Constants.HABILITADO_PERDIDO);
+					sPhotoURL =jsonObject.getString(Constants.FOTO_PERDIDO);
+
+					byte[] photo = getBitmap(sPhotoURL);
+
+					if(iHabilitado == 1) {
+						Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, sRaza, date, photo, sLatitud, sLongitud, iHabilitado);
+						lostList.add(newLost);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return true;
+		}
+
+		protected void onPostExecute(Boolean result) {
+			if(result)
+				updateAdapter();
+		}
+	}
+
+	private void updateAdapter(){
+		lostAdapter = new LostListAdapter(this, lostList);
+		lostAdapter.notifyDataSetChanged();
+		lv_lost.setAdapter(lostAdapter);
+		progressDialog.dismiss();
+	}
 }

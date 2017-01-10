@@ -87,9 +87,8 @@ public class LostListAdapter extends BaseAdapter{
 
 		if(item.get_bFoto() != null){
 			ImageView img_lost = (ImageView) view.findViewById(R.id.img_lost);
-			Bitmap bmpImage = BitmapFactory.decodeByteArray(
-					item.get_bFoto(), 0, item.get_bFoto().length);
-			img_lost.setImageBitmap(bmpImage);
+			Bitmap bmp = BitmapFactory.decodeByteArray(item.get_bFoto(), 0, item.get_bFoto().length);
+			img_lost.setImageBitmap(bmp);
 
 		}
 

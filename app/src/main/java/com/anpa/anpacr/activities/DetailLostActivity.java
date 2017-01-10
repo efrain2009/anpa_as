@@ -74,9 +74,8 @@ public class DetailLostActivity extends ActionBarActivity {
 
 			if (value.get_bFoto() != null) {
 				ImageView img_detail_lost = (ImageView) findViewById(R.id.img_detail_lost);
-				Bitmap bmpImage = BitmapFactory.decodeByteArray(
-						value.get_bFoto(), 0, value.get_bFoto().length);
-				img_detail_lost.setImageBitmap(bmpImage);
+				Bitmap bmp = BitmapFactory.decodeByteArray(value.get_bFoto(), 0, value.get_bFoto().length);
+				img_detail_lost.setImageBitmap(bmp);
 			}
 		}
 		

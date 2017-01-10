@@ -169,6 +169,8 @@ public class Constants {
 	public final static String NAME_FILE = "name";
 	public final static String TYPE_FILE = "type";
 	public final static String ID_FILE = "fileId";
+
+	public final static String MSG_IMAGE_UPLOAD_ERROR = "Ha ocurrido un error cargando la imagen: ";
 }
 
 

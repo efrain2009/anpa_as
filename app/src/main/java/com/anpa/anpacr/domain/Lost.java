@@ -1,12 +1,11 @@
 package com.anpa.anpacr.domain;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class Lost implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4824006939865349715L;
 	
 	private String _lId;
