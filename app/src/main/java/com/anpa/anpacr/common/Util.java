@@ -1,14 +1,19 @@
 package com.anpa.anpacr.common;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -31,23 +36,21 @@ public class Util {
 
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static byte[] readBytes(String location) throws IOException {
 
-        InputStream inputStream = new URL(location).openStream();
-        // this dynamically extends to take the bytes you read
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        URL url = new URL(location);
 
-        // this is storage overwritten on each iteration with bytes
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        // we need to know how may bytes were read to write them to the byteBuffer
-        int len = 0;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
+        try (InputStream inputStream = url.openStream()) {
+            int n = 0;
+            byte [] buffer = new byte[ 1024 ];
+            while (-1 != (n = inputStream.read(buffer))) {
+                output.write(buffer, 0, n);
+            }
         }
 
-        // and then we can return your byte array.
-        return byteBuffer.toByteArray();
+        return output.toByteArray();
     }
 }
