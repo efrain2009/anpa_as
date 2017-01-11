@@ -218,7 +218,7 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(LostActivity.this, AddLostActivity.class));
+			startActivity(new Intent(LostActivity.this, LostActivity.class));
 		}
 	};
 

@@ -89,7 +89,7 @@ public class DetailLostActivity extends ActionBarActivity {
 	private OnClickListener onSearch = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(DetailLostActivity.this, AddLostActivity.class));
+			startActivity(new Intent(DetailLostActivity.this, DetailLostActivity.class));
 		}
 	};
 
