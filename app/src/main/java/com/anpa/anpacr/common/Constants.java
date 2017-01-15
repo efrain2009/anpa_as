@@ -25,6 +25,7 @@ public class Constants {
 	public final static String FOTO_PERDIDO = "ANPA03_FOTO";
 	public final static String TELEFONO_PERDIDO = "ANPA03_TELEFONO";
 	public final static String DETALLE_PERDIDO = "ANPA03_DETALLE";
+	public final static String ESPECIE_PERDIDO = "ANPA03_ESPECIE";
 	public final static String RAZA_PERDIDO = "ANPA03_RAZA";
 	public final static String LATITUD_PERDIDO = "ANPA03_LATITUD";
 	public final static String LONGITUD_PERDIDO = "ANPA03_LONGITUDE";
@@ -33,6 +34,8 @@ public class Constants {
 	public final static String ESPERA_PERDIDO = "Olfateando perdidos....";
 	public final static String HABILITADO_PERDIDO = "ANPA03_HABILITADO";
 	public final static String MSJ_ERROR_PERDIDO ="Ups! Perdimos el rastro de las mascotas perdidas. Intenta más tarde.";
+	public final static String USUARIO = "ANPA03_USUARIO";
+	public final static String USUARIO_NOMBRE = "UsuarioApp";
 	
 	/*Table Castraciones
 	public final static String TABLE_CASTRACIONES = "ANPA04_EVENTO";*/

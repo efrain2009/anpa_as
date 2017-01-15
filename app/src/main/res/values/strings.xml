@@ -51,6 +51,7 @@
      <string name="txt_list_title_lost">Lista de pérdidos cerca de mi</string>
      <string name="txt_detail_lost_title">Aviso</string>
      <string name="txt_subtitle_nom_mascota">Nombre mascota*: </string>
+    <string name="txt_subtitle_especie_mascota">Especie*: </string>
      <string name="txt_subtitle_raza_mascota">Raza*: </string>
      <string name="txt_subtitle_contacto">Contacto*: </string>
      <string name="txt_subtitle_telefono">Teléfono*: </string>

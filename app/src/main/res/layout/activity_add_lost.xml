@@ -56,6 +56,30 @@
                 android:weightSum="1" >
 
                 <TextView
+                    android:id="@+id/txt_subtitle_especie_mascota"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.3"
+                    android:text="@string/txt_subtitle_especie_mascota"
+                    android:textColor="@color/red" />
+
+                  <Spinner
+                    android:id="@+id/spn_especieLost_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/selector_spinner_title_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="20dp"
+                android:weightSum="1" >
+
+                <TextView
                     android:id="@+id/txt_subtitle_raza_mascota"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -64,7 +88,7 @@
                     android:text="@string/txt_subtitle_raza_mascota"
                     android:textColor="@color/red" />
 
-                  <Spinner
+                <Spinner
                     android:id="@+id/spn_razaLost_selector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
