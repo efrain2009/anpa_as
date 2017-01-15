@@ -220,7 +220,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 	private void decodeCastrationJson(Storage response) {
 		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
 		String sIdCastration = "", sNombre = "", sDescripcion = "", sDoctor = "",
-				date = "", direccion = "", encargado = "", latitud = "", longitud = "", dInicioDate = "", dFinDate = "", fileId = "", fileName = "", fileType = "", fileURL = "";
+				date = "", direccion = "", encargado = "", latitud = "", longitud = "", dInicioDate = "", dFinDate = "", fileURL = "";
 		Integer tipo = 0, habilitado = 0;
 		Double monto = Double.valueOf(0);
 		Date dCreationDate;
@@ -244,16 +244,9 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 				dInicioDate = jsonObject.getString(Constants.HORARIO_INICIO_CASTRACION);
 				dFinDate = jsonObject.getString(Constants.HORARIO_FIN_CASTRACION);
 				habilitado = jsonObject.getInt(Constants.HABILITADO_CASTRACION);
-				JSONObject fotos = (JSONObject) jsonObject.getJSONObject(Constants.FILE);
+				fileURL = jsonObject.getString(Constants.IMAGE_CASTRACION);
 
-				if(fotos != null) {
-					fileId = fotos.getString(Constants.ID_FILE);
-					fileName = fotos.getString(Constants.NAME_FILE);
-					fileType = fotos.getString(Constants.TYPE_FILE);
-					fileURL = fotos.getString(Constants.URL_FILE);
-				}
-
-				byte[] imagen = Util.readBytes(fileURL);
+				byte[] imagen = null;// Util.readBytes(fileURL);
 
 				if (habilitado == 1) {
 					Castration newCastration = new Castration(sIdCastration, sNombre, sDoctor, monto, direccion,
@@ -262,8 +255,6 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 					castrationList.add(newCastration);
 				}
 			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			getSupportActionBar().setSelectedNavigationItem(0);

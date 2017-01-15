@@ -54,6 +54,8 @@ public class Constants {
 	public final static String HABILITADO_CASTRACION = "ANPA04_HABILITADO";
 	public final static String ESPERA_CASTRACION = "Olfateando castraciones....";
 	public final static String MSJ_ERROR_CASTRATION ="Ups! Perdimos el rastro de las castraciones. Intenta más tarde.";
+	public final static String IMAGE_CASTRACION = "ANPA04_IMAGE";
+
 	
 	/*Table Preguntas frecuentes*/
 	public final static String TABLE_PREGUNTA_FREC = "preguntas";

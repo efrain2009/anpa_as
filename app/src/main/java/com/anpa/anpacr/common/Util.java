@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -40,17 +41,15 @@ public class Util {
     public static byte[] readBytes(String location) throws IOException {
 
         URL url = new URL(location);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoInput(true);
+        connection.connect();
+        int contentLength = connection.getContentLength();
+        InputStream openStream = connection.getInputStream();
+        byte[] binaryData = new byte[contentLength];
+        openStream.read(binaryData);
+        openStream.close();
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-        try (InputStream inputStream = url.openStream()) {
-            int n = 0;
-            byte [] buffer = new byte[ 1024 ];
-            while (-1 != (n = inputStream.read(buffer))) {
-                output.write(buffer, 0, n);
-            }
-        }
-
-        return output.toByteArray();
+        return binaryData;
     }
 }
