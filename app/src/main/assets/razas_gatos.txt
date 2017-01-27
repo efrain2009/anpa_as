@@ -1,1 +1,1 @@
-1,Sin Raza definida#2,Angora#3,Azul Ruso#4,Balinés#5,Bombay#6,Bosque de Noruega#7,Europeo de pelo corto#8,Himalayo#9,Korat#10,Ragdoll#11,Persa#12,Scottish Fold#13,Siamés#14,Siberiano#15,Maine Coon#16,Mau Egipcio
+1,Sin Raza definida#2,Angora#3,Azul Ruso#4,Balin s#5,Bombay#6,Bosque de Noruega#7,Europeo de pelo corto#8,Himalayo#9,Korat#10,Ragdoll#11,Persa#12,Scottish Fold#13,SiamÃ©s#14,Siberiano#15,Maine Coon#16,Mau Egipcio

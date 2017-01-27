@@ -4,8 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +17,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -31,11 +35,10 @@ import com.anpa.anpacr.domain.FreqAnswer;
 import com.anpa.anpacr.fragments.FreqAnswerCastrationFragment;
 import com.anpa.anpacr.fragments.LastCastrationFragment;
 import com.anpa.anpacr.fragments.SuggestionCastrationFragment;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+
 import com.shephertz.app42.paas.sdk.android.App42Exception;
+import com.shephertz.app42.paas.sdk.android.storage.Query;
+import com.shephertz.app42.paas.sdk.android.storage.QueryBuilder;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import com.shephertz.app42.paas.sdk.android.upload.Upload;
 
@@ -48,6 +51,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		SuggestionCastrationFragment.OnLoadListListenerSuggestionCastration,
 		FreqAnswerCastrationFragment.OnLoadListListenerFreqAnswerCastration,
 		AsyncApp42ServiceApi.App42StorageServiceListener{
+
 	List<Castration> castrationList;
 	List<FreqAnswer> freqAnswerList;
 	List<FreqAnswer> suggestionList;
@@ -93,8 +97,27 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			/* App42 */
 			progressDialog = ProgressDialog.show(CastrationActivity.this,
 					Constants.ESPERA, Constants.ESPERA_CASTRACION);
-			asyncService.findDocByColletion(Constants.App42DBName, Constants.TABLE_CASTRACIONES, 1, this);
-			asyncService.findDocByColletion(Constants.App42DBName, Constants.TABLE_PREGUNTA_FREC, 2, this);
+			//Ejecutar filtro de solo los habilitados de las castraciones
+			Query queryCast1 = QueryBuilder.build(Constants.HABILITADO_CASTRACION, 1, QueryBuilder.Operator.EQUALS);
+
+			//Set fechas para realizar filtro de 2 meses en castraciones
+			Calendar fechaFilter = Calendar.getInstance();
+			Date fechaInicioFilter = fechaFilter.getTime();
+			fechaFilter.set(Calendar.MONTH, 2);
+			Date fechaFinFilter = fechaFilter.getTime();
+
+			Query queryCast2 = QueryBuilder.build(Constants.HORARIO_INICIO_CASTRACION, fechaInicioFilter, QueryBuilder.Operator.GREATER_THAN_EQUALTO);
+			Query queryCast3  = QueryBuilder.compoundOperator(queryCast1, QueryBuilder.Operator.AND, queryCast2);
+			Query queryCast4 = QueryBuilder.build(Constants.HORARIO_FIN_CASTRACION, fechaFinFilter, QueryBuilder.Operator.LESS_THAN_EQUALTO);
+			Query queryCast5  = QueryBuilder.compoundOperator(queryCast3, QueryBuilder.Operator.OR, queryCast4);
+
+			//Ejecurar fiiltros de preguntas frecuentes estado = 0 y habilitados
+			Query queryPreg1 = QueryBuilder.build(Constants.HABILITADO_PREGUNTA, 1, QueryBuilder.Operator.EQUALS);
+			Query queryPreg2 = QueryBuilder.build(Constants.TIPO_PREGUNTA, 0, QueryBuilder.Operator.EQUALS);
+			Query queryPreg3  = QueryBuilder.compoundOperator(queryPreg1, QueryBuilder.Operator.AND, queryPreg2);
+
+			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_CASTRACIONES, queryCast5, 1, this);
+			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_PREGUNTA_FREC, queryPreg3 , 2, this);
 
 		} catch (Exception e) {
 			showMessage(Constants.MSJ_ERROR_CASTRATION);
@@ -131,7 +154,8 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		progressDialog.dismiss();
 		switch (type) {
 			case 1://Castraciones
-				decodeCastrationJson(response);
+				//decodeCastrationJson(response);
+				new AsyncLoadListTask().execute(response);
 				break;
 			case 2://Preguntas
 				decodePreguntasFrecuentesJson(response);
@@ -216,52 +240,85 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		return suggestionList;
 	}
 
-	/* Metodo para decodificar el json de castraciones */
-	private void decodeCastrationJson(Storage response) {
-		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
-		String sIdCastration = "", sNombre = "", sDescripcion = "", sDoctor = "",
-				date = "", direccion = "", encargado = "", latitud = "", longitud = "", dInicioDate = "", dFinDate = "", fileURL = "";
-		Integer tipo = 0, habilitado = 0;
-		Double monto = Double.valueOf(0);
-		Date dCreationDate;
 
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+	private class AsyncLoadListTask extends AsyncTask<Storage, Integer, Boolean> {
+		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
 
-		for (int i = 0; i < jsonDocList.size(); i++) {
-			sIdCastration = jsonDocList.get(i).getDocId();
-			date = jsonDocList.get(i).getCreatedAt();
-			//date = dt.format(dCreationDate);
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
 
-			JSONObject jsonObject;
-			try {
-				jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
-				sNombre = jsonObject.getString(Constants.NOMBRE_CASTRACION);
-				sDescripcion = jsonObject.getString(Constants.DESCRIPCION_CASTRACION);
-				sDoctor = jsonObject.getString(Constants.DOCTOR_CASTRACION);
-				direccion = jsonObject.getString(Constants.DIRECCION_CASTRACION);
-				encargado = jsonObject.getString(Constants.ENCARGADO_CASTRACION);
-				monto = jsonObject.getDouble(Constants.MONTO_CASTRACION);
-				dInicioDate = jsonObject.getString(Constants.HORARIO_INICIO_CASTRACION);
-				dFinDate = jsonObject.getString(Constants.HORARIO_FIN_CASTRACION);
-				habilitado = jsonObject.getInt(Constants.HABILITADO_CASTRACION);
-				fileURL = jsonObject.getString(Constants.IMAGE_CASTRACION);
+		protected Boolean doInBackground(Storage... storage) {
 
-				byte[] imagen = null;// Util.readBytes(fileURL);
+			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
+			String sIdCastration = "", sNombre = "", sDescripcion = "", sDoctor = "",
+					date = "", direccion = "", encargado = "", latitud = "", longitud = "", dInicioDate = "", dFinDate = "", sPhotoURL = "";
+			Integer tipo = 0, habilitado = 0;
+			Double monto = Double.valueOf(0);
+			Date dCreationDate;
 
-				if (habilitado == 1) {
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+
+			for(int i=0; i < jsonDocList.size(); i ++){
+				sIdCastration = jsonDocList.get(i).getDocId();
+				date = jsonDocList.get(i).getCreatedAt();
+
+				JSONObject jsonObject;
+				try {
+					jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
+					sNombre = jsonObject.getString(Constants.NOMBRE_CASTRACION);
+					sDescripcion = jsonObject.getString(Constants.DESCRIPCION_CASTRACION);
+					sDoctor = jsonObject.getString(Constants.DOCTOR_CASTRACION);
+					direccion = jsonObject.getString(Constants.DIRECCION_CASTRACION);
+					encargado = jsonObject.getString(Constants.ENCARGADO_CASTRACION);
+					monto = jsonObject.getDouble(Constants.MONTO_CASTRACION);
+					dInicioDate = jsonObject.getString(Constants.HORARIO_INICIO_CASTRACION);
+					dFinDate = jsonObject.getString(Constants.HORARIO_FIN_CASTRACION);
+					habilitado = jsonObject.getInt(Constants.HABILITADO_CASTRACION);
+					sPhotoURL = jsonObject.getString(Constants.IMAGE_CASTRACION);
+
+					byte[] photo = getBitmap(sPhotoURL);
+
 					Castration newCastration = new Castration(sIdCastration, sNombre, sDoctor, monto, direccion,
-							sDescripcion, encargado, dInicioDate, dFinDate, tipo, date, latitud, longitud, imagen, habilitado);
-
+							sDescripcion, encargado, dInicioDate, dFinDate, tipo, date, latitud, longitud, photo, habilitado);
 					castrationList.add(newCastration);
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+					return false;
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
 			}
-			getSupportActionBar().setSelectedNavigationItem(0);
-			LastCastrationFragment frag = new LastCastrationFragment();
-			FragmentManager fm = getSupportFragmentManager();
-			fm.beginTransaction().replace(android.R.id.content, frag, TAG_CASTRATION).commit();
-			fm.popBackStackImmediate();
+			return true;
+		}
+
+		protected void onPostExecute(Boolean result) {
+			if(result)
+				updateAdapterLastCastrationFragment();
+		}
+	}
+
+	private void updateAdapterLastCastrationFragment(){
+		getSupportActionBar().setSelectedNavigationItem(0);
+		LastCastrationFragment frag = new LastCastrationFragment();
+		FragmentManager fm = getSupportFragmentManager();
+		fm.beginTransaction().replace(android.R.id.content, frag, TAG_CASTRATION).commit();
+		fm.popBackStackImmediate();
+	}
+
+	//Obtiene la imagen desde una URL
+	public static byte[] getBitmap(String url) {
+		try {
+			InputStream is = (InputStream) new URL(url).getContent();
+			Bitmap d = BitmapFactory.decodeStream(is);
+			is.close();
+
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			d.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+			byte[] byteArray = stream.toByteArray();
+			return byteArray;
+		} catch (Exception e) {
+			return null;
 		}
 	}
 
@@ -285,10 +342,9 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 				iOrden = jsonObject.getInt(Constants.ORDEN_PREGUNTA);
 				itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
 				ihabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
-				if(itipo == 0 && ihabilitado == 1) {
-					FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate, ihabilitado);
-					freqAnswerList.add(newPreg);
-				}
+
+				FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate, ihabilitado);
+				freqAnswerList.add(newPreg);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

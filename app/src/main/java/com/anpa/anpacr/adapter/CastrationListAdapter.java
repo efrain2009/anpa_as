@@ -1,5 +1,9 @@
 package com.anpa.anpacr.adapter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -57,9 +61,29 @@ public class CastrationListAdapter extends BaseAdapter{
 		
 		TextView txt_title_castration = (TextView) view.findViewById(R.id.txt_title_castration);
 		txt_title_castration.setText(item.get_snombre());
+		String horario = "";
+
+		try {
+			DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			Date dateInicio = format.parse(item.get_sDateInicio());
+
+			///////////////////////////FORMAT FECHA DE LAS CASTRACION/////////////////////////
+			// Converting to String again, using an alternative format fecha
+			DateFormat dfFecha = new SimpleDateFormat("dd/MM/yyyy");
+			String startDate = dfFecha.format(dateInicio);
+
+			///////////////////////////FORMAT HORA DE LAS CASTRACION/////////////////////////
+			// Converting to String again, using an alternative format hora
+			SimpleDateFormat dthora = new SimpleDateFormat("hh:mm a");
+			String startHora = dthora.format(dateInicio);
+			horario = startDate + " - " +startHora;
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		TextView txt_date_inicio = (TextView) view.findViewById(R.id.txt_format_date_inicio);
-		txt_date_inicio.setText(item.get_sDateInicio());
+		txt_date_inicio.setText(horario);
 		
 		return view;
 	}

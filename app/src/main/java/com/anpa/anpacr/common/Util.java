@@ -1,6 +1,9 @@
 package com.anpa.anpacr.common;
 
 import android.annotation.TargetApi;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
@@ -35,21 +38,5 @@ public class Util {
             e.printStackTrace();
         }
 
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static byte[] readBytes(String location) throws IOException {
-
-        URL url = new URL(location);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoInput(true);
-        connection.connect();
-        int contentLength = connection.getContentLength();
-        InputStream openStream = connection.getInputStream();
-        byte[] binaryData = new byte[contentLength];
-        openStream.read(binaryData);
-        openStream.close();
-
-        return binaryData;
     }
 }

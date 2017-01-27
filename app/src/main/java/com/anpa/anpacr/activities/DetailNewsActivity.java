@@ -1,6 +1,9 @@
 package com.anpa.anpacr.activities;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import android.graphics.Bitmap;
@@ -33,12 +36,25 @@ public class DetailNewsActivity extends AnpaAppFraqmentActivity {
 			TextView txt_detail_news_description = (TextView) findViewById(R.id.txt_detail_news_description);
 			txt_detail_news_description.setText(value.get_sdescription());
 
-			SimpleDateFormat formatoFecha = 
-				    new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
-			
-		//	String fecha = formatoFecha.format(value.get_dDate());
+			String startDate = "";
+
+			try {
+				///////////////////////////FORMAT FECHA /////////////////////////
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date date = format.parse(value.get_sDate());
+				// Converting to String again, using an alternative format fecha
+				SimpleDateFormat formatoFecha =
+						new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy");
+				startDate = formatoFecha.format(date);
+
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+
+			//	String fecha = formatoFecha.format(value.get_dDate());
 			TextView txt_detail_news_date = (TextView) findViewById(R.id.txt_detail_news_date);
-			txt_detail_news_date.setText(value.get_sDate());
+			txt_detail_news_date.setText(startDate);
 
 			if(value.get_bImagen() != null){
 				ImageView img_detail_news = (ImageView) findViewById(R.id.img_detail_news);

@@ -17,10 +17,12 @@
 
             <TextView
                 android:id="@+id/txt_raza_consejo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_horizontal"
+				android:layout_weight="2"
                 android:textColor="@color/red"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:paddingBottom="10dp" />
             
             <TextView
@@ -48,7 +50,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="181dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp">
@@ -60,14 +62,14 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/txt_subtitle_autor"
                     android:textColor="@color/red"
-                    android:paddingRight="2dp" />
+                    android:paddingRight="6dp" />
 
                 <TextView
                     android:id="@+id/txt_detail_autor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent"

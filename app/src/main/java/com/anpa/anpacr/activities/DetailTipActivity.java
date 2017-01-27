@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -23,11 +25,21 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.shephertz.app42.paas.sdk.android.App42CallBack;
+import com.shephertz.app42.paas.sdk.android.ServiceAPI;
+import com.shephertz.app42.paas.sdk.android.storage.Storage;
+import com.shephertz.app42.paas.sdk.android.storage.StorageService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DetailTipActivity extends ActionBarActivity {
-	private ImageView imgBtn1, imgBtn2, imgBtn3, imgBtn4, imgBtn5; 
-	private String sTipId; 
-	
+	private ImageView imgBtn1, imgBtn2, imgBtn3, imgBtn4, imgBtn5;
+	private String sTipId;
+	ServiceAPI api;
+	StorageService storageService;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,15 +48,18 @@ public class DetailTipActivity extends ActionBarActivity {
 		//Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
-		
+
+		// Instancia la BD App 42
+		api = new ServiceAPI(Constants.App42ApiKey, Constants.App42ApiSecret);
+
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			Tip value = (Tip) extras.get(Constants.ID_OBJ_DETAIL_TIP);
 
 			TextView txt_raza = (TextView) findViewById(R.id.txt_raza_consejo);
-			
-			String especie = readSpecies(value.get_iEspecie(), value.get_iRaza());
-			txt_raza.setText(especie);
+			String raza = readSpecies(value.get_iEspecie(), value.get_iRaza());
+			txt_raza.setText(raza);
 			
 			TextView txt_detail_consejo = (TextView) findViewById(R.id.txt_detail_consejo);
 			txt_detail_consejo.setText(value.get_sConsejo());
@@ -74,7 +89,7 @@ public class DetailTipActivity extends ActionBarActivity {
 		case 3:
 			selectedFile = "razas_aves";
 			break;
-		case 4: 
+		case 4:
 			selectedFile = "razas_peces";
 			break;
 		case 5:
@@ -90,7 +105,7 @@ public class DetailTipActivity extends ActionBarActivity {
         try{
             InputStream is = getApplicationContext().getAssets().open(selectedFile + ".txt");
             in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            
+
             String races;
             boolean isFirst = true;
             while ((races = in.readLine()) != null ){
@@ -102,7 +117,7 @@ public class DetailTipActivity extends ActionBarActivity {
             }
 
             String[] specieRacesArray = buf.toString().split("#");
-            
+
             for (String race : specieRacesArray)
             {
                 String[] values = race.split(",");
@@ -122,8 +137,8 @@ public class DetailTipActivity extends ActionBarActivity {
             }
         }
 		return "";
-    }	
-    
+    }
+
     //Funci�n para tener el rating
     public void setRating(View view){
     	int nCalification = 0;
@@ -200,9 +215,69 @@ public class DetailTipActivity extends ActionBarActivity {
 				}
 		      tip.increment(rowToUpdate);
 		      tip.saveInBackground();
+				// instacia Storage App42
+				storageService = api.buildStorageService();
+
+				/* Below snippet will save JSON object in App42 Cloud */
+				String dbName = Constants.App42DBName;
+				String collectionName = Constants.TABLE_CONSEJO;
+				JSONObject tipJSON = null;
+				storageService.findDocumentById(dbName, collectionName, sTipId, new App42CallBack() {
+					@Override
+					public void onSuccess(Object response) {
+						Storage storage = (Storage) response;
+						ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+						/*
+						try {
+						//	tipJson = new JSONObject(jsonDocList.get(0).getJsonDoc());
+						} catch (JSONException e1) {
+							e1.printStackTrace();
+						}
+						*/
+					}
+
+					@Override
+					public void onException(Exception e) {
+
+					}
+				});
+
+					storageService.updateDocumentByDocId(dbName, collectionName, sTipId, tipJSON, new App42CallBack() {
+						@Override
+						public void onSuccess(Object response) {
+							Storage storage  = (Storage )response;
+							ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+							for(int i=0;i<jsonDocList.size();i++)
+							{
+								System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+								//Above line will return object id of saved JSON object
+								System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+								System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+								System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+							}
+						}
+
+						@Override
+						public void onException(Exception e) {
+
+						}
+					});
+
+				alertDialog ();
 		      Toast.makeText(getApplicationContext(), Constants.TIP_SUCCESS, Toast.LENGTH_LONG).show();
 		    }
 		  }
 		});
 	};
+
+	public void alertDialog (){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(Constants.MSJ_SUCCESS_CALIFICATION_TIP)
+				.setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// FIRE ZE MISSILES!
+					}
+				}).create().show();
+	}
+
 }

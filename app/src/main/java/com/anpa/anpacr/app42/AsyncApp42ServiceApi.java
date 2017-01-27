@@ -10,6 +10,7 @@ import com.shephertz.app42.paas.sdk.android.App42API;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.game.Game;
 import com.shephertz.app42.paas.sdk.android.imageProcessor.ImageProcessorService;
+import com.shephertz.app42.paas.sdk.android.storage.Query;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import com.shephertz.app42.paas.sdk.android.storage.StorageService;
 import com.shephertz.app42.paas.sdk.android.upload.Upload;
@@ -100,6 +101,35 @@ public class AsyncApp42ServiceApi {
 			public void run() {
 				try {
 					final Storage response = storageService.findAllDocuments(dbName, collectionName);
+					callerThreadHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							callBack.onFindDocSuccess(response, type);
+						}
+					});
+				} catch (final App42Exception ex) {
+					callerThreadHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							if (callBack != null) {
+								callBack.onFindDocFailed(ex);
+							}
+							ex.printStackTrace();
+						}
+					});
+				}
+			}
+		}.start();
+	}
+
+	public void findDocByColletionQuery(final String dbName, final String collectionName, final Query query,
+										final int type, final App42StorageServiceListener callBack) {
+		final Handler callerThreadHandler = new Handler();
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					final Storage response = storageService.findDocumentsByQuery(dbName, collectionName, query);
 					callerThreadHandler.post(new Runnable() {
 						@Override
 						public void run() {

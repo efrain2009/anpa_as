@@ -1,1 +1,1 @@
-1,Canario#2,Cacatúa#3,Loro#4,Ninfa#5,Periquito#6,Pollo
+1,Canario#2,CacatÃºa#3,Loro#4,Ninfa#5,Periquito#6,Pollo

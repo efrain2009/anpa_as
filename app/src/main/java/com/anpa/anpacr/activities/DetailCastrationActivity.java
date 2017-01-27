@@ -1,6 +1,13 @@
 package com.anpa.anpacr.activities;
 
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.Context;
@@ -55,15 +62,7 @@ public class DetailCastrationActivity extends ActionBarActivity {
 			
 			_sLatitude = value.get_sLatitud();
 			_sLongitude = value.get_sLongitud();
-			
-			SimpleDateFormat dthora = new SimpleDateFormat(
-					"hh:mm a");		
 
-			TextView txt_detail_castration_schedule = (TextView) findViewById(R.id.txt_detail_castration_schedule);
-			//String horario = dthora.format(value.get_dDateInicio()) +" a " + dthora.format(value.get_dDateFin());
-			String horario = value.get_sDateInicio() +" a " + value.get_sDateFin();
-			txt_detail_castration_schedule.setText(horario);
-			
 			TextView txt_detail_castration_doctor = (TextView) findViewById(R.id.txt_detail_castration_doctor);
 			txt_detail_castration_doctor.setText(value.get_sdoctor());
 
@@ -71,15 +70,46 @@ public class DetailCastrationActivity extends ActionBarActivity {
 			txt_detail_castration_attendant.setText(value.get_sEncargado());
 			
 			TextView txt_detail_castration_amount = (TextView) findViewById(R.id.txt_detail_castration_amount);
-			String monto =  "₡ " + value.get_bgdMonto().toString();
+
+			DecimalFormat df = new DecimalFormat("####,###,###.00");
+
+			String formatMonto = df.format(new BigDecimal(value.get_bgdMonto()));
+
+			String monto =  "₡ " + formatMonto;
 			txt_detail_castration_amount.setText(monto);
-						
-			SimpleDateFormat formatoFecha = 
-				    new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
 			
 			TextView txt_detail_castration_date = (TextView) findViewById(R.id.txt_detail_castration_date);
-			//String fecha = formatoFecha.format(value.get_dDateInicio());
-			String fecha = value.get_sDateInicio();
+			String fecha = "";
+			String fechaInicio = value.get_sDateInicio();
+			String fechaFin = value.get_sDateFin();
+
+			TextView txt_detail_castration_schedule = (TextView) findViewById(R.id.txt_detail_castration_schedule);
+			String horario = "";
+
+			try {
+				DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				Date dateInicio = format.parse(fechaInicio);
+				Date dateFin = format.parse(fechaFin);
+
+				///////////////////////////FORMAT FECHA DE LAS CASTRACION/////////////////////////
+				// Converting to String again, using an alternative format fecha
+				DateFormat dfFecha = new SimpleDateFormat("dd/MM/yyyy");
+				String startDate = dfFecha.format(dateInicio);
+				String endDate = dfFecha.format(dateFin);
+
+				fecha = startDate + " a " + endDate;
+
+				///////////////////////////FORMAT HORA DE LAS CASTRACION/////////////////////////
+				// Converting to String again, using an alternative format hora
+				SimpleDateFormat dthora = new SimpleDateFormat("hh:mm a");
+				String startHora = dthora.format(dateInicio);
+				String endHora = dthora.format(dateFin);
+				horario = startHora + " a " + endHora;
+
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			txt_detail_castration_schedule.setText(horario);
 			txt_detail_castration_date.setText(fecha);
 
 			if (value.get_bImagen() != null) {

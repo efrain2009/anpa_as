@@ -5,62 +5,13 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/txt_agrega_consejo"
+        android:id="@+id/txt_addRaza_consejo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/txt_agrega_consejo"
         android:textColor="@color/red"
-        android:textSize="14sp" />
+        android:textSize="20sp" />
 
-    <LinearLayout
-        android:id="@+id/ll_specie_selector"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="1" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="@string/txt_specie"
-            android:textColor="@color/action_bar_background" />
-
-        <Spinner
-            android:id="@+id/spn_specie_selector"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:background="@drawable/selector_spinner_title_style" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_race_selector"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_specie_selector"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="1" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="@string/txt_race"
-            android:textColor="@color/action_bar_background" />
-
-        <Spinner
-            android:id="@+id/spn_race_selector"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:background="@drawable/selector_spinner_title_style" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +38,7 @@
             android:id="@+id/tv_breed_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:paddingRight="6dp"
             android:text="@string/txt_breed_author" />
 
         <EditText

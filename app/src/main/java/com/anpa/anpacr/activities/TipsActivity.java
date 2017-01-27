@@ -30,6 +30,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
+import com.shephertz.app42.paas.sdk.android.storage.Query;
+import com.shephertz.app42.paas.sdk.android.storage.QueryBuilder;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 
 import org.json.JSONException;
@@ -77,7 +79,11 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 			/* App42 */
 			progressDialog = ProgressDialog.show(TipsActivity.this,
 					Constants.ESPERA, Constants.ESPERA_CONSEJO);
-			asyncService.findDocByColletion(Constants.App42DBName, Constants.TABLE_CONSEJO, 1, this);
+
+			//Ejecurar filtros de consejos habilitados agregar la especie y raza
+			Query queryConsejo1 = QueryBuilder.build(Constants.HABILITADO_CONSEJO, 1, QueryBuilder.Operator.EQUALS);
+
+			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_CONSEJO, queryConsejo1, 1, this);
 
 		} catch (Exception e) {
 			showMessage(Constants.MSJ_ERROR_CONSEJO);
@@ -156,7 +162,6 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 					totalVotos = jsonObject.getInt(Constants.VOTOS_CONSEJO);
 					raza = jsonObject.getInt(Constants.RAZA_CONSEJO);
 					especie = jsonObject.getInt(Constants.ESPECIE_CONSEJO);
-					estado = jsonObject.getInt(Constants.ESTADO_CONSEJO);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_CONSEJO);
 					if(iHabilitado == 1) {
 						Tip newTip = new Tip(sIdTip, sAutor, sConsejo, null, unoEstrellas, dosEstrellas, tresEstrellas, cuatroEstrellas, cincoEstrellas, totalVotos, raza, especie, dCreationDate, estado, iHabilitado);

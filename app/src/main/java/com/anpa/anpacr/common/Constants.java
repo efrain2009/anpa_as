@@ -100,6 +100,7 @@ public class Constants {
 	public final static String HABILITADO_CONSEJO = "ANPA02_HABILITADO";
 	public final static String ESPERA_CONSEJO = "Olfateando consejos....";
 	public final static String MSJ_ERROR_CONSEJO = "Ups! Perdimos el rastro de las consejos. Intenta más tarde.";
+	public final static String MSJ_SUCCESS_CALIFICATION_TIP = "Acabas de calificar el consejo. Gracias por puntuar!";
 
 	/*Home Activity*/	
 	public final static String TITLE_DESCRIPTION_CONTACTUS = "Contáctenos";
@@ -114,7 +115,7 @@ public class Constants {
 	
 	/*News Activity*/
 	public static final String TITLE_LAST_NEWS = "Lo último";
-	public static final String TITLE_FREQ_ANSWER = "Preguntas frecuentes";
+	public static final String TITLE_FREQ_ANSWER = "Preguntas";
 	public static final String TITLE_SPONSOR = "Agradecimientos";
 	public final static String ID_OBJ_DETAIL_NEWS = "news_objects";
 	public final static String ID_OBJ_DETAIL_LOST = "lost_objects";

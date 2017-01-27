@@ -30,8 +30,8 @@
      <string name="bt_buton_How_arrive">¿Cómo llegar?</string>
     
      <!-- Tips --> 
-     <string name="txt_subtitle_autor">Autor:</string>
-     <string name="txt_breed_author">Por</string>     
+     <string name="txt_subtitle_autor">Por:</string>
+     <string name="txt_breed_author">Por:</string>
      <string name="txt_public_fb">Compartir en Facebook</string>
      <string name="txt_add_tip">Agregar consejo</string>
      <string name="bt_buton_add_tip">Agregar consejo</string>
