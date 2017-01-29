@@ -55,15 +55,12 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 	//App42:
 	private String docId = "";
-	//private ProgressDialog progressDialog;
 	private ServiceAPI api;
 	private StorageService storageService;
-
 	private Spinner provinciaSpinner, cantonSpinner, especieSpinner, razaSpinner;
 	private SpinnerAdapter adapter;
 	private SpinnerAdapter adapter1;
-	private EditText editxt_nomMascota, editxt_contacto, editxt_telefono,
-			editxt_detail_lost_description;
+	private EditText editxt_nomMascota, editxt_contacto, editxt_telefono, editxt_detail_lost_description;
 	private Button saveLost;
 	private ImageView img_detail_lost;
 	private Bitmap bitMapPhoto;
@@ -73,7 +70,6 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private String _sEspecie;
 	private String photoPath;
 	private String app42PhotoURL;
-	//private ProgressDialog mProgressDialog;
 	private LocationManager _locationManager;
 
 
@@ -84,7 +80,6 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 		// Instancia la BD App 42
 		api = new ServiceAPI(Constants.App42ApiKey, Constants.App42ApiSecret);
-
 		//Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_LOST);
@@ -173,7 +168,8 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		@Override
 		public void onClick(View v) {
 			//verifyImage();
-			new AsyncUploadInfoTask().execute("");
+			//new AsyncUploadInfoTask().execute("");
+			saveInfo();
 		}
 	};
 /*
@@ -220,11 +216,12 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		}
 
 		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
+
 			if(result)
 				saveInfo();
 			else
 				Toast.makeText(getApplicationContext(), "Ocurrió un error, intente de nuevo", Toast.LENGTH_SHORT).show();
-			progressDialog.dismiss();
 		}
 	}
 
