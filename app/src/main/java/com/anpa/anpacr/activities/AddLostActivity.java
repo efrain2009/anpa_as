@@ -60,6 +60,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private Spinner provinciaSpinner, cantonSpinner, especieSpinner, razaSpinner;
 	private SpinnerAdapter adapter;
 	private SpinnerAdapter adapter1;
+	SpinnerAdapter adapterRaces;
 	private EditText editxt_nomMascota, editxt_contacto, editxt_telefono, editxt_detail_lost_description;
 	private Button saveLost;
 	private ImageView img_detail_lost;
@@ -359,7 +360,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		public void onItemSelected(AdapterView<?> adapterView, View view,
 								   int position, long id) {
 			// Here you get the current item (a User object) that is selected by its position
-			GenericNameValue selectedItem = adapter1.getItem(position);
+			GenericNameValue selectedItem = adapterRaces.getItem(position);
 			// Here you can do the action you want to...
 			_sRaza = selectedItem.getName();
 		}
@@ -525,9 +526,10 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		}
 
 		//Carga el spinner:
-		SpinnerAdapter adapterRaces = new SpinnerAdapter(AddLostActivity.this,
+		adapterRaces = new SpinnerAdapter(AddLostActivity.this,
 				R.layout.spinner_item,
 				speciesList);
 		razaSpinner.setAdapter(adapterRaces);
+		razaSpinner.setOnItemSelectedListener(onSelectItemRaza);
 	}
 }
