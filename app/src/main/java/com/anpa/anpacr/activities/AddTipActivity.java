@@ -59,6 +59,10 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 
+		Bundle pantallaBusquedaTip = getIntent().getExtras();
+		Long razaBusqueda = pantallaBusquedaTip.getLong("razaSearch");
+		Long especieBusqueda = pantallaBusquedaTip.getLong("especieSearch");
+
 		saveTip = (Button) findViewById(R.id.btn_add_tip);
 		saveTip.setOnClickListener(onSave);
 
@@ -67,8 +71,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		editxt_breed_author = (EditText) findViewById(R.id.editxt_breed_author);
 		//Obtener valores q se obtuvieron en el filtro//
 		TextView txt_raza = (TextView) findViewById(R.id.txt_addRaza_consejo);
-		int raz = 1;
-		String raza = readSpecies(raz, raz);
+		String raza = readSpecies(especieBusqueda.intValue(), razaBusqueda.intValue());
 		txt_raza.setText(raza);
 
 	}

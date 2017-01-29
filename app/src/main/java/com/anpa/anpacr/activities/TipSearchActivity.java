@@ -77,7 +77,10 @@ public class TipSearchActivity extends AnpaAppFraqmentActivity {
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(TipSearchActivity.this, TipsActivity.class));
+				Intent intent = new Intent(TipSearchActivity.this, TipsActivity.class);
+				intent.putExtra("razaSearch", raceSpinner.getAdapter().getItemId(raceSpinner.getSelectedItemPosition()));
+				intent.putExtra("especieSearch", specieSpinner.getAdapter().getItemId(specieSpinner.getSelectedItemPosition()));
+				startActivity(intent);
 			}
 		};
 		

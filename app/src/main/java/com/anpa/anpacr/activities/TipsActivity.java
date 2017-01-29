@@ -83,6 +83,10 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 			//Ejecurar filtros de consejos habilitados agregar la especie y raza
 			Query queryConsejo1 = QueryBuilder.build(Constants.HABILITADO_CONSEJO, 1, QueryBuilder.Operator.EQUALS);
 
+			Bundle pantallaBusquedaTip = getIntent().getExtras();
+			Long razaBusqueda = pantallaBusquedaTip.getLong("razaSearch");
+			Long especieBusqueda = pantallaBusquedaTip.getLong("especieSearch");
+
 			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_CONSEJO, queryConsejo1, 1, this);
 
 		} catch (Exception e) {
