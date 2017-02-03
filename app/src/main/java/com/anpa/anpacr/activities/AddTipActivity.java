@@ -200,4 +200,11 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		}
 		return "";
 	}
+
+	private void shareOnFacebook(String title, String description){
+        /*FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);*/
+	}
+
 }

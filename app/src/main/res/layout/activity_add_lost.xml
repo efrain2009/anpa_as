@@ -7,7 +7,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,75 +25,75 @@
                 android:textSize="20sp" />
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_subtitle_nom_mascota"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_nom_mascota"
                     android:textColor="@color/red" />
 
                 <EditText
                     android:id="@+id/editxt_nom_mascota"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:ems="10"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_subtitle_especie_mascota"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_especie_mascota"
                     android:textColor="@color/red" />
 
                   <Spinner
                     android:id="@+id/spn_especieLost_selector"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:background="@drawable/selector_spinner_title_style" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_subtitle_raza_mascota"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_raza_mascota"
                     android:textColor="@color/red" />
 
                 <Spinner
                     android:id="@+id/spn_razaLost_selector"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:background="@drawable/selector_spinner_title_style" />
             </LinearLayout>
 
@@ -101,24 +102,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_subtitle_contacto"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_contacto"
                     android:textColor="@color/red" />
 
                 <EditText
                     android:id="@+id/editxt_contacto"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:ems="10"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,24 +127,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_subtitle_telefono"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_telefono"
                     android:textColor="@color/red" />
 
                 <EditText
                     android:id="@+id/editxt_telefono"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:ems="10"
-                    android:inputType="textMultiLine" />
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
@@ -151,24 +152,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_subtitle_detalle"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_detalle"
                     android:textColor="@color/red" />
 
                 <EditText
                     android:id="@+id/editxt_detail_lost_description"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:ems="10"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
@@ -206,17 +208,17 @@
                 <TextView
                     android:id="@+id/txt_subtitle_provincia"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_provincia"
                     android:textColor="@color/red" />
 
                 <Spinner
                     android:id="@+id/spn_provincia_selector"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:background="@drawable/selector_spinner_title_style" />
             </LinearLayout>
 
@@ -225,22 +227,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txt_subtitle_canton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_canton"
                     android:textColor="@color/red" />
 
                 <Spinner
                     android:id="@+id/spn_canton_selector"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:background="@drawable/selector_spinner_title_style" />
             </LinearLayout>
 

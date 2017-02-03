@@ -38,6 +38,9 @@
         <item name="android:actionBarWidgetTheme">@style/Theme.Anpa_theme.Widget</item>
 <!--         <item name="android:spinnerItemStyle">@style/SpinnerItem</item> -->
 <!--         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item> -->
+        <item name="colorPrimary">@color/action_bar_background</item>
+        <item name="colorAccent">@color/button_pressed</item>
+        <item name="colorPrimaryDark">@color/action_bar_background</item>
     </style>
 
     <style name="ActionBar.Solid.Anpa_theme" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
