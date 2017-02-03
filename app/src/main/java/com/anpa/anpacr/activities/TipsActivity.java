@@ -48,13 +48,18 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 	private AsyncApp42ServiceApi asyncService;
 	private String docId = "";
 	private ProgressDialog progressDialog;
-
+	Long razaBusqueda;
+	Long especieBusqueda;
 	public static final String TAG_TIPS = "tips";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_tip);
+
+		Bundle pantallaBusquedaTip = getIntent().getExtras();
+		razaBusqueda = pantallaBusquedaTip.getLong("razaSearch");
+		especieBusqueda = pantallaBusquedaTip.getLong("especieSearch");
 
 		//App42:
 		asyncService = AsyncApp42ServiceApi.instance(this);
@@ -82,12 +87,12 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 			//Ejecurar filtros de consejos habilitados agregar la especie y raza
 			Query queryConsejo1 = QueryBuilder.build(Constants.HABILITADO_CONSEJO, 1, QueryBuilder.Operator.EQUALS);
+			Query queryConsejo2 = QueryBuilder.build(Constants.RAZA_CONSEJO, razaBusqueda, QueryBuilder.Operator.EQUALS);
+			Query queryConsejo3  = QueryBuilder.compoundOperator(queryConsejo1, QueryBuilder.Operator.AND, queryConsejo2);
+			Query queryConsejo4 = QueryBuilder.build(Constants.ESPECIE_CONSEJO, especieBusqueda, QueryBuilder.Operator.EQUALS);
+			Query queryConsejo5  = QueryBuilder.compoundOperator(queryConsejo3, QueryBuilder.Operator.AND, queryConsejo4);
 
-			Bundle pantallaBusquedaTip = getIntent().getExtras();
-			Long razaBusqueda = pantallaBusquedaTip.getLong("razaSearch");
-			Long especieBusqueda = pantallaBusquedaTip.getLong("especieSearch");
-
-			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_CONSEJO, queryConsejo1, 1, this);
+			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_CONSEJO, queryConsejo5, 1, this);
 
 		} catch (Exception e) {
 			showMessage(Constants.MSJ_ERROR_CONSEJO);
@@ -211,7 +216,10 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(TipsActivity.this, AddTipActivity.class));
+			Intent intent = new Intent(new Intent(TipsActivity.this, AddTipActivity.class));
+			intent.putExtra("razaSearch", razaBusqueda);
+			intent.putExtra("especieSearch", especieBusqueda);
+			startActivity(intent);
 		}
 	};
 

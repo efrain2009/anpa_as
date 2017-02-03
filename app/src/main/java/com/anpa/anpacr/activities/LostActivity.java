@@ -233,9 +233,9 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 		protected Boolean doInBackground(Storage... storage) {
 			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
-			String sIdLost = "", sNomMascota = "", dCreationDate = "", sNomDueno = "", date = "", sTelefono ="", sDetalle ="", sLatitud ="", sLongitud ="", sRaza ="", sPhotoURL = "";
+			String sIdLost = "", sNomMascota = "", dCreationDate = "", sNomDueno = "", date = "", sTelefono ="", sDetalle ="", sLatitud ="", sLongitud ="", sPhotoURL = "";
 			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
-			int iProvincia = 0, iCanton = 0, iHabilitado = 0;
+			int iProvincia = 0, iCanton = 0, iHabilitado = 0, iRaza = 0, iEspecie = 0;
 
 			for(int i=0; i < jsonDocList.size(); i ++){
 				sIdLost = jsonDocList.get(i).getDocId();
@@ -253,14 +253,15 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 					sDetalle = jsonObject.getString(Constants.DETALLE_PERDIDO);
 					sLatitud = jsonObject.getString(Constants.LATITUD_PERDIDO);
 					sLongitud = jsonObject.getString(Constants.LONGITUD_PERDIDO);
-					sRaza = jsonObject.getString(Constants.RAZA_PERDIDO);
+					iRaza = jsonObject.getInt(Constants.RAZA_PERDIDO);
+					iEspecie = jsonObject.getInt(Constants.ESPECIE_PERDIDO);
 					iHabilitado =jsonObject.getInt(Constants.HABILITADO_PERDIDO);
 					sPhotoURL =jsonObject.getString(Constants.FOTO_PERDIDO);
 
 					byte[] photo = getBitmap(sPhotoURL);
 
 					if(iHabilitado == 1) {
-						Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, sRaza, date, photo, sLatitud, sLongitud, iHabilitado);
+						Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, iRaza, iEspecie, date, photo, sLatitud, sLongitud, iHabilitado);
 						lostList.add(newLost);
 					}
 				} catch (JSONException e) {

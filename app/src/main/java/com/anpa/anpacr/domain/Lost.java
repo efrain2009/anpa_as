@@ -17,7 +17,8 @@ public class Lost implements Serializable{
 	private Integer _icanton;
 	private String _slatitud;
 	private String _slongitud;
-	private String _sraza;
+	private Integer _sraza;
+	private Integer _sespecie;
 	private String _sDate;
 	private byte[] _bFoto;
 	private Integer _iHabilitado;
@@ -28,7 +29,7 @@ public class Lost implements Serializable{
 
 	public Lost(String sIdLost, String sNomMascota, String sNomDueno,
 			String sTelefono, int iProvincia, int iCanton,
-			String sDetalle, String sRaza, String sDate, byte[] bFoto, String sLatitud, String sLongitud,Integer _iHabilitado) {
+			String sDetalle, Integer sRaza, Integer sEspecie, String sDate, byte[] bFoto, String sLatitud, String sLongitud,Integer _iHabilitado) {
 		// TODO Auto-generated constructor stub
 		this._lId = sIdLost;
 		this._snombreMascota = sNomMascota;
@@ -133,11 +134,19 @@ public class Lost implements Serializable{
 		this._bFoto = _bFoto;
 	}
 
-	public String get_sraza() {
+	public Integer get_sespecie() {
+		return _sespecie;
+	}
+
+	public void set_sespecie(Integer _sespecie) {
+		this._sespecie = _sespecie;
+	}
+
+	public Integer get_sraza() {
 		return _sraza;
 	}
 
-	public void set_sraza(String _sraza) {
+	public void set_sraza(Integer _sraza) {
 		this._sraza = _sraza;
 	}
 

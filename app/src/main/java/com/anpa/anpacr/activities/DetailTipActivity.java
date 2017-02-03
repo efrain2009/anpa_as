@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
@@ -18,9 +19,11 @@ import android.widget.Toast;
 
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.GenericNameValue;
 import com.anpa.anpacr.domain.Gps;
 import com.anpa.anpacr.domain.Tip;
+import com.facebook.ads.internal.adapters.s;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -38,7 +41,6 @@ public class DetailTipActivity extends ActionBarActivity {
 	private String sTipId;
 	ServiceAPI api;
 	StorageService storageService;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -186,63 +188,105 @@ public class DetailTipActivity extends ActionBarActivity {
     
     //Actualiza la calificaci�n del consejo
     private void addCalification(final int nCalification){
+		final Tip tip = new Tip();
+
 		//Verifica que el usuario tenga internet:
     	boolean isInternet = Gps.getInstance().internetCheck(getApplicationContext());
     	if(!isInternet)
     		return;
-    	
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.TABLE_CONSEJO);
-		// Retrieve the object by id
-		query.getInBackground(sTipId, new GetCallback<ParseObject>() {
-		  public void done(ParseObject tip, ParseException e) {
-		    if (e == null) {
-		      // Now let's update it with some new data. In this case, only cheatMode and score
-		      // will get sent to the Parse Cloud. playerName hasn't changed.
-		    	String rowToUpdate = Constants.ESTRELLA1_CONSEJO;
-		    	switch (nCalification) {
-				case 2:
-					rowToUpdate = Constants.ESTRELLA2_CONSEJO;
-					break;
-				case 3:
-					rowToUpdate = Constants.ESTRELLA3_CONSEJO;
-					break;
-				case 4:
-					rowToUpdate = Constants.ESTRELLA4_CONSEJO;
-					break;
-				default:
-					rowToUpdate = Constants.ESTRELLA5_CONSEJO;
-					break;
+
+		storageService.findDocumentById(Constants.App42ApiKey, Constants.App42ApiSecret, sTipId, new App42CallBack() {
+			@Override
+			public void onSuccess(Object response) {
+				String sIdTip = "", sAutor = "", sConsejo = "", dCreationDate = "";
+				Integer totalVotos = 0, cincoEstrellas = 0, cuatroEstrellas = 0, tresEstrellas = 0, dosEstrellas = 0, unoEstrellas = 0, especie = 0, raza = 0, estado = 0, iHabilitado = 0;
+				SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+
+				Storage storage = (Storage) response;
+				ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+
+					sIdTip = jsonDocList.get(0).getDocId();
+					dCreationDate = jsonDocList.get(0).getCreatedAt();
+					//date = dt.format(dCreationDate);
+
+					JSONObject jsonObject;
+					try {
+						jsonObject = new JSONObject(jsonDocList.get(0).getJsonDoc());
+						sAutor = jsonObject.getString(Constants.AUTOR_CONSEJO);
+						sConsejo = jsonObject.getString(Constants.DESCR_CONSEJO);
+						unoEstrellas = jsonObject.getInt(Constants.ESTRELLA1_CONSEJO);
+						dosEstrellas = jsonObject.getInt(Constants.ESTRELLA2_CONSEJO);
+						tresEstrellas = jsonObject.getInt(Constants.ESTRELLA3_CONSEJO);
+						cuatroEstrellas = jsonObject.getInt(Constants.ESTRELLA4_CONSEJO);
+						cincoEstrellas = jsonObject.getInt(Constants.ESTRELLA5_CONSEJO);
+						totalVotos = jsonObject.getInt(Constants.VOTOS_CONSEJO);
+						raza = jsonObject.getInt(Constants.RAZA_CONSEJO);
+						especie = jsonObject.getInt(Constants.ESPECIE_CONSEJO);
+						iHabilitado = jsonObject.getInt(Constants.HABILITADO_CONSEJO);
+
+						tip.set_lId(sIdTip);
+						tip.set_sAuthor(sAutor);
+						tip.set_sConsejo(sConsejo);
+						tip.set_i1Estrella(unoEstrellas);
+						tip.set_i2Estrella(dosEstrellas);
+						tip.set_i3Estrella(tresEstrellas);
+						tip.set_i4Estrella(cuatroEstrellas);
+						tip.set_i5Estrella(cincoEstrellas);
+						tip.set_iTotalVotos(totalVotos);
+						tip.set_iRaza(raza);
+						tip.set_iEspecie(especie);
+						tip.set_iHabilitado(iHabilitado);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+			}
+
+			@Override
+			public void onException(Exception e) {
+
+			}
+		});
+		    if (tip == null) {
+				// Now let's update it with some new data. In this case, only cheatMode and score
+				// will get sent to the Parse Cloud. playerName hasn't changed.
+				int rowToUpdate = 0;
+				switch (nCalification) {
+					case 1:
+						tip.set_i1Estrella(tip.get_i1Estrella() + 1);
+						break;
+					case 2:
+						tip.set_i2Estrella(tip.get_i2Estrella() + 1);
+						break;
+					case 3:
+						tip.set_i3Estrella(tip.get_i3Estrella() + 1);
+						break;
+					case 4:
+						tip.set_i4Estrella(tip.get_i4Estrella() + 1);
+						break;
+					default:
+						tip.set_i5Estrella(tip.get_i5Estrella() + 1);
+						break;
 				}
-		      tip.increment(rowToUpdate);
-		      tip.saveInBackground();
-				// instacia Storage App42
-				storageService = api.buildStorageService();
+				tip.set_iTotalVotos(tip.get_iTotalVotos() +1);
+			}
 
-				/* Below snippet will save JSON object in App42 Cloud */
-				String dbName = Constants.App42DBName;
-				String collectionName = Constants.TABLE_CONSEJO;
-				JSONObject tipJSON = null;
-				storageService.findDocumentById(dbName, collectionName, sTipId, new App42CallBack() {
-					@Override
-					public void onSuccess(Object response) {
-						Storage storage = (Storage) response;
-						ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
-						/*
-						try {
-						//	tipJson = new JSONObject(jsonDocList.get(0).getJsonDoc());
-						} catch (JSONException e1) {
-							e1.printStackTrace();
-						}
-						*/
-					}
 
-					@Override
-					public void onException(Exception e) {
+		JSONObject tipJSON = new JSONObject();
+		Util.textAsJSON(tipJSON, Constants.DESCR_CONSEJO, tip.get_sConsejo() , -1);
+		Util.textAsJSON(tipJSON, Constants.AUTOR_CONSEJO, tip.get_sAuthor() , -1);
+		//Mandar los valores que se setearon en el listado de filtros
+		Util.textAsJSON(tipJSON, Constants.RAZA_CONSEJO, "" , tip.get_iRaza());
+		Util.textAsJSON(tipJSON, Constants.ESPECIE_CONSEJO, "" ,  tip.get_iEspecie());
+		//
+		Util.textAsJSON(tipJSON, Constants.ESTRELLA1_CONSEJO, "" , tip.get_i1Estrella());
+		Util.textAsJSON(tipJSON, Constants.ESTRELLA2_CONSEJO, "" , tip.get_i2Estrella());
+		Util.textAsJSON(tipJSON, Constants.ESTRELLA3_CONSEJO, "" , tip.get_i3Estrella());
+		Util.textAsJSON(tipJSON, Constants.ESTRELLA4_CONSEJO, "" , tip.get_i4Estrella());
+		Util.textAsJSON(tipJSON, Constants.ESTRELLA5_CONSEJO, "" , tip.get_i5Estrella());
+		Util.textAsJSON(tipJSON, Constants.VOTOS_CONSEJO, "" , tip.get_iTotalVotos());
+		Util.textAsJSON(tipJSON, Constants.HABILITADO_CONSEJO, "" , 1);
 
-					}
-				});
-
-					storageService.updateDocumentByDocId(dbName, collectionName, sTipId, tipJSON, new App42CallBack() {
+					storageService.updateDocumentByDocId(Constants.App42ApiKey, Constants.App42ApiSecret, sTipId, tipJSON, new App42CallBack() {
 						@Override
 						public void onSuccess(Object response) {
 							Storage storage  = (Storage )response;
@@ -263,13 +307,9 @@ public class DetailTipActivity extends ActionBarActivity {
 						}
 					});
 
-				alertDialog ();
+				//alertDialog ();
 		      Toast.makeText(getApplicationContext(), Constants.TIP_SUCCESS, Toast.LENGTH_LONG).show();
 		    }
-		  }
-		});
-	};
-
 	public void alertDialog (){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(Constants.MSJ_SUCCESS_CALIFICATION_TIP)

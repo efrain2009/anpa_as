@@ -241,11 +241,11 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		Util.textAsJSON(lostJSON, Constants.LONGITUD_PERDIDO, _sLongitud, -1);
 		Util.textAsJSON(lostJSON, Constants.PROVINCIA_PERDIDO, "", provinciaSpinner.getAdapter().getItemId(provinciaSpinner.getSelectedItemPosition()));
 		Util.textAsJSON(lostJSON, Constants.CANTON_PERDIDO, "", cantonSpinner.getAdapter().getItemId(cantonSpinner.getSelectedItemPosition()));
-		Util.textAsJSON(lostJSON, Constants.RAZA_PERDIDO, _sRaza, -1);
-		Util.textAsJSON(lostJSON, Constants.ESPECIE_PERDIDO, _sEspecie, -1);
+		Util.textAsJSON(lostJSON, Constants.RAZA_PERDIDO, "", razaSpinner.getAdapter().getItemId(razaSpinner.getSelectedItemPosition()));
+		Util.textAsJSON(lostJSON, Constants.ESPECIE_PERDIDO, "", especieSpinner.getAdapter().getItemId(especieSpinner.getSelectedItemPosition()));
 		Util.textAsJSON(lostJSON, Constants.TELEFONO_PERDIDO, editxt_telefono.getText().toString(), -1);
 		Util.textAsJSON(lostJSON, Constants.DETALLE_PERDIDO, editxt_detail_lost_description.getText().toString(), -1);
-		Util.textAsJSON(lostJSON, Constants.HABILITADO_PERDIDO, "", 1);
+		Util.textAsJSON(lostJSON, Constants.HABILITADO_PERDIDO, "", 0);
 		Util.textAsJSON(lostJSON, Constants.USUARIO, Constants.USUARIO_NOMBRE, -1);
 		// instacia Storage App42
 		storageService = api.buildStorageService();

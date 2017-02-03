@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,7 +14,14 @@ import android.widget.TextView;
 
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.domain.GenericNameValue;
 import com.anpa.anpacr.domain.Lost;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class DetailLostActivity extends ActionBarActivity {
 	@Override
@@ -33,7 +41,8 @@ public class DetailLostActivity extends ActionBarActivity {
 			txt_nom_mascota.setText(value.get_snombreMascota());
 			
 			TextView txt_raza = (TextView) findViewById(R.id.txt_raza_mascota);
-			txt_raza.setText(value.get_sraza());
+			String raza = readSpecies(value.get_icanton(), value.get_sraza());
+			txt_raza.setText(raza);
 			
 			TextView txt_contacto = (TextView) findViewById(R.id.txt_contacto);
 			txt_contacto.setText(value.get_snombreDueno());
@@ -81,6 +90,70 @@ public class DetailLostActivity extends ActionBarActivity {
 		
 		Button btnAddLost = (Button)findViewById(R.id.btn_add_lost);
 		btnAddLost.setOnClickListener(onSearch);
+	}
+
+
+	/* carga la lista de razas de una especie */
+	private String readSpecies(int specieId, int raza)
+	{
+		ArrayList<GenericNameValue> speciesList = new ArrayList<GenericNameValue>();
+
+		String selectedFile = "";
+		switch (specieId) {
+			case 2:
+				selectedFile = "razas_gatos";
+				break;
+			case 3:
+				selectedFile = "razas_aves";
+				break;
+			case 4:
+				selectedFile = "razas_peces";
+				break;
+			case 5:
+				selectedFile = "razas_roedores";
+				break;
+			default:
+				selectedFile = "razas_perros";
+				break;
+		}
+
+		BufferedReader in = null;
+		StringBuilder buf = new StringBuilder();
+		try{
+			InputStream is = getApplicationContext().getAssets().open(selectedFile + ".txt");
+			in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+			String races;
+			boolean isFirst = true;
+			while ((races = in.readLine()) != null ){
+				if (isFirst)
+					isFirst = false;
+				else
+					buf.append('\n');
+				buf.append(races);
+			}
+
+			String[] specieRacesArray = buf.toString().split("#");
+
+			for (String race : specieRacesArray)
+			{
+				String[] values = race.split(",");
+				if(raza == Integer.parseInt(values[0]))
+					return values[1];
+			}
+		}
+		catch(IOException e) {
+			Log.e("OJO", "Error opening asset ");
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					Log.e("OJO", "Error closing asset ");
+				}
+			}
+		}
+		return "";
 	}
 	
 	/**
