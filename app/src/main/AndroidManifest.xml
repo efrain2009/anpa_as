@@ -3,26 +3,29 @@
     package="com.anpa.anpacr">
 
     <!-- for most things, including card.io & paypal -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-    <provider android:authorities="com.facebook.app.FacebookContentProvider915274545177488"
+    <provider
         android:name="com.facebook.FacebookContentProvider"
+        android:authorities="com.facebook.app.FacebookContentProvider915274545177488"
         android:exported="true" />
 
     <application
+        android:name=".AnpacrApplication"
         android:allowBackup="true"
-        android:name="com.anpa.anpacr.AnpacrApplication"
         android:icon="@drawable/ic_app_logo"
-        android:logo="@drawable/ic_app_logo_white"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Anpa_theme"  >
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        android:logo="@drawable/ic_app_logo_white"
+        android:theme="@style/Theme.Anpa_theme">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
         <!--
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,22 +40,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name="com.anpa.anpacr.activities.NewsActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.LostActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.CastrationActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.ContactusActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.DonationActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.TipsActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.DetailNewsActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.DetailCastrationActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.DetailTipActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.DetailLostActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.HomeActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.TipSearchActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.AddTipActivity"></activity>
-        <activity android:name="com.anpa.anpacr.activities.AddLostActivity"></activity>
+        <activity android:name=".activities.NewsActivity" />
+        <activity android:name=".activities.LostActivity" />
+        <activity android:name=".activities.CastrationActivity" />
+        <activity android:name=".activities.ContactusActivity" />
+        <activity android:name=".activities.DonationActivity" />
+        <activity android:name=".activities.TipsActivity" />
+        <activity android:name=".activities.DetailNewsActivity" />
+        <activity android:name=".activities.DetailCastrationActivity" />
+        <activity android:name=".activities.DetailTipActivity" />
+        <activity android:name=".activities.DetailLostActivity" />
+        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.TipSearchActivity" />
+        <activity android:name=".activities.AddTipActivity" />
+        <activity android:name=".activities.AddLostActivity" />
 
         <!-- Facebook -->
         <!--
@@ -63,7 +64,9 @@
           android:label="@string/app_name" />
         -->
         <!-- Paypal payments -->
-        <service android:name="com.paypal.android.sdk.payments.PayPalService" android:exported="false" />
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
 
         <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
@@ -76,7 +79,7 @@
             android:name="io.card.payment.CardIOActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity android:name="io.card.payment.DataEntryActivity" />
-
+        <activity android:name=".activities.ConfirmationActivity"></activity>
     </application>
 
 </manifest>

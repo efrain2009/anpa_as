@@ -1,11 +1,5 @@
 package com.anpa.anpacr.activities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,9 +13,12 @@ import com.anpa.anpacr.domain.FreqAnswer;
 import com.anpa.anpacr.fragments.FreqAnswerCastrationFragment;
 import com.anpa.anpacr.fragments.LastCastrationFragment;
 import com.anpa.anpacr.fragments.SuggestionCastrationFragment;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class FreqAnswerActivity  extends AnpaAppFraqmentActivity implements FreqAnswerCastrationFragment.OnLoadListListenerFreqAnswerCastration{
 	
@@ -115,7 +112,8 @@ public class FreqAnswerActivity  extends AnpaAppFraqmentActivity implements Freq
 			}
 			@Override
 			protected Boolean doInBackground(String... param) {
-				try {
+				/*try {
+
 					ParseQuery<ParseObject> query = ParseQuery
 							.getQuery(Constants.TABLE_PREGUNTA_FREC);
 					query.addAscendingOrder(Constants.ORDEN_PREGUNTA);
@@ -139,11 +137,12 @@ public class FreqAnswerActivity  extends AnpaAppFraqmentActivity implements Freq
 						
 						
 						freqAnswerList.add(newFreqAnswer);
+
 					}				
 				} catch (ParseException e) {
 					showMessage(e.getMessage());
 					e.printStackTrace();
-				}
+				}*/
 				return true;
 			}
 

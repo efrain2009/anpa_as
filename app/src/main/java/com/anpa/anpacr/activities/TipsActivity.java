@@ -1,34 +1,21 @@
 package com.anpa.anpacr.activities;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.adapter.TipListAdapter;
 import com.anpa.anpacr.app42.AsyncApp42ServiceApi;
 import com.anpa.anpacr.common.Constants;
-import com.anpa.anpacr.domain.News;
 import com.anpa.anpacr.domain.Tip;
-import com.anpa.anpacr.fragments.LastNewsFragment;
-import com.anpa.anpacr.fragments.LastTipsFragment;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.storage.Query;
 import com.shephertz.app42.paas.sdk.android.storage.QueryBuilder;
@@ -36,6 +23,10 @@ import com.shephertz.app42.paas.sdk.android.storage.Storage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TipsActivity extends AnpaAppFraqmentActivity implements
 		AsyncApp42ServiceApi.App42StorageServiceListener{

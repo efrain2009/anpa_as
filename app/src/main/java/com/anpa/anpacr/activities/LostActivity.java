@@ -1,21 +1,11 @@
 package com.anpa.anpacr.activities;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -29,17 +19,18 @@ import com.anpa.anpacr.adapter.LostListAdapter;
 import com.anpa.anpacr.app42.AsyncApp42ServiceApi;
 import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.domain.Lost;
-import com.anpa.anpacr.domain.News;
-import com.anpa.anpacr.fragments.LastNewsFragment;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LostActivity extends AnpaAppFraqmentActivity implements
 		AsyncApp42ServiceApi.App42StorageServiceListener{
