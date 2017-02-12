@@ -39,7 +39,8 @@ public class DonationActivity extends AnpaAppFraqmentActivity {
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
             // or live (ENVIRONMENT_PRODUCTION)
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-            .clientId(PaypalConfig.PAYPAL_CLIENT_ID);
+            .clientId(PaypalConfig.PAYPAL_CLIENT_ID)
+            .acceptCreditCards(true);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
