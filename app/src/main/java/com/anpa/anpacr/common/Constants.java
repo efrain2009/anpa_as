@@ -14,8 +14,10 @@ public class Constants {
 
 	public final static String ESPERA = "Espera un momento";
 	public final static String MSJ_ERROR ="Ups! Perdimos el rastro de la información. Intenta más tarde.";
-	public final static String MSJ_SUCCESS_TIP ="Dentro de poco se publicara tu aviso";
+	public final static String MSJ_SUCCESS_TIP ="Su experiencia está en periodo de aprobación por ANPA";
 	public final static String BTN_ACEPTAR ="Aceptar";
+
+	public final static String URL_FACEBOOK_ANPA = "http://developers.facebook.com/android";
 
 	/*Table Perdidos*/
 	//public final static String TABLE_PERDIDOS = "ANPA03_PERDIDOS";
@@ -36,6 +38,7 @@ public class Constants {
 	public final static String MSJ_ERROR_PERDIDO ="Ups! Perdimos el rastro de las mascotas perdidas. Intenta más tarde.";
 	public final static String USUARIO = "ANPA03_USUARIO";
 	public final static String USUARIO_NOMBRE = "UsuarioApp";
+	public final static String TITTLE_PERDIDO_FB = "Ha compartido una publicación en ANPACR";
 	
 	/*Table Castraciones
 	public final static String TABLE_CASTRACIONES = "ANPA04_EVENTO";*/
@@ -98,9 +101,11 @@ public class Constants {
 	public final static String VOTOS_CONSEJO = "ANPA02_TOTAL_VOTOS";
 	public final static String ESTADO_CONSEJO = "ANPA02_ESTADO";
 	public final static String HABILITADO_CONSEJO = "ANPA02_HABILITADO";
+	public final static String USUARIO_CONSEJO = "ANPA02_USUARIO";
 	public final static String ESPERA_CONSEJO = "Olfateando consejos....";
 	public final static String MSJ_ERROR_CONSEJO = "Ups! Perdimos el rastro de las consejos. Intenta más tarde.";
 	public final static String MSJ_SUCCESS_CALIFICATION_TIP = "Acabas de calificar el consejo. Gracias por puntuar!";
+	public final static String TITTLE_CONSEJO_FB = "Ha compartido una experiencia en ANPACR";
 
 	/*Home Activity*/	
 	public final static String TITLE_DESCRIPTION_CONTACTUS = "Contáctenos";

@@ -32,6 +32,10 @@ import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.GenericNameValue;
 import com.anpa.anpacr.domain.Gps;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.shephertz.app42.paas.sdk.android.App42API;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
 import com.shephertz.app42.paas.sdk.android.ServiceAPI;
@@ -73,6 +77,11 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private String app42PhotoURL;
 	private LocationManager _locationManager;
 
+	//Integration with facebook
+	CallbackManager callbackManager;
+	ShareDialog shareDialog;
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +95,11 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_LOST);
 		photoPath = "";
 		app42PhotoURL = "";
+
+		// part for facebook
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		callbackManager = CallbackManager.Factory.create();
+		shareDialog = new ShareDialog(this);
 
 		saveLost = (Button) findViewById(R.id.btn_save_lost);
 		saveLost.setOnClickListener(onSave);
@@ -260,6 +274,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 					System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
 					System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
 					System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+					shareOnFacebook(editxt_detail_lost_description.getText().toString());
 				}
 			}
 
@@ -531,5 +546,18 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				speciesList);
 		razaSpinner.setAdapter(adapterRaces);
 		razaSpinner.setOnItemSelectedListener(onSelectItemRaza);
+	}
+
+	private void shareOnFacebook(String lost){
+		if (ShareDialog.canShow(ShareLinkContent.class)) {
+			ShareLinkContent linkContent = new ShareLinkContent.Builder()
+					.setContentTitle(Constants.TITTLE_PERDIDO_FB)
+					.setContentDescription(
+							lost)
+					.setContentUrl(Uri.parse(Constants.URL_FACEBOOK_ANPA))
+					.build();
+
+			shareDialog.show(linkContent);
+		}
 	}
 }

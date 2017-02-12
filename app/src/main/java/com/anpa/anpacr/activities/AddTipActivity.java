@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +28,12 @@ import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.GenericNameValue;
 import com.anpa.anpacr.domain.Tip;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
 import com.shephertz.app42.paas.sdk.android.ServiceAPI;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
@@ -46,6 +53,9 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 	Button saveTip;
 	String _sRaza;
 	Tip tip;
+	//Integration with facebook
+	CallbackManager callbackManager;
+	ShareDialog shareDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,12 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		Bundle pantallaBusquedaTip = getIntent().getExtras();
 		Long razaBusqueda = pantallaBusquedaTip.getLong("razaSearch");
 		Long especieBusqueda = pantallaBusquedaTip.getLong("especieSearch");
+
+		// part for facebook
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		callbackManager = CallbackManager.Factory.create();
+		shareDialog = new ShareDialog(this);
+
 
 		saveTip = (Button) findViewById(R.id.btn_add_tip);
 		saveTip.setOnClickListener(onSave);
@@ -101,6 +117,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 			Util.textAsJSON(tipJSON, Constants.ESTRELLA5_CONSEJO, "" , 0);
 			Util.textAsJSON(tipJSON, Constants.VOTOS_CONSEJO, "" , 0);
 			Util.textAsJSON(tipJSON, Constants.HABILITADO_CONSEJO, "" , 0);
+			Util.textAsJSON(tipJSON, Constants.USUARIO_CONSEJO, Constants.USUARIO_NOMBRE , -1);
 
 			// instacia Storage App42
 			storageService = api.buildStorageService();
@@ -117,6 +134,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 						System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
 						System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
 						System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+						shareOnFacebook(tip);
 					}
 				}
 				public void onException(Exception ex)
@@ -201,10 +219,17 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		return "";
 	}
 
-	private void shareOnFacebook(String title, String description){
-        /*FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this);*/
+	private void shareOnFacebook(Tip tips){
+		if (ShareDialog.canShow(ShareLinkContent.class)) {
+			ShareLinkContent linkContent = new ShareLinkContent.Builder()
+					.setContentTitle(Constants.TITTLE_CONSEJO_FB)
+					.setContentDescription(
+							tip.get_sConsejo())
+					.setContentUrl(Uri.parse(Constants.URL_FACEBOOK_ANPA))
+					.build();
+
+			shareDialog.show(linkContent);
+		}
 	}
 
 }
