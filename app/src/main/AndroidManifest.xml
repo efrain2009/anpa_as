@@ -79,7 +79,7 @@
             android:name="io.card.payment.CardIOActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity android:name="io.card.payment.DataEntryActivity" />
-        <activity android:name=".activities.ConfirmationActivity"></activity>
+        <activity android:name=".activities.ConfirmationActivity"/>
     </application>
 
 </manifest>

@@ -38,9 +38,13 @@ public class ConfirmationActivity extends AppCompatActivity {
         TextView textViewStatus= (TextView) findViewById(R.id.paymentStatus);
         TextView textViewAmount = (TextView) findViewById(R.id.paymentAmount);
 
+        String state = jsonDetails.getString("state");
+
+        if(state.equals("approved"))
+            state = "Aprovado";
         //Showing the details from json object
         textViewId.setText(jsonDetails.getString("id"));
-        textViewStatus.setText(jsonDetails.getString("state"));
+        textViewStatus.setText(state);
         textViewAmount.setText("$" + paymentAmount);
     }
 }

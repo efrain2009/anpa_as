@@ -181,6 +181,9 @@ public class Constants {
 	public final static String TYPE_FILE = "type";
 	public final static String ID_FILE = "fileId";
 
+	//Paypal
+	public static String PAYPAL_PURCHASE_ITEM = "Donación para ANPA";
+
 	public final static String MSG_IMAGE_UPLOAD_ERROR = "Ha ocurrido un error cargando la imagen: ";
 }
 

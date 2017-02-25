@@ -28,6 +28,7 @@
     <string name="txt_subtitle_amount">Monto:</string>
     <string name="txt_subtitle_info">Información Adicional:</string>
     <string name="bt_buton_How_arrive">¿Cómo llegar?</string>
+    <string name="bt_buton_add_calendar">Agregar a mi agenda</string>
 
     <!-- Tips -->
     <string name="txt_subtitle_autor">Por:</string>
