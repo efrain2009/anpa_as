@@ -20,6 +20,8 @@ import com.anpa.anpacr.app42.AsyncApp42ServiceApi;
 import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.domain.Lost;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
+import com.shephertz.app42.paas.sdk.android.storage.Query;
+import com.shephertz.app42.paas.sdk.android.storage.QueryBuilder;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 
 import org.json.JSONException;
@@ -73,7 +75,10 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 			/* App42 */
 			progressDialog = ProgressDialog.show(LostActivity.this,
 					Constants.ESPERA, Constants.ESPERA_PERDIDO);
-			asyncService.findDocByColletion(Constants.App42DBName, Constants.TABLE_PERDIDOS, 1, this);
+
+			//Ejecutar filtro de solo los habilitados de las perdidos
+			Query query1 = QueryBuilder.build(Constants.HABILITADO_PERDIDO, 1, QueryBuilder.Operator.EQUALS);
+			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_PERDIDOS, query1, 1, this);
 
 		} catch (Exception e) {
 			showMessage(Constants.MSJ_ERROR_NOTICIA);
@@ -96,7 +101,7 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocSuccess(Storage response, int type) {
-		//progressDialog.dismiss();
+		progressDialog.dismiss();
 		switch (type) {
 			case 1://Perdidos
 				//decodeLostJson(response);

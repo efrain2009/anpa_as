@@ -124,7 +124,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			e.printStackTrace();
 		}
 		finally {
-			progressDialog.dismiss();
+			//updateAdapterLastCastrationFragment();
 		}
 
 		/*Asigna a los tabs el listener*/
@@ -150,7 +150,6 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocSuccess(Storage response, int type) {
-
 		progressDialog.dismiss();
 		switch (type) {
 			case 1://Castraciones
@@ -172,7 +171,8 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
-
+		progressDialog.dismiss();
+		Toast.makeText(getApplicationContext(), "No hay castraciones registradas por el momento", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -254,7 +254,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
 			String sIdCastration = "", sNombre = "", sDescripcion = "", sDoctor = "",
 					date = "", direccion = "", encargado = "", latitud = "", longitud = "", dInicioDate = "", dFinDate = "", sPhotoURL = "";
-			Integer tipo = 0, habilitado = 0;
+			Integer tipo = 0, habilitado = 0, muestraMonto = 0;
 			Double monto = Double.valueOf(0);
 			Date dCreationDate;
 
@@ -277,11 +277,12 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 					dFinDate = jsonObject.getString(Constants.HORARIO_FIN_CASTRACION);
 					habilitado = jsonObject.getInt(Constants.HABILITADO_CASTRACION);
 					sPhotoURL = jsonObject.getString(Constants.IMAGE_CASTRACION);
+					muestraMonto = jsonObject.getInt(Constants.MUESTRA_MONTO_CASTRACION);
 
 					byte[] photo = getBitmap(sPhotoURL);
 
 					Castration newCastration = new Castration(sIdCastration, sNombre, sDoctor, monto, direccion,
-							sDescripcion, encargado, dInicioDate, dFinDate, tipo, date, latitud, longitud, photo, habilitado);
+							sDescripcion, encargado, dInicioDate, dFinDate, tipo, date, latitud, longitud, photo, habilitado, muestraMonto);
 					castrationList.add(newCastration);
 
 				} catch (JSONException e) {

@@ -2,6 +2,7 @@ package com.anpa.anpacr.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -111,7 +112,8 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 			progressDialog.dismiss();
 			switch (type) {
 				case 1://tips
-					decodeTipsJson(response);
+					//decodeTipsJson(response);
+					new TipsActivity.AsyncLoadListTask().execute(response);
 					break;
 				default:
 					break;
@@ -127,7 +129,8 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 		@Override
 		public void onFindDocFailed(App42Exception ex) {
-			showMessage(Constants.MSJ_ERROR);
+			progressDialog.dismiss();
+			Toast.makeText(getApplicationContext(), "No hay experiencias registradas por el momento", Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
@@ -136,15 +139,22 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 		}
 
-		/* Metodo para decodificar el json de noticias */
-		private void decodeTipsJson(Storage response){
-			ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
+	private class AsyncLoadListTask extends AsyncTask<Storage, Integer, Boolean> {
+		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		protected Boolean doInBackground(Storage... storage) {
+			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
 
 			String sIdTip = "", sAutor = "", sConsejo = "", dCreationDate = "";
 			Integer totalVotos = 0, cincoEstrellas = 0, cuatroEstrellas = 0, tresEstrellas = 0, dosEstrellas = 0, unoEstrellas = 0, especie = 0, raza = 0, estado = 0, iHabilitado = 0;
 			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 
-			for(int i=0; i < jsonDocList.size(); i ++){
+			for(int i=0; i < jsonDocList.size(); i ++) {
 				sIdTip = jsonDocList.get(i).getDocId();
 				dCreationDate = jsonDocList.get(i).getCreatedAt();
 				//date = dt.format(dCreationDate);
@@ -163,19 +173,30 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 					raza = jsonObject.getInt(Constants.RAZA_CONSEJO);
 					especie = jsonObject.getInt(Constants.ESPECIE_CONSEJO);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_CONSEJO);
-					if(iHabilitado == 1) {
+					if (iHabilitado == 1) {
 						Tip newTip = new Tip(sIdTip, sAutor, sConsejo, null, unoEstrellas, dosEstrellas, tresEstrellas, cuatroEstrellas, cincoEstrellas, totalVotos, raza, especie, dCreationDate, estado, iHabilitado);
 						tipsList.add(newTip);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
+					return false;
 				}
 			}
-			tipsAdapter = new TipListAdapter(this, tipsList);
-			tipsAdapter.notifyDataSetChanged();
-			lv_tips.setAdapter(tipsAdapter);
-		}
+				return true;
+			}
 
+		protected void onPostExecute(Boolean result) {
+			if(result)
+				updateAdapter();
+		}
+	}
+
+	private void updateAdapter(){
+		tipsAdapter = new TipListAdapter(this, tipsList);
+		tipsAdapter.notifyDataSetChanged();
+		lv_tips.setAdapter(tipsAdapter);
+		progressDialog.dismiss();
+	}
 
 
 	/**

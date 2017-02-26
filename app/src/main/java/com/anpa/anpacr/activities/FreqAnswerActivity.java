@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 public class FreqAnswerActivity  extends AnpaAppFraqmentActivity implements FreqAnswerCastrationFragment.OnLoadListListenerFreqAnswerCastration{
 	
 	List<FreqAnswer> freqAnswerList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

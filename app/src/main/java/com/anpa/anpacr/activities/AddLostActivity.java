@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -76,6 +77,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private String photoPath;
 	private String app42PhotoURL;
 	private LocationManager _locationManager;
+	CheckBox check_facebook;
 
 	//Integration with facebook
 	CallbackManager callbackManager;
@@ -150,6 +152,8 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		img_detail_lost = (ImageView) findViewById(R.id.img_detail_lost);
 		img_detail_lost.buildDrawingCache();
 		bitMapPhoto = img_detail_lost.getDrawingCache();
+		check_facebook = (CheckBox) findViewById(R.id.chkCompFB);
+
 
 		_locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		Location respuestaLocalizacion = Gps.getInstance().obtenerGeolocalizacion(_locationManager);
@@ -274,7 +278,9 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 					System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
 					System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
 					System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
-					shareOnFacebook(editxt_detail_lost_description.getText().toString());
+					if(check_facebook.isChecked()) {
+						shareOnFacebook(editxt_detail_lost_description.getText().toString());
+					}
 				}
 			}
 

@@ -75,7 +75,12 @@ public class DetailCastrationActivity extends ActionBarActivity {
 
 			String formatMonto = df.format(new BigDecimal(value.get_bgdMonto()));
 
-			String monto =  "₡ " + formatMonto;
+			String monto = "";
+			if(value.getMuestraMonto() == 1){
+				monto =  "₡ " + formatMonto;
+			}else{
+				monto = "-";
+			}
 			txt_detail_castration_amount.setText(monto);
 			
 			TextView txt_detail_castration_date = (TextView) findViewById(R.id.txt_detail_castration_date);

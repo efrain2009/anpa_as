@@ -107,7 +107,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 			e.printStackTrace();
 		}
 		finally {
-			progressDialog.dismiss();
+			//progressDialog.dismiss();
 		}
 				
 		/*Asigna a los tabs el listener*/
@@ -198,7 +198,8 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 			new AsyncLoadListTask().execute(response);
 			break;
 		case 2://Preguntas
-			decodePreguntasFrecuentesJson(response);
+			//decodePreguntasFrecuentesJson(response);
+			new AsyncLoadFreqAnswerListTask().execute(response);
 			break;
 		case 3://Patrocinio
 			//decodePatrociniosJson(response);
@@ -218,7 +219,8 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
-		showMessage(Constants.MSJ_ERROR);
+		progressDialog.dismiss();
+		Toast.makeText(getApplicationContext(), "No hay noticias registradas por el momento", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -341,32 +343,47 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 
 */
 	/* Metodo para decodificar el json de preguntas */
-	private void decodePreguntasFrecuentesJson(Storage response){
-		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
+	private class AsyncLoadFreqAnswerListTask extends AsyncTask<Storage, Integer, Boolean> {
+		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
 
-		String sIdPreg = "", sPregunta = "", sRespuesta = "", dCreationDate = "";
-		Integer iOrden = 0, itipo = 0, iHabilitado = 0;
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
 
-		for(int i=0; i < jsonDocList.size(); i ++){
-			sIdPreg = jsonDocList.get(i).getDocId();
-			dCreationDate = jsonDocList.get(i).getCreatedAt();
+		protected Boolean doInBackground(Storage... storage) {
 
-			JSONObject jsonObject;
-			try {
-				jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
-				sPregunta = jsonObject.getString(Constants.DESC_PREGUNTA);
-				sRespuesta = jsonObject.getString(Constants.RESPESTA_PREGUNTA);
-				iOrden = jsonObject.getInt(Constants.ORDEN_PREGUNTA);
-				itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
-				iHabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
+			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
 
-				FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate, iHabilitado);
-				freqAnswerList.add(newPreg);
+			String sIdPreg = "", sPregunta = "", sRespuesta = "", dCreationDate = "";
+			Integer iOrden = 0, itipo = 0, iHabilitado = 0;
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 
-			} catch (JSONException e) {
-				e.printStackTrace();
+			for (int i = 0; i < jsonDocList.size(); i++) {
+				sIdPreg = jsonDocList.get(i).getDocId();
+				dCreationDate = jsonDocList.get(i).getCreatedAt();
+
+				JSONObject jsonObject;
+				try {
+					jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
+					sPregunta = jsonObject.getString(Constants.DESC_PREGUNTA);
+					sRespuesta = jsonObject.getString(Constants.RESPESTA_PREGUNTA);
+					iOrden = jsonObject.getInt(Constants.ORDEN_PREGUNTA);
+					itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
+					iHabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
+
+					FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate, iHabilitado);
+					freqAnswerList.add(newPreg);
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+					return false;
+				}
 			}
+			return true;
+		}
+
+		protected void onPostExecute(Boolean result) {
 		}
 	}
 	private class AsyncLoadSponsorListTask extends AsyncTask<Storage, Integer, Boolean> {

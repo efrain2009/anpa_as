@@ -259,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:checked="true"
-                    android:text="Acepto enviar mi dirección. (No se mostrará a los demas usuario)" />
+                    android:text="@string/txt_send_direction" />
             </LinearLayout>
 
             <LinearLayout
@@ -274,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:checked="true"
-                    android:text="Compartir en Facebook" />
+                    android:text="@string/txt_public_fb" />
             </LinearLayout>
 
             <LinearLayout

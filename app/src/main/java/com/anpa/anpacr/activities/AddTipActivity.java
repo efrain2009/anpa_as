@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -50,6 +51,9 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 	StorageService storageService;
 
 	EditText editxt_description_tip, editxt_breed_author;
+
+	CheckBox check_facebook;
+
 	Button saveTip;
 	String _sRaza;
 	Tip tip;
@@ -85,6 +89,9 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		editxt_description_tip = (EditText) findViewById(R.id.editxt_description_tip);
 
 		editxt_breed_author = (EditText) findViewById(R.id.editxt_breed_author);
+
+		check_facebook = (CheckBox) findViewById(R.id.ck_public_fb);
+
 		//Obtener valores q se obtuvieron en el filtro//
 		TextView txt_raza = (TextView) findViewById(R.id.txt_addRaza_consejo);
 		String raza = readSpecies(especieBusqueda.intValue(), razaBusqueda.intValue());
@@ -134,7 +141,9 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 						System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
 						System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
 						System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
-						shareOnFacebook(tip);
+						if(check_facebook.isChecked()) {
+							shareOnFacebook(editxt_description_tip.getText().toString());
+						}
 					}
 				}
 				public void onException(Exception ex)
@@ -219,13 +228,13 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		return "";
 	}
 
-	private void shareOnFacebook(Tip tips){
+	private void shareOnFacebook(String consejo){
 		if (ShareDialog.canShow(ShareLinkContent.class)) {
 			ShareLinkContent linkContent = new ShareLinkContent.Builder()
 					.setContentTitle(Constants.TITTLE_CONSEJO_FB)
 					.setContentDescription(
-							tip.get_sConsejo())
-					.setContentUrl(Uri.parse(Constants.URL_FACEBOOK_ANPA))
+							consejo)
+					.setContentUrl(Uri.parse(Constants.URL_FACEBOOK))
 					.build();
 
 			shareDialog.show(linkContent);

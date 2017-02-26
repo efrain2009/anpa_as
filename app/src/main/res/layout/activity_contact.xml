@@ -42,7 +42,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="@string/txt_description_location"
                     android:textColor="@android:color/black" />
             </LinearLayout>
 
@@ -72,7 +71,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="@string/txt_description_phone1"
                         android:textColor="@color/hiperlink"/>
 
                     <TextView
@@ -80,8 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textColor="@color/hiperlink"
-                        android:text="@string/txt_description_phone2"  />
+                        android:textColor="@color/hiperlink"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -114,7 +111,6 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:linksClickable="true"
-                        android:text="@string/txt_description_mail1"
                         android:autoLink="email"
                          />
                     
@@ -123,7 +119,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="@string/txt_description_mail2"
                         android:autoLink="email" />
                 </LinearLayout>
             </LinearLayout>
@@ -147,31 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:textColor="@color/hiperlink"
-                    android:text="@string/txt_description_facebook"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp" >
-
-                <ImageView
-                    android:id="@+id/img_twitter"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:contentDescription="@string/txt_description_image"
-                    android:src="@drawable/icon_twitter" />
-
-                <TextView
-                    android:id="@+id/txt_description_twitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textColor="@color/hiperlink"
-                    android:text="@string/txt_description_twitter" />
+                    android:textColor="@color/hiperlink"/>
             </LinearLayout>
 
             <LinearLayout
@@ -193,8 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:autoLink="web"
-                    android:text="@string/txt_description_webPage" />
+                    android:autoLink="web" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

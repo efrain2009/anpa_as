@@ -17,7 +17,9 @@ public class Constants {
 	public final static String MSJ_SUCCESS_TIP ="Su experiencia está en periodo de aprobación por ANPA";
 	public final static String BTN_ACEPTAR ="Aceptar";
 
-	public final static String URL_FACEBOOK_ANPA = "http://developers.facebook.com/android";
+	public final static String URL_FACEBOOK_ANPA = "http://www.facebook.com/ANPACR/";
+
+	public final static String URL_FACEBOOK = "https://developers.facebook.com";
 
 	/*Table Perdidos*/
 	//public final static String TABLE_PERDIDOS = "ANPA03_PERDIDOS";
@@ -58,8 +60,10 @@ public class Constants {
 	public final static String ESPERA_CASTRACION = "Olfateando castraciones....";
 	public final static String MSJ_ERROR_CASTRATION ="Ups! Perdimos el rastro de las castraciones. Intenta más tarde.";
 	public final static String IMAGE_CASTRACION = "ANPA04_IMAGE";
+	public final static String MUESTRA_MONTO_CASTRACION = "ANPA04_MUESTRA_MONTO";
 
-	
+
+
 	/*Table Preguntas frecuentes*/
 	public final static String TABLE_PREGUNTA_FREC = "preguntas";
 	public final static String DESC_PREGUNTA = "ANPA05_PREGUNTA";
@@ -145,6 +149,16 @@ public class Constants {
 	public static final String TITLE_LOST = "Perdidos";
 	public final static String ID_OBJ_DETAIL_LIST = "lost_objects";
 	public final static String CONSEJOS_PARA = "Consejos para: ";
+
+	/*Contactenos*/
+	public final static String TABLE_MISCELANEOS = "micelaneos";
+	public final static String FACEBOOK_MISCELANEOS = "ANPA08_FACEBOOK";
+	public final static String DIRECCION_MISCELANEOS = "ANPA08_DIRECCION";
+	public final static String TELEFONO1_MISCELANEOS = "ANPA08_TELEFONO1";
+	public final static String TELEFONO2_MISCELANEOS = "ANPA08_TELEFONO1";
+	public final static String MAIL1_MISCELANEOS = "ANPA08_EMAIL1";
+	public final static String MAIL2_MISCELANEOS = "ANPA08_EMAIL2";
+	public final static String URL_MISCELANEOS = "ANPA08_URL";
 	
 	
 	public static final String ANPA_PHONE_PRIM = "+50640002672";
