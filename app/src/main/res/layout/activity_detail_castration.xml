@@ -229,7 +229,7 @@
              <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="10dp" >
+                android:paddingBottom="40dp" >
 
                  <LinearLayout
                      android:layout_width="match_parent"
@@ -258,6 +258,17 @@
                          android:background="@color/red"
                          android:padding="10dp"
                          android:text="@string/bt_buton_add_calendar"
+                         android:textColor="@android:color/white" />
+
+                     <Button
+                         android:id="@+id/btn_add_facebook"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_alignParentBottom="true"
+                         android:layout_centerHorizontal="true"
+                         android:background="@color/red"
+                         android:padding="10dp"
+                         android:text="@string/bt_buton_add_facebook"
                          android:textColor="@android:color/white" />
                  </LinearLayout>
              </RelativeLayout>

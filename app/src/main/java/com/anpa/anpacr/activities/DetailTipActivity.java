@@ -191,6 +191,7 @@ public class DetailTipActivity extends ActionBarActivity {
     		return;
 
 		storageService.findDocumentById(Constants.App42ApiKey, Constants.App42ApiSecret, sTipId, new App42CallBack() {
+
 			@Override
 			public void onSuccess(Object response) {
 				String sIdTip = "", sAutor = "", sConsejo = "", dCreationDate = "";

@@ -29,6 +29,7 @@
     <string name="txt_subtitle_info">Información Adicional:</string>
     <string name="bt_buton_How_arrive">¿Cómo llegar?</string>
     <string name="bt_buton_add_calendar">Agregar a mi agenda</string>
+    <string name="bt_buton_add_facebook">Compartir en mi Facebook</string>
 
     <!-- Tips -->
     <string name="txt_subtitle_autor">Por:</string>

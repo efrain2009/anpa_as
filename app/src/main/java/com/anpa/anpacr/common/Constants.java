@@ -61,6 +61,7 @@ public class Constants {
 	public final static String MSJ_ERROR_CASTRATION ="Ups! Perdimos el rastro de las castraciones. Intenta más tarde.";
 	public final static String IMAGE_CASTRACION = "ANPA04_IMAGE";
 	public final static String MUESTRA_MONTO_CASTRACION = "ANPA04_MUESTRA_MONTO";
+	public final static String TITTLE_CASTRACION_FB = "Asistiré a una campaña de castración de ANPACR";
 
 
 

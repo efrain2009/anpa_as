@@ -43,9 +43,9 @@ public class DetailNewsActivity extends AnpaAppFraqmentActivity {
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 				Date date = format.parse(value.get_sDate());
 				// Converting to String again, using an alternative format fecha
-				SimpleDateFormat formatoFecha =
-						new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy");
-				startDate = formatoFecha.format(date);
+				SimpleDateFormat formato =
+						new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es_ES"));
+				startDate = formato.format(date);
 
 			} catch (ParseException e) {
 				e.printStackTrace();

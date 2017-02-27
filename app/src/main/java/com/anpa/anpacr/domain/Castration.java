@@ -1,6 +1,8 @@
 package com.anpa.anpacr.domain;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Castration implements Serializable{
@@ -51,6 +53,13 @@ public class Castration implements Serializable{
 		this._sEncargado = _sEncargado;
 		this._sDateInicio = _sDateInicio;
 		this._sDateFin = _sDateFin;
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        try {
+            this._dDateInicio = formatter.parse(_sDateInicio);
+            this._dDateFin = formatter.parse(_sDateFin);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 		this._sTipo = _sTipo;
 		this._sDate = _sDate;
 		this._sLatitud = _sLatitud;

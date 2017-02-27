@@ -7,6 +7,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -31,19 +32,38 @@ import com.anpa.anpacr.R;
 import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.domain.Castration;
 import com.anpa.anpacr.domain.Gps;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 public class DetailCastrationActivity extends ActionBarActivity {
 	private LocationManager _locationManager;
-	String _sLatitude, _sLongitude;
+	String _sLatitude, _sLongitude, titleCastracionCalendar, fechaFb;
+	Calendar dateStartCastrationCalendar;
+	Calendar dateEndCastrationCalendar;
+
+	//Integration with facebook
+	CallbackManager callbackManager;
+	ShareDialog shareDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_castration);
+
+		dateStartCastrationCalendar = Calendar.getInstance();
+		dateEndCastrationCalendar = Calendar.getInstance();
+
+		// part for facebook
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		callbackManager = CallbackManager.Factory.create();
+		shareDialog = new ShareDialog(this);
 		
 		//Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CASTRATION);
+		//Ir GPS
 		Button btnGoLocation = (Button) findViewById(R.id.btn_send_google_maps);
 		btnGoLocation.setOnClickListener(onGoLocation);
 		
@@ -51,8 +71,12 @@ public class DetailCastrationActivity extends ActionBarActivity {
 		if (extras != null) {
 			Castration value = (Castration) extras.get(Constants.ID_OBJ_DETAIL_CASTRATION);
 
+			dateStartCastrationCalendar.setTime(value.get_dDateInicio());
+			dateEndCastrationCalendar.setTime(value.get_dDateFin());
+
 			TextView txt_detail_castration_title = (TextView) findViewById(R.id.txt_detail_castration_title);
 			txt_detail_castration_title.setText(value.get_snombre());
+			titleCastracionCalendar = value.get_snombre();
 			
 			TextView txt_detail_castration_direction = (TextView) findViewById(R.id.txt_direction_castration);
 			txt_detail_castration_direction.setText(value.get_sdireccion());
@@ -111,11 +135,15 @@ public class DetailCastrationActivity extends ActionBarActivity {
 				String endHora = dthora.format(dateFin);
 				horario = startHora + " a " + endHora;
 
+				fechaFb = startDate + " de " + horario;
+
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			txt_detail_castration_schedule.setText(horario);
 			txt_detail_castration_date.setText(fecha);
+
+
 
 			if (value.get_bImagen() != null) {
 				Bitmap bmpNewsDetail = BitmapFactory.decodeByteArray(
@@ -124,6 +152,15 @@ public class DetailCastrationActivity extends ActionBarActivity {
 				img_detail_castration.setImageBitmap(bmpNewsDetail);
 			}
 		}
+
+		//Ir a agregar al calendario
+		Button btnGoCalendar = (Button) findViewById(R.id.btn_add_calendar);
+		btnGoCalendar.setOnClickListener(onGoCalendar);
+
+		//Ir a compartir en facebook
+		Button btnGoFacebook = (Button) findViewById(R.id.btn_add_facebook);
+		btnGoFacebook.setOnClickListener(onGoFacebook);
+
 		_locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 	}
 	
@@ -167,4 +204,60 @@ public class DetailCastrationActivity extends ActionBarActivity {
             }
         }
     }
+
+	/*
+	 * Listener del bot�n de ir a la ubicaci�n de la castraci�n
+	 */
+	private OnClickListener onGoCalendar = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			goCalendar();
+		}
+	};
+
+	/**
+	 * Agrega el evento al calendario
+	 */
+	public void goCalendar(){
+
+		Calendar cal = Calendar.getInstance();
+		Intent intent = new Intent(Intent.ACTION_EDIT);
+		intent.setType("vnd.android.cursor.item/event");
+		intent.putExtra("beginTime", dateStartCastrationCalendar.getTimeInMillis());
+		intent.putExtra("allDay", false);
+		intent.putExtra("rrule", "FREQ=YEARLY");
+		intent.putExtra("endTime", dateEndCastrationCalendar.getTimeInMillis()+60*60*1000);
+		intent.putExtra("title", "Asistir a Castración en" + titleCastracionCalendar);
+		startActivity(intent);
+		Toast.makeText(getApplicationContext(), "Se ha agregado la castración a su calendario", Toast.LENGTH_SHORT).show();
+	}
+
+	/*
+	 * Listener del bot�n de ir a la ubicaci�n de la castraci�n
+	 */
+	private OnClickListener onGoFacebook = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			goFacebook();
+		}
+	};
+
+	/**
+	 * Publica en facebook la castracion
+	 */
+	public void goFacebook(){
+
+			if (ShareDialog.canShow(ShareLinkContent.class)) {
+				ShareLinkContent linkContent = new ShareLinkContent.Builder()
+						.setContentTitle(Constants.TITTLE_CASTRACION_FB)
+						.setContentDescription(
+								"Lugar: " + titleCastracionCalendar + "\n Fecha: " + fechaFb)
+						.setContentUrl(Uri.parse(Constants.URL_FACEBOOK))
+						.build();
+
+				shareDialog.show(linkContent);
+			}
+	}
 }
