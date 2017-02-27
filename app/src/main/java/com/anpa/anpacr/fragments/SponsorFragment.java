@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.anpa.anpacr.R;
@@ -18,7 +19,7 @@ import com.anpa.anpacr.domain.Sponsor;
 public class SponsorFragment extends android.support.v4.app.Fragment{
 	
 	private SponsorListAdapter sponsorAdapter;
-	private ListView lv_sponsor;
+	private GridView lv_sponsor;
 	
 	OnLoadSponsorListListener onLoadSponsorListListener; //Interface para recibir la lista desde el activity.
 
@@ -43,7 +44,7 @@ public class SponsorFragment extends android.support.v4.app.Fragment{
                     + " must implement OnLoadSponsorListListener");
         }
 		
-		lv_sponsor = (ListView) view.findViewById(R.id.list_sponsor);
+		lv_sponsor = (GridView) view.findViewById(R.id.list_sponsor);
 		
 		//Carga los datos obtenidos del activity, llamando al interface del activity
 		 List<Sponsor> sponsorlist = onLoadSponsorListListener.loadSponsorList();

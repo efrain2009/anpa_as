@@ -58,8 +58,8 @@ public class SponsorListAdapter extends BaseAdapter{
 		
 		Sponsor item = sponsorList.get(position);
 
-		TextView txt_descripcion_sponsor = (TextView) view.findViewById(R.id.txt_descripcion_sponsor);
-		txt_descripcion_sponsor.setText(item.get_sdescripcion());
+		TextView txt_nombre = (TextView) view.findViewById(R.id.txt_nombre_sponsor);
+		txt_nombre.setText(item.get_snombre());
 
 		if(item.get_bImagen() != null) {
 			ImageView img_sponsor = (ImageView) view.findViewById(R.id.img_sponsor);

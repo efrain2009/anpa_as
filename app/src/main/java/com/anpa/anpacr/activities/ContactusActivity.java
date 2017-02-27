@@ -77,7 +77,7 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 		tvEmail2 = (TextView) findViewById(R.id.txt_description_mail2);
 		tvURL = (TextView) findViewById(R.id.txt_description_webPage);
 		tvFacebookLink = (TextView) findViewById(R.id.txt_description_facebook);
-
+/*
 		tvCall1.setText(newMiscelaneo.getTelefono1());
 		tvCall2.setText(newMiscelaneo.getTelefono2());
 		tvDirecction.setText(newMiscelaneo.getDireccion());
@@ -85,7 +85,7 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 		tvEmail2.setText(newMiscelaneo.getCorreo2());
 		tvURL.setText(newMiscelaneo.getUrl());
 		tvFacebookLink.setText(newMiscelaneo.getFacebook());
-
+*/
 		tvCall1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -149,8 +149,7 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 	public void onFindDocSuccess(Storage response, int type) {
 		progressDialog.dismiss();
 		switch (type) {
-			case 1://Castraciones
-				//decodeCastrationJson(response);
+			case 1:
 				new AsyncLoadListTask().execute(response);
 				break;
 			default:
