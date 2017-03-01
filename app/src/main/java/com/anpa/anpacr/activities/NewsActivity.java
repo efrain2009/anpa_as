@@ -103,6 +103,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_PATROCINIO, queryPatro1, 3, this);
 
 		} catch (Exception e) {
+			progressDialog.dismiss();
 			showMessage(Constants.MSJ_ERROR_NOTICIA);
 			e.printStackTrace();
 		}
@@ -186,7 +187,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 	@Override
 	public void onUpdateDocSuccess(Storage response) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -230,8 +231,6 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 	}
 
 	private class AsyncLoadListTask extends AsyncTask<Storage, Integer, Boolean> {
-		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -240,12 +239,9 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 		protected Boolean doInBackground(Storage... storage) {
 
 			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
-			String sIdNews = "", sTitle = "", dCreationDate = "", sContent = "", date = "", sPhotoURL = "";
+			String sIdNews = "", sTitle = "", dCreationDate = "", sContent = "", sPhotoURL = "";
 			Integer iHabilitado = 0;
 			Date dateInicio = new Date();
-			DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 
 			for(int i=0; i < jsonDocList.size(); i ++){
 				sIdNews = jsonDocList.get(i).getDocId();
@@ -300,48 +296,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 			return null;
 		}
 	}
-	
-	/* //Metodo para decodificar el json de noticias
-	private void decodeNewsJson(Storage response){
-		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
-		String sIdNews = "", sTitle = "", dCreationDate = "", sContent = "", date = "", sPhotoURL = "";
-		Integer iHabilitado = 0;
-		Date dateInicio = new Date();
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-		for(int i=0; i < jsonDocList.size(); i ++){
-			sIdNews = jsonDocList.get(i).getDocId();
-			dCreationDate = jsonDocList.get(i).getCreatedAt();
-			try {
-				dateInicio = format.parse(dCreationDate);
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-
-			JSONObject jsonObject;
-			try {
-				jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
-				sTitle = jsonObject.getString(Constants.TITULO_NOTICIA);
-				sContent = jsonObject.getString(Constants.CONTENIDO_NOTICIA);
-				iHabilitado = jsonObject.getInt(Constants.HABILITADO_NOTICIA);
-				sPhotoURL = jsonObject.getString(Constants.IMAGEN_NOTICIA);
-				byte[] photo = Util.getBitmap(sPhotoURL);
-
-				News news = new News(sIdNews, sTitle, sContent, dCreationDate, photo, dateInicio, iHabilitado);
-				newsList.add(news);
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		getSupportActionBar().setSelectedNavigationItem(0);
-        LastNewsFragment frag = new LastNewsFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(android.R.id.content, frag, TAG_NEWS).commit();
-        fm.popBackStackImmediate();
-	}
-
-*/
 	/* Metodo para decodificar el json de preguntas */
 	private class AsyncLoadFreqAnswerListTask extends AsyncTask<Storage, Integer, Boolean> {
 		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
@@ -430,6 +385,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 		}
 
 		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
 		}
 	}
 

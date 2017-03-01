@@ -31,7 +31,6 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 	private AsyncApp42ServiceApi asyncService;
 	private String docId = "";
 	private ProgressDialog progressDialog;
-	Miscelaneo newMiscelaneo;
 	TextView tvCall1;
 	TextView tvCall2;
 	TextView tvDirecction;
@@ -52,24 +51,6 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CONTACTUS);
 
-
-		try {
-			/* App42 */
-			progressDialog = ProgressDialog.show(ContactusActivity.this,
-					Constants.ESPERA, Constants.ESPERA);
-
-
-			asyncService.findDocByColletion(Constants.App42DBName, Constants.TABLE_MISCELANEOS, 1, this);
-
-		} catch (Exception e) {
-			showMessage(Constants.MSJ_ERROR_CASTRATION);
-			e.printStackTrace();
-		}
-		finally {
-			progressDialog.dismiss();
-		}
-
-
 		tvCall1 = (TextView) findViewById(R.id.txt_description_phone1);
 		tvCall2 = (TextView) findViewById(R.id.txt_description_phone2);
 		tvDirecction = (TextView) findViewById(R.id.txt_description_location);
@@ -77,40 +58,19 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 		tvEmail2 = (TextView) findViewById(R.id.txt_description_mail2);
 		tvURL = (TextView) findViewById(R.id.txt_description_webPage);
 		tvFacebookLink = (TextView) findViewById(R.id.txt_description_facebook);
-/*
-		tvCall1.setText(newMiscelaneo.getTelefono1());
-		tvCall2.setText(newMiscelaneo.getTelefono2());
-		tvDirecction.setText(newMiscelaneo.getDireccion());
-		tvEmail1.setText(newMiscelaneo.getCorreo1());
-		tvEmail2.setText(newMiscelaneo.getCorreo2());
-		tvURL.setText(newMiscelaneo.getUrl());
-		tvFacebookLink.setText(newMiscelaneo.getFacebook());
-*/
-		tvCall1.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				callPhone(newMiscelaneo.getTelefono1());
-			}
-		});
-		tvCall2.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				callPhone(newMiscelaneo.getTelefono2());
-			}
-		});
 
-		tvFacebookLink.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				try {
-					String uri = newMiscelaneo.getFacebook();
-					openUri(uri);
-				} catch (Exception e) {
-					String uri = Constants.ANPA_FACEBOOK_LINK_BACKUP;
-					openUri(uri);
-				}
-			}
-		});
+		try {
+			/* App42 */
+			progressDialog = ProgressDialog.show(ContactusActivity.this,
+					Constants.ESPERA, Constants.ESPERA);
+
+			asyncService.findDocByColletion(Constants.App42DBName, Constants.TABLE_MISCELANEOS, 1, this);
+
+		} catch (Exception e) {
+			progressDialog.dismiss();
+			showMessage(Constants.MSJ_ERROR_CASTRATION);
+			e.printStackTrace();
+		}
 	}
 
 	// Llama al intent para llamar a un telefono.
@@ -183,8 +143,7 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 	}
 
 	private class AsyncLoadListTask extends AsyncTask<Storage, Integer, Boolean> {
-		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-
+		Miscelaneo newMiscelaneo;
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -223,9 +182,42 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 		}
 
 		protected void onPostExecute(Boolean result) {
-			if(result) {
-				//showMessage("Miscelaneo");//updateAdapterLastCastrationFragment();
+			if(result){
+				tvCall1.setText(newMiscelaneo.getTelefono1());
+				tvCall2.setText(newMiscelaneo.getTelefono2());
+				tvDirecction.setText(newMiscelaneo.getDireccion());
+				tvEmail1.setText(newMiscelaneo.getCorreo1());
+				tvEmail2.setText(newMiscelaneo.getCorreo2());
+				tvURL.setText(newMiscelaneo.getUrl());
+				tvFacebookLink.setText(newMiscelaneo.getFacebook());
+
+				tvCall1.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						callPhone(newMiscelaneo.getTelefono1());
+					}
+				});
+				tvCall2.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						callPhone(newMiscelaneo.getTelefono2());
+					}
+				});
+
+				tvFacebookLink.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						try {
+							String uri = newMiscelaneo.getFacebook();
+							openUri(uri);
+						} catch (Exception e) {
+							String uri = Constants.ANPA_FACEBOOK_LINK_BACKUP;
+							openUri(uri);
+						}
+					}
+				});
 			}
+			progressDialog.dismiss();
 		}
 	}
 
