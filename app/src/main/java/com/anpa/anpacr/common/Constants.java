@@ -19,7 +19,7 @@ public class Constants {
 
 	public final static String URL_FACEBOOK_ANPA = "http://www.facebook.com/ANPACR/";
 
-	public final static String URL_FACEBOOK = "https://developers.facebook.com";
+	public final static String URL_FACEBOOK = "https://developers.facebook.com/"; //"https://www.facebook.com/ANPACR/";
 
 	/*Table Perdidos*/
 	//public final static String TABLE_PERDIDOS = "ANPA03_PERDIDOS";

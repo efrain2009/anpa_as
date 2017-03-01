@@ -46,9 +46,8 @@ public class DetailTipActivity extends ActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 
-		// Instancia la BD App 42
-		api = new ServiceAPI(Constants.App42ApiKey, Constants.App42ApiSecret);
-
+        // Instancia la BD App 42
+        api = new ServiceAPI(Constants.App42ApiKey, Constants.App42ApiSecret);
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -178,27 +177,29 @@ public class DetailTipActivity extends ActionBarActivity {
     	imgBtn4.setEnabled(false);
     	imgBtn5.setEnabled(false);
     	
-    	addCalification(nCalification);
+    	Tip tip = addCalification(nCalification);
+		addPuntuation(tip);
+		alertDialog();
     }
     
     //Actualiza la calificaci�n del consejo
-    private void addCalification(final int nCalification){
+    private Tip addCalification(final int nCalification){
 		final Tip tip = new Tip();
 
 		//Verifica que el usuario tenga internet:
     	boolean isInternet = Gps.getInstance().internetCheck(getApplicationContext());
-    	if(!isInternet)
-    		return;
-
-		storageService.findDocumentById(Constants.App42ApiKey, Constants.App42ApiSecret, sTipId, new App42CallBack() {
-
+    	if(isInternet)
+		// instacia Storage App42
+		storageService = api.buildStorageService();
+			/* Below snippet will save JSON object in App42 Cloud */
+		storageService.findDocumentById(Constants.App42DBName, Constants.TABLE_CONSEJO, sTipId, new App42CallBack() {
 			@Override
 			public void onSuccess(Object response) {
 				String sIdTip = "", sAutor = "", sConsejo = "", dCreationDate = "";
 				Integer totalVotos = 0, cincoEstrellas = 0, cuatroEstrellas = 0, tresEstrellas = 0, dosEstrellas = 0, unoEstrellas = 0, especie = 0, raza = 0, estado = 0, iHabilitado = 0;
 				SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
 
-				Storage storage = (Storage) response;
+				Storage storage  = (Storage )response;
 				ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
 
 					sIdTip = jsonDocList.get(0).getDocId();
@@ -232,6 +233,33 @@ public class DetailTipActivity extends ActionBarActivity {
 						tip.set_iRaza(raza);
 						tip.set_iEspecie(especie);
 						tip.set_iHabilitado(iHabilitado);
+
+                        if (tip.get_sConsejo() != null) {
+                            // Now let's update it with some new data. In this case, only cheatMode and score
+                            // will get sent to the Parse Cloud. playerName hasn't changed.
+                            int rowToUpdate = 0;
+                            switch (nCalification) {
+                                case 1:
+                                    tip.set_i1Estrella(tip.get_i1Estrella() + 1);
+                                    break;
+                                case 2:
+                                    tip.set_i2Estrella(tip.get_i2Estrella() + 1);
+                                    break;
+                                case 3:
+                                    tip.set_i3Estrella(tip.get_i3Estrella() + 1);
+                                    break;
+                                case 4:
+                                    tip.set_i4Estrella(tip.get_i4Estrella() + 1);
+                                    break;
+                                default:
+                                    tip.set_i5Estrella(tip.get_i5Estrella() + 1);
+                                    break;
+                            }
+                            tip.set_iTotalVotos(tip.get_iTotalVotos() +1);
+                        }
+
+
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -242,31 +270,10 @@ public class DetailTipActivity extends ActionBarActivity {
 
 			}
 		});
-		    if (tip == null) {
-				// Now let's update it with some new data. In this case, only cheatMode and score
-				// will get sent to the Parse Cloud. playerName hasn't changed.
-				int rowToUpdate = 0;
-				switch (nCalification) {
-					case 1:
-						tip.set_i1Estrella(tip.get_i1Estrella() + 1);
-						break;
-					case 2:
-						tip.set_i2Estrella(tip.get_i2Estrella() + 1);
-						break;
-					case 3:
-						tip.set_i3Estrella(tip.get_i3Estrella() + 1);
-						break;
-					case 4:
-						tip.set_i4Estrella(tip.get_i4Estrella() + 1);
-						break;
-					default:
-						tip.set_i5Estrella(tip.get_i5Estrella() + 1);
-						break;
-				}
-				tip.set_iTotalVotos(tip.get_iTotalVotos() +1);
-			}
+		return tip;
+	}
 
-
+	private void addPuntuation(Tip tip) {
 		JSONObject tipJSON = new JSONObject();
 		Util.textAsJSON(tipJSON, Constants.DESCR_CONSEJO, tip.get_sConsejo() , -1);
 		Util.textAsJSON(tipJSON, Constants.AUTOR_CONSEJO, tip.get_sAuthor() , -1);
@@ -282,30 +289,28 @@ public class DetailTipActivity extends ActionBarActivity {
 		Util.textAsJSON(tipJSON, Constants.VOTOS_CONSEJO, "" , tip.get_iTotalVotos());
 		Util.textAsJSON(tipJSON, Constants.HABILITADO_CONSEJO, "" , 1);
 
-					storageService.updateDocumentByDocId(Constants.App42ApiKey, Constants.App42ApiSecret, sTipId, tipJSON, new App42CallBack() {
-						@Override
-						public void onSuccess(Object response) {
-							Storage storage  = (Storage )response;
-							ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
-							for(int i=0;i<jsonDocList.size();i++)
-							{
-								System.out.println("objectId is " + jsonDocList.get(i).getDocId());
-								//Above line will return object id of saved JSON object
-								System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
-								System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
-								System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
-							}
-						}
+		storageService.updateDocumentByDocId(Constants.App42DBName, Constants.TABLE_CONSEJO, sTipId, tipJSON, new App42CallBack() {
+            @Override
+            public void onSuccess(Object response) {
+                Storage storage  = (Storage )response;
+                ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+                for(int i=0;i<jsonDocList.size();i++)
+                {
+                    System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+                    //Above line will return object id of saved JSON object
+                    System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+                    System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+                    System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+                }
+            }
 
-						@Override
-						public void onException(Exception e) {
+            @Override
+            public void onException(Exception e) {
 
-						}
-					});
+            }
+        });
+	}
 
-				//alertDialog ();
-		      Toast.makeText(getApplicationContext(), Constants.TIP_SUCCESS, Toast.LENGTH_LONG).show();
-		    }
 	public void alertDialog (){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(Constants.MSJ_SUCCESS_CALIFICATION_TIP)
