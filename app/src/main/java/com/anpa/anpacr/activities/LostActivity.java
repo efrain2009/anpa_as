@@ -18,6 +18,7 @@ import com.anpa.anpacr.R;
 import com.anpa.anpacr.adapter.LostListAdapter;
 import com.anpa.anpacr.app42.AsyncApp42ServiceApi;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.Lost;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.storage.Query;
@@ -120,7 +121,7 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
 		progressDialog.dismiss();
-		Toast.makeText(getApplicationContext(), "¡Que suerte! No hay mascotas perdidas por el momento", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(),Constants.TITTLE_PERDIDO_NO_LIST, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -257,7 +258,7 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 					byte[] photo = getBitmap(sPhotoURL);
 
 					if(iHabilitado == 1) {
-						Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, iRaza, iEspecie, date, photo, sLatitud, sLongitud, iHabilitado);
+						Lost newLost = new Lost(sIdLost,  Util.decode64AsText(sNomMascota),  Util.decode64AsText(sNomDueno), sTelefono, iProvincia, iCanton,  Util.decode64AsText(sDetalle), iRaza, iEspecie, date, photo, sLatitud, sLongitud, iHabilitado);
 						lostList.add(newLost);
 					}
 				} catch (JSONException e) {

@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,8 +34,17 @@ import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.GenericNameValue;
 import com.anpa.anpacr.domain.Gps;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.shephertz.app42.paas.sdk.android.App42API;
@@ -54,6 +64,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class AddLostActivity extends AnpaAppFraqmentActivity {
@@ -82,6 +94,9 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	//Integration with facebook
 	CallbackManager callbackManager;
 	ShareDialog shareDialog;
+	AccessTokenTracker accessTokenTracker;
+	AccessToken accessToken;
+	String lost = "";
 
 
 
@@ -98,9 +113,41 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		photoPath = "";
 		app42PhotoURL = "";
 
-		// part for facebook
-		FacebookSdk.sdkInitialize(getApplicationContext());
-		callbackManager = CallbackManager.Factory.create();
+		/* Facebook*/
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_home);
+
+		/*Facbook*/
+        LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
+        buttonFb.clearPermissions();
+
+        callbackManager = CallbackManager.Factory.create();
+
+        List<String> publishPermissions = Arrays.asList("publish_actions");
+        //	buttonFb.setReadPermissions("user_friends");
+        //LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
+
+        buttonFb.setPublishPermissions(publishPermissions);
+
+        buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                accessToken = loginResult.getAccessToken();
+                System.out.print("Access Token: " + accessToken.getToken());
+            }
+
+            @Override
+            public void onCancel() {
+                System.out.print("Cancelado");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                System.out.print("Error: " + error);
+            }
+        });
+
+        callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
 		saveLost = (Button) findViewById(R.id.btn_save_lost);
@@ -165,6 +212,29 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 			_sLatitud = Constants.LATITUD_COSTA_RICA;
 			_sLongitud = Constants.LONGITUD_COSTA_RICA;
 		}
+
+
+		callbackManager = CallbackManager.Factory.create();
+		shareDialog = new ShareDialog(this);
+/*
+		accessTokenTracker = new AccessTokenTracker() {
+			@Override
+			protected void onCurrentAccessTokenChanged(
+					AccessToken oldAccessToken,
+					AccessToken currentAccessToken) {
+
+				accessToken = currentAccessToken;
+				System.out.println("Set Current token");
+			}
+		};
+*/
+        //Button FB
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.login_button);
+        if(AccessToken.getCurrentAccessToken() == null) {
+            linearLayout.setVisibility(View.VISIBLE);
+        }else{
+            linearLayout.setVisibility(View.INVISIBLE);
+        }
 
 	}
 
@@ -279,7 +349,12 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 					System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
 					System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
 					if(check_facebook.isChecked()) {
-						shareOnFacebook(editxt_detail_lost_description.getText().toString());
+                        if(AccessToken.getCurrentAccessToken() != null) {
+                            lost = Constants.TITTLE_PERDIDO_FB + " Nombre: " + editxt_nomMascota.getText().toString() + " Detalles: " + editxt_detail_lost_description.getText().toString();
+                            shareOnFacebook();
+                        }else{
+                            alertaLogeoFB();
+                        }
 					}
 				}
 			}
@@ -290,6 +365,16 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		});
 		alertDialog();
 	}
+
+    private void alertaLogeoFB() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Constants.MSJ_ERROR_LOGIN_FB)
+                .setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                }).create().show();
+    }
 
 	public void alertDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -310,7 +395,10 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		callbackManager.onActivityResult(requestCode, resultCode, data);
+
 		if (requestCode == 1 && resultCode == this.RESULT_OK) {
+
 			if (data == null) {
 				//Display an error
 				return;
@@ -554,16 +642,59 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		razaSpinner.setOnItemSelectedListener(onSelectItemRaza);
 	}
 
-	private void shareOnFacebook(String lost){
-		if (ShareDialog.canShow(ShareLinkContent.class)) {
-			ShareLinkContent linkContent = new ShareLinkContent.Builder()
-					.setContentTitle(Constants.TITTLE_PERDIDO_FB)
-					.setContentDescription(
-							lost)
-					.setContentUrl(Uri.parse(Constants.URL_FACEBOOK_ANPA))
-					.build();
+	private void shareOnFacebook(){
+		FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
+			@Override
+			public void onInitialized() {
+				if(AccessToken.getCurrentAccessToken() == null){
+					/*Inicia Sesion*/
+		/*Facbook*/
+					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
+					buttonFb.clearPermissions();
 
-			shareDialog.show(linkContent);
-		}
+					List<String> publishPermissions = Arrays.asList("publish_actions");
+					//	buttonFb.setReadPermissions("user_friends");
+					//LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
+
+					buttonFb.setPublishPermissions(publishPermissions);
+
+					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+						@Override
+						public void onSuccess(LoginResult loginResult) {
+							accessToken = loginResult.getAccessToken();
+							System.out.print("Access Token: " + accessToken.getToken());
+						}
+
+						@Override
+						public void onCancel() {
+							System.out.print("Cancelado");
+						}
+
+						@Override
+						public void onError(FacebookException error) {
+							System.out.print("Error: " + error);
+						}
+					});
+				} else {
+					Bundle params = new Bundle();
+					params.putString("message", lost);
+					//			.setImageUrl(Uri.parse("http://cdn.shephertz.com/repository/files/7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4/da5802be1fc4fd0ba497a9e6bb393627051789c9/ANPA.png"))
+					//			.build();
+					params.putString("link", "https://www.facebook.com/ANPACR/");
+					new GraphRequest(
+							AccessToken.getCurrentAccessToken() ,
+							"/me/feed",
+							params,
+							HttpMethod.POST,
+							new GraphRequest.Callback() {
+								public void onCompleted(GraphResponse response) {
+									Log.d("", "------ graphResponse = " + response);
+								}
+							}
+					).executeAsync();
+					System.out.println("Logged in");
+				}
+			}
+		});
 	}
 }

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import com.shephertz.app42.paas.sdk.android.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,12 +33,27 @@ public class Util {
             if(value1.isEmpty()){
                 json.put(column, value2);
             }else {
-                json.put(column, value1);
+                json.put(column, textAsEncode64(value1));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+    }
+
+
+    public static String textAsEncode64(String column){
+       return Base64.encodeBytes(column.getBytes());
+    }
+
+    public static String decode64AsText(String column){
+        byte[] decodeByte = new byte[0];
+        try {
+            decodeByte = Base64.decode(column);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new String (decodeByte);
     }
 
 

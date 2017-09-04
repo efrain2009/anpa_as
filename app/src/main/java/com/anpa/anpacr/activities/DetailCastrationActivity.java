@@ -7,8 +7,10 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
@@ -21,6 +23,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,8 +35,17 @@ import com.anpa.anpacr.R;
 import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.domain.Castration;
 import com.anpa.anpacr.domain.Gps;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
@@ -43,10 +55,14 @@ public class DetailCastrationActivity extends ActionBarActivity {
 	Calendar dateStartCastrationCalendar;
 	Calendar dateEndCastrationCalendar;
 
+	// part for facebook
 	//Integration with facebook
 	CallbackManager callbackManager;
 	ShareDialog shareDialog;
-	
+	AccessTokenTracker accessTokenTracker;
+	AccessToken accessToken;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,18 +71,31 @@ public class DetailCastrationActivity extends ActionBarActivity {
 		dateStartCastrationCalendar = Calendar.getInstance();
 		dateEndCastrationCalendar = Calendar.getInstance();
 
-		// part for facebook
-		FacebookSdk.sdkInitialize(getApplicationContext());
-		callbackManager = CallbackManager.Factory.create();
-		shareDialog = new ShareDialog(this);
-		
 		//Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CASTRATION);
+
 		//Ir GPS
 		Button btnGoLocation = (Button) findViewById(R.id.btn_send_google_maps);
 		btnGoLocation.setOnClickListener(onGoLocation);
-		
+
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		callbackManager = CallbackManager.Factory.create();
+		shareDialog = new ShareDialog(this);
+
+
+		accessTokenTracker = new AccessTokenTracker() {
+			@Override
+			protected void onCurrentAccessTokenChanged(
+					AccessToken oldAccessToken,
+					AccessToken currentAccessToken) {
+
+				accessToken = currentAccessToken;
+				System.out.println("Set Current token");
+			}
+		};
+
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			Castration value = (Castration) extras.get(Constants.ID_OBJ_DETAIL_CASTRATION);
@@ -249,15 +278,64 @@ public class DetailCastrationActivity extends ActionBarActivity {
 	 */
 	public void goFacebook(){
 
-			if (ShareDialog.canShow(ShareLinkContent.class)) {
-				ShareLinkContent linkContent = new ShareLinkContent.Builder()
-						.setContentTitle(Constants.TITTLE_CASTRACION_FB)
-						.setContentDescription(
-								"Lugar: " + titleCastracionCalendar + "\n Fecha: " + fechaFb)
-						.setContentUrl(Uri.parse(Constants.URL_FACEBOOK))
-						.build();
+		FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
+			@Override
+			public void onInitialized() {
+				if(AccessToken.getCurrentAccessToken() == null){
+					/*Inicia Sesion*/
+		/*Facbook*/
+					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
+					buttonFb.clearPermissions();
 
-				shareDialog.show(linkContent);
+					List<String> publishPermissions = Arrays.asList("publish_actions");
+					//	buttonFb.setReadPermissions("user_friends");
+					//LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
+
+					buttonFb.setPublishPermissions(publishPermissions);
+
+					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+						@Override
+						public void onSuccess(LoginResult loginResult) {
+							accessToken = loginResult.getAccessToken();
+							System.out.print("Access Token: " + accessToken.getToken());
+						}
+
+						@Override
+						public void onCancel() {
+							System.out.print("Cancelado");
+						}
+
+						@Override
+						public void onError(FacebookException error) {
+							System.out.print("Error: " + error);
+						}
+					});
+				} else {
+					Bundle params = new Bundle();
+					params.putString("message", Constants.TITTLE_CASTRACION_FB);
+					//			.setImageUrl(Uri.parse("http://cdn.shephertz.com/repository/files/7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4/da5802be1fc4fd0ba497a9e6bb393627051789c9/ANPA.png"))
+					//			.build();
+					params.putString("link", "https://www.facebook.com/ANPACR/");
+					new GraphRequest(
+							AccessToken.getCurrentAccessToken() ,
+							"/me/feed",
+							params,
+							HttpMethod.POST,
+							new GraphRequest.Callback() {
+								public void onCompleted(GraphResponse response) {
+									Log.d("", "------ graphResponse = " + response);
+								}
+							}
+					).executeAsync();
+					System.out.println("Logged in");
+				}
 			}
+		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 }

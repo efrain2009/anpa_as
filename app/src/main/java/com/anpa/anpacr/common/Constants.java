@@ -16,6 +16,7 @@ public class Constants {
 	public final static String MSJ_ERROR ="Ups! Perdimos el rastro de la información. Intenta más tarde.";
 	public final static String MSJ_SUCCESS_TIP ="Su experiencia está en periodo de aprobación por ANPA";
 	public final static String BTN_ACEPTAR ="Aceptar";
+    public final static String MSJ_ERROR_LOGIN_FB = "Debe ingresar con su cuenta de Facebook";
 
 	public final static String URL_FACEBOOK_ANPA = "http://www.facebook.com/ANPACR/";
 
@@ -35,12 +36,13 @@ public class Constants {
 	public final static String LONGITUD_PERDIDO = "ANPA03_LONGITUDE";
 	public final static String PROVINCIA_PERDIDO = "ANPA03_PROVINCIA";
 	public final static String CANTON_PERDIDO = "ANPA03_CANTON";
-	public final static String ESPERA_PERDIDO = "Olfateando perdidos....";
+	public final static String ESPERA_PERDIDO = "Olfateando adopciones...."; //"Olfateando perdidos....";
 	public final static String HABILITADO_PERDIDO = "ANPA03_HABILITADO";
-	public final static String MSJ_ERROR_PERDIDO ="Ups! Perdimos el rastro de las mascotas perdidas. Intenta más tarde.";
+	public final static String MSJ_ERROR_PERDIDO ="Ups! Perdimos el rastro de las mascotas en adopción. Intenta más tarde.";//"Ups! Perdimos el rastro de las mascotas perdidas. Intenta más tarde.";
 	public final static String USUARIO = "ANPA03_USUARIO";
 	public final static String USUARIO_NOMBRE = "UsuarioApp";
-	public final static String TITTLE_PERDIDO_FB = "Ha compartido una publicación en ANPACR";
+	public final static String TITTLE_PERDIDO_FB = "Ha compartido una adopción en ANPACR: ";
+	public final static String TITTLE_PERDIDO_NO_LIST = "¡No hay mascostas disponibles en adopción!";  // "¡Que suerte! No hay mascotas perdidas por el momento";
 	
 	/*Table Castraciones
 	public final static String TABLE_CASTRACIONES = "ANPA04_EVENTO";*/
@@ -110,7 +112,7 @@ public class Constants {
 	public final static String ESPERA_CONSEJO = "Olfateando consejos....";
 	public final static String MSJ_ERROR_CONSEJO = "Ups! Perdimos el rastro de las consejos. Intenta más tarde.";
 	public final static String MSJ_SUCCESS_CALIFICATION_TIP = "Acabas de calificar el consejo. Gracias por puntuar!";
-	public final static String TITTLE_CONSEJO_FB = "Ha compartido una experiencia en ANPACR";
+	public final static String TITTLE_CONSEJO_FB = "Ha compartido una experiencia en ANPACR: ";
 
 	/*Home Activity*/	
 	public final static String TITLE_DESCRIPTION_CONTACTUS = "Contáctenos";
@@ -145,9 +147,9 @@ public class Constants {
 	public final static String ID_OBJ_DETAIL_FREQ_ANSWER = "answer_objects";
 	
 	/*Preg frecuentes Activity*/
-	public final static String TITLE_DESCRIPTION_LOST = "Perdidos";
+	public final static String TITLE_DESCRIPTION_LOST = "Adopciones";
 	public static final String TITLE_LAST_LOST = "Ultimamente";
-	public static final String TITLE_LOST = "Perdidos";
+	public static final String TITLE_LOST = "Adopciones";
 	public final static String ID_OBJ_DETAIL_LIST = "lost_objects";
 	public final static String CONSEJOS_PARA = "Consejos para: ";
 

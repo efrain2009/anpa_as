@@ -1,6 +1,7 @@
 package com.anpa.anpacr.domain;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 
 public class FreqAnswer implements Serializable{
@@ -84,8 +85,5 @@ public class FreqAnswer implements Serializable{
 		return _iHabilitado;
 	}
 
-	public void set_iHabilitado(Integer _iHabilitado) {
-		this._iHabilitado = _iHabilitado;
-	}
 }
 

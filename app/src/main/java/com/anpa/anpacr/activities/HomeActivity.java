@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 import com.anpa.anpacr.R;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -15,9 +16,14 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class HomeActivity extends ActionBarActivity {
 
-	CallbackManager callbakManager;
+	CallbackManager callbackManager;
+	AccessToken accessToken;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,27 +31,35 @@ public class HomeActivity extends ActionBarActivity {
 
 		/* Facebook*/
 		FacebookSdk.sdkInitialize(getApplicationContext());
-
 		setContentView(R.layout.activity_home);
 
-		callbakManager = CallbackManager.Factory.create();
 		/*Facbook*/
 		LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-		buttonFb.setReadPermissions("user_friends");
-		buttonFb.registerCallback(callbakManager, new FacebookCallback<LoginResult>() {
+		buttonFb.clearPermissions();
+
+		callbackManager = CallbackManager.Factory.create();
+
+		List<String> publishPermissions = Arrays.asList("publish_actions");
+	//	buttonFb.setReadPermissions("user_friends");
+		//LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
+
+		buttonFb.setPublishPermissions(publishPermissions);
+
+		buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 			@Override
 			public void onSuccess(LoginResult loginResult) {
-
+				accessToken = loginResult.getAccessToken();
+				System.out.print("Access Token: " + accessToken.getToken());
 			}
 
 			@Override
 			public void onCancel() {
-
+				System.out.print("Cancelado");
 			}
 
 			@Override
 			public void onError(FacebookException error) {
-
+				System.out.print("Error: " + error);
 			}
 		});
 
@@ -158,5 +172,11 @@ public class HomeActivity extends ActionBarActivity {
 	
 	private void startContactusActivity(){
 		startActivity(new Intent(this, ContactusActivity.class));
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 }

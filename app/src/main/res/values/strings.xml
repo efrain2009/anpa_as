@@ -5,11 +5,12 @@
     <string name="hello_world">Hello world!</string>
 
     <string name="facebook_app_id">915274545177488</string>
+    <string name="fb_login_protocol_scheme">915274545177488</string>
 
     <string name="txt_news">Noticias</string>
-    <string name="txt_tips">Consejos</string>
+    <string name="txt_tips">Experiencias</string>
     <string name="txt_castration">Castraciones</string>
-    <string name="txt_adoption">Perdidos</string>
+    <string name="txt_adoption">Adopciones</string>
     <string name="txt_donation">¡Yo Dono!</string>
     <string name="txt_contactus">Contáctenos</string>
     <string name="txt_description_image">Descripción imagen</string>
@@ -35,31 +36,33 @@
     <string name="txt_subtitle_autor">Por:</string>
     <string name="txt_breed_author">Por:</string>
     <string name="txt_public_fb">Compartir en mi Facebook</string>
-    <string name="txt_add_tip">Agregar consejo</string>
-    <string name="bt_buton_add_tip">Agregar consejo</string>
+    <string name="txt_add_tip">Agregar mi experiencia</string>
+    <string name="bt_buton_add_tip">Agregar mi experiencia</string>
     <string name="txt_search_tip">Buscar</string>
     <string name="txt_specie">Especie:</string>
     <string name="txt_race">Raza:</string>
     <string name="txt_subtitle_raza_consejo">Raza:</string>
-    <string name="txt_list_title_tip">Lista de consejos</string>
+    <string name="txt_list_title_tip">Lista de experiencias</string>
     <string name="txt_disclaimer">*Aclaración: Los contenidos de ésta sección NO son elaborados por personal de ANPA, sino por la comunidad de usuarios. Queda a tu juicio el ponerlos en práctica o no.</string>
-    <string name="txt_agrega_consejo">Agrega tu consejo</string>
+    <string name="txt_agrega_consejo">Agrega tu experiencia</string>
+    <string name="txt_add_tip_public">Publicar mi experiencia</string>
     <string name="txt_tip_opinion">¿Qué te pareció este consejo?</string>
 
 
     <!-- Lost -->
     <string name="txt_search_lost">Buscar</string>
     <string name="txt_disclaimer_lost">*Aclaración: Los siguientes anuncios de mascotas pérdidas son elaborados por la comunidad de usuarios.</string>
-    <string name="txt_list_title_lost">Lista de pérdidos cerca de mi</string>
+    <string name="txt_list_title_lost">Lista de adopciones cerca de mi</string>
     <string name="txt_detail_lost_title">Aviso</string>
     <string name="txt_subtitle_nom_mascota">Nombre mascota*: </string>
     <string name="txt_subtitle_especie_mascota">Especie*: </string>
     <string name="txt_subtitle_raza_mascota">Raza*: </string>
     <string name="txt_subtitle_contacto">Contacto*: </string>
     <string name="txt_subtitle_telefono">Teléfono*: </string>
-    <string name="txt_subtitle_short_direction">¿Dónde se pérdio?</string>
+    <string name="txt_subtitle_short_direction">¿Dirección?</string>
     <string name="txt_subtitle_detalle">Detalles*: </string>
-    <string name="txt_add_lost">Encontrar a mi mascota</string>
+    <!--    <string name="txt_add_lost">Encontrar a mi mascota</string> -->
+    <string name="txt_add_lost">Publicar a mi adopción</string>
     <string name="txt_add_lost_photo">Seleccionar Foto</string>
     <string name="txt_subtitle_canton">Cantón*:</string>
     <string name="txt_subtitle_provincia">Provincia*:</string>

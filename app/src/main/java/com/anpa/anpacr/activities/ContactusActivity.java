@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.app42.AsyncApp42ServiceApi;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.Miscelaneo;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
@@ -170,7 +171,7 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 					correo2 = jsonObject.getString(Constants.MAIL2_MISCELANEOS);
 					url = jsonObject.getString(Constants.URL_MISCELANEOS);
 
-					newMiscelaneo = new Miscelaneo(sId, direccion, correo1, correo2, tel1,
+					newMiscelaneo = new Miscelaneo(sId,  Util.decode64AsText(direccion),  Util.decode64AsText(correo1),  Util.decode64AsText(correo2), tel1,
 							tel2, url, facebook);
 
 				} catch (JSONException e) {

@@ -16,11 +16,13 @@ import com.anpa.anpacr.R;
 import com.anpa.anpacr.adapter.TipListAdapter;
 import com.anpa.anpacr.app42.AsyncApp42ServiceApi;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.Tip;
 import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.storage.Query;
 import com.shephertz.app42.paas.sdk.android.storage.QueryBuilder;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
+import com.shephertz.app42.paas.sdk.android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,8 +65,8 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 
-		Button btnAddLost = (Button) findViewById(R.id.btn_add_tip);
-		btnAddLost.setOnClickListener(onAddTip);
+		Button btnAddTip = (Button) findViewById(R.id.btn_add_tip);
+		btnAddTip.setOnClickListener(onAddTip);
 
 		lv_tips = (ListView) findViewById(R.id.list_tips);
 		tipsAdapter = new TipListAdapter(this, tipsList);
@@ -113,7 +115,7 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 			switch (type) {
 				case 1://tips
 					//decodeTipsJson(response);
-					new TipsActivity.AsyncLoadListTask().execute(response);
+					new AsyncLoadListTask().execute(response);
 					break;
 				default:
 					break;
@@ -174,7 +176,7 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 					especie = jsonObject.getInt(Constants.ESPECIE_CONSEJO);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_CONSEJO);
 					if (iHabilitado == 1) {
-						Tip newTip = new Tip(sIdTip, sAutor, sConsejo, null, unoEstrellas, dosEstrellas, tresEstrellas, cuatroEstrellas, cincoEstrellas, totalVotos, raza, especie, dCreationDate, estado, iHabilitado);
+						Tip newTip = new Tip(sIdTip, Util.decode64AsText(sAutor), Util.decode64AsText(sConsejo), null, unoEstrellas, dosEstrellas, tresEstrellas, cuatroEstrellas, cincoEstrellas, totalVotos, raza, especie, dCreationDate, estado, iHabilitado);
 						tipsList.add(newTip);
 					}
 				} catch (JSONException e) {

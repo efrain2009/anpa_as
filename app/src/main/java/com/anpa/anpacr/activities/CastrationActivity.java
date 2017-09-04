@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -106,17 +108,17 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			fechaFilter.set(Calendar.MONTH, 2);
 			Date fechaFinFilter = fechaFilter.getTime();
 
-			Query queryCast2 = QueryBuilder.build(Constants.HORARIO_INICIO_CASTRACION, fechaInicioFilter, QueryBuilder.Operator.GREATER_THAN_EQUALTO);
-			Query queryCast3  = QueryBuilder.compoundOperator(queryCast1, QueryBuilder.Operator.AND, queryCast2);
-			Query queryCast4 = QueryBuilder.build(Constants.HORARIO_FIN_CASTRACION, fechaFinFilter, QueryBuilder.Operator.LESS_THAN_EQUALTO);
-			Query queryCast5  = QueryBuilder.compoundOperator(queryCast3, QueryBuilder.Operator.OR, queryCast4);
+			//Query queryCast2 = QueryBuilder.build(Constants.HORARIO_INICIO_CASTRACION, fechaInicioFilter, QueryBuilder.Operator.GREATER_THAN_EQUALTO);
+			//Query queryCast3  = QueryBuilder.compoundOperator(queryCast1, QueryBuilder.Operator.AND, queryCast2);
+			//Query queryCast4 = QueryBuilder.build(Constants.HORARIO_FIN_CASTRACION, fechaFinFilter, QueryBuilder.Operator.LESS_THAN_EQUALTO);
+			//Query queryCast5  = QueryBuilder.compoundOperator(queryCast3, QueryBuilder.Operator.AND, queryCast4);
 
 			//Ejecurar fiiltros de preguntas frecuentes estado = 0 y habilitados
 			Query queryPreg1 = QueryBuilder.build(Constants.HABILITADO_PREGUNTA, 1, QueryBuilder.Operator.EQUALS);
 			Query queryPreg2 = QueryBuilder.build(Constants.TIPO_PREGUNTA, 0, QueryBuilder.Operator.EQUALS);
 			Query queryPreg3  = QueryBuilder.compoundOperator(queryPreg1, QueryBuilder.Operator.AND, queryPreg2);
 
-			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_CASTRACIONES, queryCast5, 1, this);
+			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_CASTRACIONES, queryCast1, 1, this);
 			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_PREGUNTA_FREC, queryPreg3 , 2, this);
 
 		} catch (Exception e) {
@@ -157,7 +159,8 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 				new AsyncLoadListTask().execute(response);
 				break;
 			case 2://Preguntas
-				decodePreguntasFrecuentesJson(response);
+				//decodePreguntasFrecuentesJson(response);
+				new AsyncLoadFreqAnswerListTask().execute(response);
 				break;
 			default:
 				break;
@@ -281,8 +284,8 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 					byte[] photo = getBitmap(sPhotoURL);
 
-					Castration newCastration = new Castration(sIdCastration, sNombre, sDoctor, monto, direccion,
-							sDescripcion, encargado, dInicioDate, dFinDate, tipo, date, latitud, longitud, photo, habilitado, muestraMonto);
+					Castration newCastration = new Castration(sIdCastration,  Util.decode64AsText(sNombre),  Util.decode64AsText(sDoctor), monto,  Util.decode64AsText(direccion),
+							Util.decode64AsText(sDescripcion),  Util.decode64AsText(encargado), dInicioDate, dFinDate, tipo, date, latitud, longitud, photo, habilitado, muestraMonto);
 					castrationList.add(newCastration);
 
 				} catch (JSONException e) {
@@ -324,31 +327,55 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 	}
 
 	/* Metodo para decodificar el json de preguntas */
-	private void decodePreguntasFrecuentesJson(Storage response){
-		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
+	private class AsyncLoadFreqAnswerListTask extends AsyncTask<Storage, Integer, Boolean> {
+		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
 
-		String sIdPreg = "", sPregunta = "", sRespuesta = "", dCreationDate = "";
-		Integer iOrden = 0, itipo = 0, ihabilitado = 0;
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
 
-		for(int i=0; i < jsonDocList.size(); i ++){
-			sIdPreg = jsonDocList.get(i).getDocId();
-			dCreationDate = jsonDocList.get(i).getCreatedAt();
+		protected Boolean doInBackground(Storage... storage) {
 
-			JSONObject jsonObject;
-			try {
-				jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
-				sPregunta = jsonObject.getString(Constants.DESC_PREGUNTA);
-				sRespuesta = jsonObject.getString(Constants.RESPESTA_PREGUNTA);
-				iOrden = jsonObject.getInt(Constants.ORDEN_PREGUNTA);
-				itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
-				ihabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
+			ArrayList<Storage.JSONDocument> jsonDocList = storage[0].getJsonDocList();
 
-				FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate, ihabilitado);
-				freqAnswerList.add(newPreg);
-			} catch (JSONException e) {
-				e.printStackTrace();
+			String sIdPreg = "", sPregunta = "", sRespuesta = "", dCreationDate = "";
+			Integer iOrden = 0, itipo = 0, iHabilitado = 0;
+			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+
+			for (int i = 0; i < jsonDocList.size(); i++) {
+				sIdPreg = jsonDocList.get(i).getDocId();
+				dCreationDate = jsonDocList.get(i).getCreatedAt();
+
+				JSONObject jsonObject;
+				try {
+					jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
+					sPregunta = jsonObject.getString(Constants.DESC_PREGUNTA);
+					sRespuesta = jsonObject.getString(Constants.RESPESTA_PREGUNTA);
+					iOrden = jsonObject.getInt(Constants.ORDEN_PREGUNTA);
+					itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
+					iHabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
+
+					FreqAnswer newPreg = new FreqAnswer(sIdPreg,  Util.decode64AsText(sPregunta),  Util.decode64AsText(sRespuesta), iOrden, itipo, dCreationDate, iHabilitado);
+					freqAnswerList.add(newPreg);
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+					return false;
+				}
+				Collections.sort(freqAnswerList, new Comparator<FreqAnswer>() {
+					@Override
+					public int compare(FreqAnswer freqAnswer1, FreqAnswer freqAnswer2) {
+						//comparision for primitive int uses compareTo of the wrapper Integer
+						return(new Integer(((FreqAnswer)freqAnswer1).get_iorden()))
+								.compareTo(((FreqAnswer)freqAnswer2).get_iorden());
+					}
+				});
 			}
+			return true;
+		}
+
+		protected void onPostExecute(Boolean result) {
 		}
 	}
 }

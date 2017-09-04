@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.app42.AsyncApp42ServiceApi;
 import com.anpa.anpacr.common.Constants;
+import com.anpa.anpacr.common.Util;
 import com.anpa.anpacr.domain.FreqAnswer;
 import com.anpa.anpacr.domain.News;
 import com.anpa.anpacr.domain.Sponsor;
@@ -33,6 +34,8 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -256,7 +259,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					sPhotoURL = jsonObject.getString(Constants.IMAGEN_NOTICIA);
 					byte[] photo = getBitmap(sPhotoURL);
 
-					News news = new News(sIdNews, sTitle, sContent, dCreationDate, photo, dateInicio, iHabilitado);
+					News news = new News(sIdNews,  Util.decode64AsText(sTitle),  Util.decode64AsText(sContent), dCreationDate, photo, dateInicio, iHabilitado);
 					newsList.add(news);
 
 				} catch (JSONException e) {
@@ -327,13 +330,21 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
 
-					FreqAnswer newPreg = new FreqAnswer(sIdPreg, sPregunta, sRespuesta, iOrden, itipo, dCreationDate, iHabilitado);
+					FreqAnswer newPreg = new FreqAnswer(sIdPreg,  Util.decode64AsText(sPregunta),  Util.decode64AsText(sRespuesta), iOrden, itipo, dCreationDate, iHabilitado);
 					freqAnswerList.add(newPreg);
 
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return false;
 				}
+				Collections.sort(freqAnswerList, new Comparator<FreqAnswer>() {
+					@Override
+					public int compare(FreqAnswer freqAnswer1, FreqAnswer freqAnswer2) {
+						//comparision for primitive int uses compareTo of the wrapper Integer
+						return(new Integer(((FreqAnswer)freqAnswer1).get_iorden()))
+								.compareTo(((FreqAnswer)freqAnswer2).get_iorden());
+					}
+				});
 			}
 			return true;
 		}
@@ -373,13 +384,21 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					sPhotoURL = jsonObject.getString(Constants.IMAGEN_PATROCINIO);
 					byte[] photo = getBitmap(sPhotoURL);
 
-					Sponsor newSpon = new Sponsor(sIdPatrocinios, sNombre, sDescripcion, sURL, iOrden, photo, dCreationDate, iHabilitado);
+					Sponsor newSpon = new Sponsor(sIdPatrocinios,  Util.decode64AsText(sNombre),  Util.decode64AsText(sDescripcion), sURL, iOrden, photo, dCreationDate, iHabilitado);
 					sponsorList.add(newSpon);
 
 				}  catch (JSONException e) {
 					e.printStackTrace();
 					return false;
 				}
+				Collections.sort(sponsorList, new Comparator<Sponsor>() {
+					@Override
+					public int compare(Sponsor sponsor1, Sponsor sponsor2) {
+						//comparision for primitive int uses compareTo of the wrapper Integer
+						return(new Integer(((Sponsor)sponsor1).get_iorden()))
+								.compareTo(((Sponsor)sponsor2).get_iorden());
+					}
+				});
 			}
 			return true;
 		}

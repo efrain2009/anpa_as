@@ -60,11 +60,18 @@ public class TipListAdapter extends BaseAdapter{
 		TextView txt_title_tip = (TextView) view.findViewById(R.id.txt_title_consejo);
 		txt_title_tip.setText(item.get_sConsejo());
 		String txtPreviewConsejo = item.get_sConsejo();
-		int ratingStars = item.get_iTotalVotos();
+
+		int rate = 0;
+		int sum = 5*item.get_i5Estrella() + 4*item.get_i4Estrella() + 3*item.get_i3Estrella() + 2*item.get_i2Estrella() + 1*item.get_i1Estrella();
+		if(sum != 0){
+			rate = sum/ item.get_iTotalVotos();
+		}
+
+
 		if(txtPreviewConsejo.length() > 30)
 			txtPreviewConsejo = txtPreviewConsejo.substring(0,30) + "...";
 		txt_title_tip.setText(txtPreviewConsejo);
-		
+
 		TextView txt_autor = (TextView) view.findViewById(R.id.txt_autor);
 		txt_autor.setText("Por: ".concat(item.get_sAuthor()));
 		
@@ -75,7 +82,7 @@ public class TipListAdapter extends BaseAdapter{
 		ImageView img_rating4 = (ImageView)view.findViewById(R.id.rating_star_4);
 		ImageView img_rating5 = (ImageView)view.findViewById(R.id.rating_star_5);
 		
-		switch (ratingStars) {
+		switch (rate) {
 		case 0:
 			img_rating1.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_footprint_gray));
 			img_rating2.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_footprint_gray));
