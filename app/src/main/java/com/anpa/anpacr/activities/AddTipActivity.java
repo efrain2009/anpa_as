@@ -95,7 +95,6 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 
         /* Facebook*/
         FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_home);
 
 		/*Facbook*/
         LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
@@ -152,12 +151,12 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		check_facebook = (CheckBox) findViewById(R.id.ck_public_fb);
 
         //Button FB
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.login_button);
+        /*LinearLayout linearLayout = (LinearLayout) findViewById(R.id.login_button);
         if(AccessToken.getCurrentAccessToken() == null) {
             linearLayout.setVisibility(View.VISIBLE);
         }else{
             linearLayout.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
 		//Obtener valores q se obtuvieron en el filtro//
 		TextView txt_raza = (TextView) findViewById(R.id.txt_addRaza_consejo);

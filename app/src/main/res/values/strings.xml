@@ -62,7 +62,7 @@
     <string name="txt_subtitle_short_direction">¿Dirección?</string>
     <string name="txt_subtitle_detalle">Detalles*: </string>
     <!--    <string name="txt_add_lost">Encontrar a mi mascota</string> -->
-    <string name="txt_add_lost">Publicar a mi adopción</string>
+    <string name="txt_add_lost">Publicar mi adopción</string>
     <string name="txt_add_lost_photo">Seleccionar Foto</string>
     <string name="txt_subtitle_canton">Cantón*:</string>
     <string name="txt_subtitle_provincia">Provincia*:</string>

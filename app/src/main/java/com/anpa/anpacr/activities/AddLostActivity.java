@@ -115,7 +115,6 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 		/* Facebook*/
         FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_home);
 
 		/*Facbook*/
         LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
@@ -229,13 +228,14 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		};
 */
         //Button FB
+        /*
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.login_button);
         if(AccessToken.getCurrentAccessToken() == null) {
             linearLayout.setVisibility(View.VISIBLE);
         }else{
             linearLayout.setVisibility(View.INVISIBLE);
         }
-
+        */
 	}
 
 	/**
