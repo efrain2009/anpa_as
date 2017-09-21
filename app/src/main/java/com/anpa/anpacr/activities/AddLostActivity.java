@@ -115,36 +115,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 		/* Facebook*/
         FacebookSdk.sdkInitialize(getApplicationContext());
-
-		/*Facbook*/
-        LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-        buttonFb.clearPermissions();
-
-        callbackManager = CallbackManager.Factory.create();
-
         List<String> publishPermissions = Arrays.asList("publish_actions");
-        //	buttonFb.setReadPermissions("user_friends");
-        //LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
-
-        buttonFb.setPublishPermissions(publishPermissions);
-
-        buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                accessToken = loginResult.getAccessToken();
-                System.out.print("Access Token: " + accessToken.getToken());
-            }
-
-            @Override
-            public void onCancel() {
-                System.out.print("Cancelado");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                System.out.print("Error: " + error);
-            }
-        });
 
         callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
@@ -215,27 +186,6 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
-/*
-		accessTokenTracker = new AccessTokenTracker() {
-			@Override
-			protected void onCurrentAccessTokenChanged(
-					AccessToken oldAccessToken,
-					AccessToken currentAccessToken) {
-
-				accessToken = currentAccessToken;
-				System.out.println("Set Current token");
-			}
-		};
-*/
-        //Button FB
-        /*
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.login_button);
-        if(AccessToken.getCurrentAccessToken() == null) {
-            linearLayout.setVisibility(View.VISIBLE);
-        }else{
-            linearLayout.setVisibility(View.INVISIBLE);
-        }
-        */
 	}
 
 	/**
@@ -256,27 +206,10 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 		@Override
 		public void onClick(View v) {
-			//verifyImage();
-			//new AsyncUploadInfoTask().execute("");
 			saveInfo();
 		}
 	};
-/*
-    private void verifyImage(){
-        mProgressDialog = ProgressDialog.show(this, "Cargando la información", "", true);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if(photoPath.equals("") || (!photoPath.equals("") && !app42PhotoURL.equals(""))) {
-            mProgressDialog.hide();
-            saveInfo();
-        }
-        else{
-            verifyImage();
-        }
-    }*/
+
 
 	private class AsyncUploadInfoTask extends AsyncTask<String, Integer, Boolean> {
 		ProgressDialog progressDialog = new ProgressDialog(AddLostActivity.this);
@@ -315,55 +248,57 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	}
 
 	private void saveInfo() {
-		String dbName = Constants.App42DBName;
-		String collectionName = Constants.TABLE_PERDIDOS;
-		JSONObject lostJSON = new JSONObject();
+		if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
+			alertaLogeoFB();
+		} else {
+			String dbName = Constants.App42DBName;
+			String collectionName = Constants.TABLE_PERDIDOS;
+			JSONObject lostJSON = new JSONObject();
 
-		if (app42PhotoURL != null && !app42PhotoURL.equals(""))
-			Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, app42PhotoURL, -1);
-		else
-			Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, "null", -1);
-		Util.textAsJSON(lostJSON, Constants.NOM_MASCOTA, editxt_nomMascota.getText().toString(), -1);
-		Util.textAsJSON(lostJSON, Constants.NOM_DUENO, editxt_contacto.getText().toString(), -1);
-		Util.textAsJSON(lostJSON, Constants.LATITUD_PERDIDO, _sLatitud, -1);
-		Util.textAsJSON(lostJSON, Constants.LONGITUD_PERDIDO, _sLongitud, -1);
-		Util.textAsJSON(lostJSON, Constants.PROVINCIA_PERDIDO, "", provinciaSpinner.getAdapter().getItemId(provinciaSpinner.getSelectedItemPosition()));
-		Util.textAsJSON(lostJSON, Constants.CANTON_PERDIDO, "", cantonSpinner.getAdapter().getItemId(cantonSpinner.getSelectedItemPosition()));
-		Util.textAsJSON(lostJSON, Constants.RAZA_PERDIDO, "", razaSpinner.getAdapter().getItemId(razaSpinner.getSelectedItemPosition()));
-		Util.textAsJSON(lostJSON, Constants.ESPECIE_PERDIDO, "", especieSpinner.getAdapter().getItemId(especieSpinner.getSelectedItemPosition()));
-		Util.textAsJSON(lostJSON, Constants.TELEFONO_PERDIDO, editxt_telefono.getText().toString(), -1);
-		Util.textAsJSON(lostJSON, Constants.DETALLE_PERDIDO, editxt_detail_lost_description.getText().toString(), -1);
-		Util.textAsJSON(lostJSON, Constants.HABILITADO_PERDIDO, "", 0);
-		Util.textAsJSON(lostJSON, Constants.USUARIO, Constants.USUARIO_NOMBRE, -1);
-		// instacia Storage App42
-		storageService = api.buildStorageService();
+			if (app42PhotoURL != null && !app42PhotoURL.equals(""))
+				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, app42PhotoURL, -1);
+			else
+				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, "null", -1);
+			Util.textAsJSON(lostJSON, Constants.NOM_MASCOTA, editxt_nomMascota.getText().toString(), -1);
+			Util.textAsJSON(lostJSON, Constants.NOM_DUENO, editxt_contacto.getText().toString(), -1);
+			Util.textAsJSON(lostJSON, Constants.LATITUD_PERDIDO, _sLatitud, -1);
+			Util.textAsJSON(lostJSON, Constants.LONGITUD_PERDIDO, _sLongitud, -1);
+			Util.textAsJSON(lostJSON, Constants.PROVINCIA_PERDIDO, "", provinciaSpinner.getAdapter().getItemId(provinciaSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(lostJSON, Constants.CANTON_PERDIDO, "", cantonSpinner.getAdapter().getItemId(cantonSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(lostJSON, Constants.RAZA_PERDIDO, "", razaSpinner.getAdapter().getItemId(razaSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(lostJSON, Constants.ESPECIE_PERDIDO, "", especieSpinner.getAdapter().getItemId(especieSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(lostJSON, Constants.TELEFONO_PERDIDO, editxt_telefono.getText().toString(), -1);
+			Util.textAsJSON(lostJSON, Constants.DETALLE_PERDIDO, editxt_detail_lost_description.getText().toString(), -1);
+			Util.textAsJSON(lostJSON, Constants.HABILITADO_PERDIDO, "", 0);
+			Util.textAsJSON(lostJSON, Constants.USUARIO, Constants.USUARIO_NOMBRE, -1);
+			// instacia Storage App42
+			storageService = api.buildStorageService();
             /* Below snippet will save JSON object in App42 Cloud */
-		storageService.insertJSONDocument(dbName, collectionName, lostJSON, new App42CallBack() {
-			public void onSuccess(Object response) {
-				Storage storage = (Storage) response;
-				ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
-				for (int i = 0; i < jsonDocList.size(); i++) {
-					System.out.println("objectId is " + jsonDocList.get(i).getDocId());
-					//Above line will return object id of saved JSON object
-					System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
-					System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
-					System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
-					if(check_facebook.isChecked()) {
-                        if(AccessToken.getCurrentAccessToken() != null) {
-                            lost = Constants.TITTLE_PERDIDO_FB + " Nombre: " + editxt_nomMascota.getText().toString() + " Detalles: " + editxt_detail_lost_description.getText().toString();
-                            shareOnFacebook();
-                        }else{
-                            alertaLogeoFB();
-                        }
+			storageService.insertJSONDocument(dbName, collectionName, lostJSON, new App42CallBack() {
+				public void onSuccess(Object response) {
+					Storage storage = (Storage) response;
+					ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+					for (int i = 0; i < jsonDocList.size(); i++) {
+						System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+						//Above line will return object id of saved JSON object
+						System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+						System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+						System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+						if (check_facebook.isChecked()) {
+							if (AccessToken.getCurrentAccessToken() != null) {
+								lost = Constants.TITTLE_PERDIDO_FB + " Nombre: " + editxt_nomMascota.getText().toString() + ". Detalles: " + editxt_detail_lost_description.getText().toString() + ". Descarga nuestra app y entérate.";
+								shareOnFacebook();
+							}
+						}
 					}
 				}
-			}
 
-			public void onException(Exception ex) {
-				System.out.println("Exception Message" + ex.getMessage());
-			}
-		});
-		alertDialog();
+				public void onException(Exception ex) {
+					System.out.println("Exception Message" + ex.getMessage());
+				}
+			});
+			alertDialog();
+		}
 	}
 
     private void alertaLogeoFB() {

@@ -255,10 +255,10 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 					iHabilitado =jsonObject.getInt(Constants.HABILITADO_PERDIDO);
 					sPhotoURL =jsonObject.getString(Constants.FOTO_PERDIDO);
 
-					byte[] photo = getBitmap(sPhotoURL);
+					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
 
 					if(iHabilitado == 1) {
-						Lost newLost = new Lost(sIdLost,  Util.decode64AsText(sNomMascota),  Util.decode64AsText(sNomDueno), sTelefono, iProvincia, iCanton,  Util.decode64AsText(sDetalle), iRaza, iEspecie, date, photo, sLatitud, sLongitud, iHabilitado);
+						Lost newLost = new Lost(sIdLost,  Util.decode64AsText(sNomMascota),  Util.decode64AsText(sNomDueno), Util.decode64AsText(sTelefono), iProvincia, iCanton,  Util.decode64AsText(sDetalle), iRaza, iEspecie, date, photo, Util.decode64AsText(sLatitud), Util.decode64AsText(sLongitud), iHabilitado);
 						lostList.add(newLost);
 					}
 				} catch (JSONException e) {

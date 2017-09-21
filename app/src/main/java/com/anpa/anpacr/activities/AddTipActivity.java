@@ -95,52 +95,14 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 
         /* Facebook*/
         FacebookSdk.sdkInitialize(getApplicationContext());
-
-		/*Facbook*/
-        LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-        buttonFb.clearPermissions();
-
         callbackManager = CallbackManager.Factory.create();
-
         List<String> publishPermissions = Arrays.asList("publish_actions");
-        //	buttonFb.setReadPermissions("user_friends");
-        //LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
 
-        buttonFb.setPublishPermissions(publishPermissions);
-
-        buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                accessToken = loginResult.getAccessToken();
-                System.out.print("Access Token: " + accessToken.getToken());
-            }
-
-            @Override
-            public void onCancel() {
-                System.out.print("Cancelado");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                System.out.print("Error: " + error);
-            }
-        });
 
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
-/*
-		 accessTokenTracker = new AccessTokenTracker() {
-			@Override
-			protected void onCurrentAccessTokenChanged(
-					AccessToken oldAccessToken,
-					AccessToken currentAccessToken) {
 
-				accessToken = currentAccessToken;
-				System.out.println("Set Current token");
-			}
-		};
-*/
 		saveTip = (Button) findViewById(R.id.btn_add_tip);
 		saveTip.setOnClickListener(onSave);
 
@@ -149,14 +111,6 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		editxt_breed_author = (EditText) findViewById(R.id.editxt_breed_author);
 
 		check_facebook = (CheckBox) findViewById(R.id.ck_public_fb);
-
-        //Button FB
-        /*LinearLayout linearLayout = (LinearLayout) findViewById(R.id.login_button);
-        if(AccessToken.getCurrentAccessToken() == null) {
-            linearLayout.setVisibility(View.VISIBLE);
-        }else{
-            linearLayout.setVisibility(View.INVISIBLE);
-        }*/
 
 		//Obtener valores q se obtuvieron en el filtro//
 		TextView txt_raza = (TextView) findViewById(R.id.txt_addRaza_consejo);
@@ -173,57 +127,58 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		@Override
 		public void onClick(View v) {
 
-			String dbName = Constants.App42DBName;
-			String collectionName = Constants.TABLE_CONSEJO;
+			if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
+				alertaLogeoFB();
+			} else {
 
-			JSONObject tipJSON = new JSONObject();
-			Util.textAsJSON(tipJSON, Constants.DESCR_CONSEJO, editxt_description_tip.getText().toString() , -1);
-			Util.textAsJSON(tipJSON, Constants.AUTOR_CONSEJO, editxt_breed_author.getText().toString() , -1);
-			//Mandar los valores que se setearon en el listado de filtros
-			Util.textAsJSON(tipJSON, Constants.RAZA_CONSEJO, "" , 1);
-			Util.textAsJSON(tipJSON, Constants.ESPECIE_CONSEJO, "" ,  1);
-			//
-			Util.textAsJSON(tipJSON, Constants.ESTRELLA1_CONSEJO, "" , 0);
-			Util.textAsJSON(tipJSON, Constants.ESTRELLA2_CONSEJO, "" , 0);
-			Util.textAsJSON(tipJSON, Constants.ESTRELLA3_CONSEJO, "" , 0);
-			Util.textAsJSON(tipJSON, Constants.ESTRELLA4_CONSEJO, "" , 0);
-			Util.textAsJSON(tipJSON, Constants.ESTRELLA5_CONSEJO, "" , 0);
-			Util.textAsJSON(tipJSON, Constants.VOTOS_CONSEJO, "" , 0);
-			Util.textAsJSON(tipJSON, Constants.HABILITADO_CONSEJO, "" , 0);
-			Util.textAsJSON(tipJSON, Constants.USUARIO_CONSEJO, Constants.USUARIO_NOMBRE , -1);
+				String dbName = Constants.App42DBName;
+				String collectionName = Constants.TABLE_CONSEJO;
 
-			// instacia Storage App42
-			storageService = api.buildStorageService();
+				JSONObject tipJSON = new JSONObject();
+				Util.textAsJSON(tipJSON, Constants.DESCR_CONSEJO, editxt_description_tip.getText().toString(), -1);
+				Util.textAsJSON(tipJSON, Constants.AUTOR_CONSEJO, editxt_breed_author.getText().toString(), -1);
+				//Mandar los valores que se setearon en el listado de filtros
+				Util.textAsJSON(tipJSON, Constants.RAZA_CONSEJO, "", 1);
+				Util.textAsJSON(tipJSON, Constants.ESPECIE_CONSEJO, "", 1);
+				//
+				Util.textAsJSON(tipJSON, Constants.ESTRELLA1_CONSEJO, "", 0);
+				Util.textAsJSON(tipJSON, Constants.ESTRELLA2_CONSEJO, "", 0);
+				Util.textAsJSON(tipJSON, Constants.ESTRELLA3_CONSEJO, "", 0);
+				Util.textAsJSON(tipJSON, Constants.ESTRELLA4_CONSEJO, "", 0);
+				Util.textAsJSON(tipJSON, Constants.ESTRELLA5_CONSEJO, "", 0);
+				Util.textAsJSON(tipJSON, Constants.VOTOS_CONSEJO, "", 0);
+				Util.textAsJSON(tipJSON, Constants.HABILITADO_CONSEJO, "", 0);
+				Util.textAsJSON(tipJSON, Constants.USUARIO_CONSEJO, Constants.USUARIO_NOMBRE, -1);
+
+				// instacia Storage App42
+				storageService = api.buildStorageService();
 			/* Below snippet will save JSON object in App42 Cloud */
-			storageService.insertJSONDocument(dbName,collectionName,tipJSON,new App42CallBack() {
-				public void onSuccess(Object response)
-				{
-					Storage storage  = (Storage )response;
-					ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
-					for(int i=0;i<jsonDocList.size();i++)
-					{
-						System.out.println("objectId is " + jsonDocList.get(i).getDocId());
-						//Above line will return object id of saved JSON object
-						System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
-						System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
-						System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
-						if(check_facebook.isChecked()) {
-                            if(AccessToken.getCurrentAccessToken() != null) {
-                                consejo = "Ha compartido una experiencia:  " + editxt_description_tip.getText().toString();
-                                shareOnFacebook();
-                            }else{
-                                alertaLogeoFB();
-                            }
+				storageService.insertJSONDocument(dbName, collectionName, tipJSON, new App42CallBack() {
+					public void onSuccess(Object response) {
+						Storage storage = (Storage) response;
+						ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+						for (int i = 0; i < jsonDocList.size(); i++) {
+							System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+							//Above line will return object id of saved JSON object
+							System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+							System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+							System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+							if (check_facebook.isChecked()) {
+								if (AccessToken.getCurrentAccessToken() != null) {
+									consejo = "Ha compartido una experiencia:  " + editxt_description_tip.getText().toString();
+									shareOnFacebook();
+								}
+							}
 						}
 					}
-				}
-                public void onException(Exception ex)
-				{
-					System.out.println("Exception Message"+ex.getMessage());
-				}
-			});
-			alertDialog ();
-			consejo ="";
+
+					public void onException(Exception ex) {
+						System.out.println("Exception Message" + ex.getMessage());
+					}
+				});
+				alertDialog();
+				consejo = "";
+			}
 		}
 	};
 
@@ -315,35 +270,6 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 
 				@Override
 				public void onInitialized() {
-					if (AccessToken.getCurrentAccessToken() == null) {
-					/*Facbook*/
-						LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-						buttonFb.clearPermissions();
-
-						List<String> publishPermissions = Arrays.asList("publish_actions");
-						//	buttonFb.setReadPermissions("user_friends");
-						//LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
-
-						buttonFb.setPublishPermissions(publishPermissions);
-
-						buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-							@Override
-							public void onSuccess(LoginResult loginResult) {
-								accessToken = loginResult.getAccessToken();
-								System.out.print("Access Token: " + accessToken.getToken());
-							}
-
-							@Override
-							public void onCancel() {
-								System.out.print("Cancelado");
-							}
-
-							@Override
-							public void onError(FacebookException error) {
-								System.out.print("Error: " + error);
-							}
-						});
-					} else {
 						Bundle params = new Bundle();
 						params.putString("message", consejo);
 						//			.setImageUrl(Uri.parse("http://cdn.shephertz.com/repository/files/7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4/da5802be1fc4fd0ba497a9e6bb393627051789c9/ANPA.png"))
@@ -361,7 +287,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 								}
 						).executeAsync();
 						System.out.println("Logged in");
-					}
+
 				}
 			});
 	}
