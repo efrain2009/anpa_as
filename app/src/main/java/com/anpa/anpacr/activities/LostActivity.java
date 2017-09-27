@@ -60,6 +60,8 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		
 		//Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_LOST);
 		
 		Button btnAddLost = (Button) findViewById(R.id.btn_add_lost);

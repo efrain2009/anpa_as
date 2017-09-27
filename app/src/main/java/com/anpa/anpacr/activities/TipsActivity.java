@@ -63,6 +63,8 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 		// Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 
 		Button btnAddTip = (Button) findViewById(R.id.btn_add_tip);

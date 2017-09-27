@@ -2,13 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" android:gravity="left">
+    <ImageView
+        android:id="@+id/img_detail_castration"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/txt_description_image"
+        android:src="@drawable/ic_anpa_square" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_detail_castration"
+        android:layout_alignTop="@+id/img_detail_castration"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/img_detail_castration"
         android:orientation="vertical"
-        android:gravity="left"
-        android:layout_margin="10dp">
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/txt_title_castration"
@@ -22,5 +33,6 @@
             android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    </LinearLayout>    
+    </LinearLayout>
+
 </RelativeLayout>

@@ -73,6 +73,8 @@ public class DetailCastrationActivity extends ActionBarActivity {
 
 		//Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CASTRATION);
 
 		//Ir GPS

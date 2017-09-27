@@ -86,7 +86,9 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		api = new ServiceAPI(Constants.App42ApiKey, Constants.App42ApiSecret);
 
 		// Btn de back (anterior)
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 
 		Bundle pantallaBusquedaTip = getIntent().getExtras();

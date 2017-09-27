@@ -8,10 +8,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anpa.anpacr.R;
@@ -58,6 +61,13 @@ public class CastrationListAdapter extends BaseAdapter{
 		}
 		
 		Castration item = castrationList.get(position);
+
+		if(item.get_bImagen() != null){
+			ImageView img_castracion = (ImageView) view.findViewById(R.id.img_detail_castration);
+			Bitmap bmpImage = BitmapFactory.decodeByteArray(
+					item.get_bImagen(), 0, item.get_bImagen().length);
+			img_castracion.setImageBitmap(bmpImage);
+		}
 		
 		TextView txt_title_castration = (TextView) view.findViewById(R.id.txt_title_castration);
 		txt_title_castration.setText(item.get_snombre());

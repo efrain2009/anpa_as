@@ -50,6 +50,8 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 
 		// Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CONTACTUS);
 
 		tvCall1 = (TextView) findViewById(R.id.txt_description_phone1);

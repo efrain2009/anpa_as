@@ -31,6 +31,8 @@ public class DetailLostActivity extends ActionBarActivity {
 		
 		//Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_LOST);
 		
 		Bundle extras = getIntent().getExtras();

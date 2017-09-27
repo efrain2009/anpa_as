@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -79,6 +80,8 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 		// Btn de back (anterior)
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CASTRATION);
 
 		ActionBar actionBar = getSupportActionBar();
@@ -281,16 +284,20 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 					habilitado = jsonObject.getInt(Constants.HABILITADO_CASTRACION);
 					sPhotoURL = jsonObject.getString(Constants.IMAGE_CASTRACION);
 					muestraMonto = jsonObject.getInt(Constants.MUESTRA_MONTO_CASTRACION);
+					latitud = jsonObject.getString(Constants.LATITUD_CASTRACION);
+					longitud = jsonObject.getString(Constants.LONGITUD_CASTRACION);
 
-					byte[] photo = getBitmap(sPhotoURL);
+					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
 
-					Castration newCastration = new Castration(sIdCastration,  Util.decode64AsText(sNombre),  Util.decode64AsText(sDoctor), monto,  Util.decode64AsText(direccion),
-							Util.decode64AsText(sDescripcion),  encargado, dInicioDate, dFinDate, tipo, date, latitud, longitud, photo, habilitado, muestraMonto);
+					Castration newCastration = new Castration(sIdCastration,  new String(Util.decode64AsText(sNombre).getBytes("ISO-8859-1"),"UTF-8"),  new String(Util.decode64AsText(sDoctor).getBytes("ISO-8859-1"),"UTF-8"), monto,  new String(Util.decode64AsText(direccion).getBytes("ISO-8859-1"),"UTF-8"),
+							new String(Util.decode64AsText(sDescripcion).getBytes("ISO-8859-1"),"UTF-8"),  encargado, new String(Util.decode64AsText(dInicioDate).getBytes("ISO-8859-1"),"UTF-8"), new String(Util.decode64AsText(dFinDate).getBytes("ISO-8859-1"),"UTF-8"), tipo, date, new String(Util.decode64AsText(latitud).getBytes("ISO-8859-1"),"UTF-8"), new String(Util.decode64AsText(longitud).getBytes("ISO-8859-1"),"UTF-8"), photo, habilitado, muestraMonto);
 					castrationList.add(newCastration);
 
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return false;
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
 				}
 			}
 			return true;

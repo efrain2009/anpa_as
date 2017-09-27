@@ -46,7 +46,9 @@ public class DonationActivity extends AnpaAppFraqmentActivity {
         editTextAmount = (EditText) findViewById(R.id.et_donation);
 
 		// Btn de back (anterior)
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_DONATION);
 
         Intent intent = new Intent(this, PayPalService.class);

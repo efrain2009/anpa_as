@@ -32,6 +32,8 @@ public class TipSearchActivity extends AnpaAppFraqmentActivity {
 			
 			//Btn de back (anterior)
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setHomeButtonEnabled(true);
+			getSupportActionBar().setDisplayShowHomeEnabled(true);
 			getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 			
 			//Crea la lista de razas:
