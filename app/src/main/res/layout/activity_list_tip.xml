@@ -13,7 +13,7 @@
         android:padding="10dp"
         android:text="@string/txt_list_title_tip"
         android:textColor="@color/red"
-        android:textSize="14sp" />
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/list_tips"

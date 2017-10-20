@@ -34,7 +34,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class DetailTipActivity extends ActionBarActivity {
+public class DetailTipActivity extends AnpaAppFraqmentActivity {
 	private ImageView imgBtn1, imgBtn2, imgBtn3, imgBtn4, imgBtn5;
 	private String sTipId;
 	ServiceAPI api;

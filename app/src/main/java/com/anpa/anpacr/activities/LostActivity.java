@@ -104,13 +104,13 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocSuccess(Storage response, int type) {
-		progressDialog.dismiss();
 		switch (type) {
 			case 1://Perdidos
 				//decodeLostJson(response);
 				new AsyncLoadListTask().execute(response);
 				break;
 			default:
+				progressDialog.dismiss();
 				break;
 		}
 	}
@@ -223,7 +223,6 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 
 	private class AsyncLoadListTask extends AsyncTask<Storage, Integer, Boolean> {
-		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
 
 		@Override
 		protected void onPreExecute() {
@@ -272,6 +271,7 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 		}
 
 		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
 			if(result)
 				updateAdapter();
 		}

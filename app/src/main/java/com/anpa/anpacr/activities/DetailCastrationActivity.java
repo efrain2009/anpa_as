@@ -49,7 +49,7 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
-public class DetailCastrationActivity extends ActionBarActivity {
+public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 	private LocationManager _locationManager;
 	String _sLatitude, _sLongitude, titleCastracionCalendar, fechaFb;
 	Calendar dateStartCastrationCalendar;

@@ -6,6 +6,8 @@
    <ExpandableListView
         android:id="@+id/list_freqAnswerCastration"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+       android:dividerHeight="@dimen/divider_separator"
+       android:divider="@android:color/transparent"/>
 	
 </LinearLayout>

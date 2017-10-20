@@ -155,7 +155,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocSuccess(Storage response, int type) {
-		progressDialog.dismiss();
+
 		switch (type) {
 			case 1://Castraciones
 				//decodeCastrationJson(response);
@@ -166,6 +166,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 				new AsyncLoadFreqAnswerListTask().execute(response);
 				break;
 			default:
+				progressDialog.dismiss();
 				break;
 		}
 	}
@@ -248,8 +249,6 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 
 	private class AsyncLoadListTask extends AsyncTask<Storage, Integer, Boolean> {
-		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -304,6 +303,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		}
 
 		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
 			if(result)
 				updateAdapterLastCastrationFragment();
 		}
@@ -335,8 +335,6 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 	/* Metodo para decodificar el json de preguntas */
 	private class AsyncLoadFreqAnswerListTask extends AsyncTask<Storage, Integer, Boolean> {
-		ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -383,6 +381,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		}
 
 		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
 		}
 	}
 }

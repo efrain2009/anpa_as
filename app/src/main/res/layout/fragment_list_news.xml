@@ -7,7 +7,9 @@
         android:id="@+id/list_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" >
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/divider_separator"
+        android:padding="10dp">
     </ListView>
 	
 </LinearLayout>

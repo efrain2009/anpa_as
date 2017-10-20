@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/anpa_background"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp">
 
 	<ScrollView
         android:layout_width="match_parent"
@@ -93,11 +94,13 @@
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@string/txt_tip_opinion" />
 
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
                     <ImageButton
                         android:id="@+id/img_detail_tip_star1"
                         android:layout_width="@dimen/ratings_footprints_size"

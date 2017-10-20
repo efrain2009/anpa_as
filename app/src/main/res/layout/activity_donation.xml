@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DonationActivity"
-    android:background="@drawable/anpa_background" >
+    tools:context=".activities.DonationActivity"
+    android:background="@drawable/anpa_background"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/tv_description_donation"

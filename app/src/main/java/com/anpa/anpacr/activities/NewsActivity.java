@@ -197,7 +197,6 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 
 	@Override
 	public void onFindDocSuccess(Storage response, int type) {
-		progressDialog.dismiss();
 		switch (type) {
 		case 1://Noticias
 			//decodeNewsJson(response);
@@ -273,6 +272,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 		}
 
 		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
 			if(result)
 				updateAdapterLastNewsFragment();
 		}
@@ -352,6 +352,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 		}
 
 		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
 		}
 	}
 	private class AsyncLoadSponsorListTask extends AsyncTask<Storage, Integer, Boolean> {

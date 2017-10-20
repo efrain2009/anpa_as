@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"
+        android:dividerHeight="@dimen/divider_separator"
         android:layout_below="@+id/txt_list_title_lost"
         android:layout_above="@+id/btn_add_lost">
     </ListView>

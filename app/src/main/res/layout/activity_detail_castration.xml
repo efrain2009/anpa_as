@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/anpa_background"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -228,6 +229,7 @@
              <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                 android:layout_marginTop="10dp"
                 android:paddingBottom="40dp" >
 
                  <LinearLayout

@@ -23,7 +23,7 @@ public class LastCastrationFragment extends android.support.v4.app.Fragment{
 	
 	private CastrationListAdapter castrationAdapter;
 	private ListView lv_castrations;
-	
+
 	OnLoadListListener onLoadListListener; 	//Interface para recibir la lista desde el activity.
 
     //El activity debe tener esta implementaci�n.
@@ -39,17 +39,17 @@ public class LastCastrationFragment extends android.support.v4.app.Fragment{
 			View view = inflater.inflate(R.layout.fragment_list_castrations, container, false);
 			
 			lv_castrations = (ListView) view.findViewById(R.id.list_castrations);
-			
+
 			//Carga los datos obtenidos del activity, llamando al interface del activity
 			 List<Castration> castrationlist = onLoadListListener.loadList();
-			
+
 			castrationAdapter = new CastrationListAdapter(getActivity(), castrationlist);
 			lv_castrations.setAdapter(castrationAdapter);
 			lv_castrations.setOnItemClickListener(onclickListCastration);			
 
 			return view;
 		}
-		
+
 		@Override
 		public void onAttach(Activity activity){
 			super.onAttach(activity);
@@ -74,5 +74,5 @@ public class LastCastrationFragment extends android.support.v4.app.Fragment{
 			intent.putExtra(Constants.ID_OBJ_DETAIL_CASTRATION, castration);
 			startActivity(intent);
 		}
-	};	
+	};
 }
