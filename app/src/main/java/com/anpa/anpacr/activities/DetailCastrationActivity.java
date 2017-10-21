@@ -13,7 +13,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -283,36 +285,8 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 		FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
 			@Override
 			public void onInitialized() {
-				if(AccessToken.getCurrentAccessToken() == null){
-					/*Inicia Sesion*/
-		/*Facbook*/
-					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-					buttonFb.clearPermissions();
+				if(AccessToken.getCurrentAccessToken() != null){
 
-					List<String> publishPermissions = Arrays.asList("publish_actions");
-					//	buttonFb.setReadPermissions("user_friends");
-					//LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
-
-					buttonFb.setPublishPermissions(publishPermissions);
-
-					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-						@Override
-						public void onSuccess(LoginResult loginResult) {
-							accessToken = loginResult.getAccessToken();
-							System.out.print("Access Token: " + accessToken.getToken());
-						}
-
-						@Override
-						public void onCancel() {
-							System.out.print("Cancelado");
-						}
-
-						@Override
-						public void onError(FacebookException error) {
-							System.out.print("Error: " + error);
-						}
-					});
-				} else {
 					Bundle params = new Bundle();
 					params.putString("message", Constants.TITTLE_CASTRACION_FB);
 					//			.setImageUrl(Uri.parse("http://cdn.shephertz.com/repository/files/7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4/da5802be1fc4fd0ba497a9e6bb393627051789c9/ANPA.png"))
@@ -330,9 +304,21 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 							}
 					).executeAsync();
 					System.out.println("Logged in");
+				}else{
+					alertaLogeoFB();
 				}
 			}
 		});
+	}
+
+	private void alertaLogeoFB() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(Constants.MSJ_ERROR_LOGIN_FB)
+				.setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// FIRE ZE MISSILES!
+					}
+				}).create().show();
 	}
 
 	@Override

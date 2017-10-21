@@ -24,6 +24,7 @@ import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncApp42ServiceApi.App42StorageServiceListener{
@@ -179,6 +180,8 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return false;
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
 				}
 			}
 			return true;

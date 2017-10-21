@@ -288,15 +288,17 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
 
-					Castration newCastration = new Castration(sIdCastration,  new String(Util.decode64AsText(sNombre).getBytes("ISO-8859-1"),"UTF-8"),  new String(Util.decode64AsText(sDoctor).getBytes("ISO-8859-1"),"UTF-8"), monto,  new String(Util.decode64AsText(direccion).getBytes("ISO-8859-1"),"UTF-8"),
-							new String(Util.decode64AsText(sDescripcion).getBytes("ISO-8859-1"),"UTF-8"),  encargado, new String(Util.decode64AsText(dInicioDate).getBytes("ISO-8859-1"),"UTF-8"), new String(Util.decode64AsText(dFinDate).getBytes("ISO-8859-1"),"UTF-8"), tipo, date, new String(Util.decode64AsText(latitud).getBytes("ISO-8859-1"),"UTF-8"), new String(Util.decode64AsText(longitud).getBytes("ISO-8859-1"),"UTF-8"), photo, habilitado, muestraMonto);
-					castrationList.add(newCastration);
-
+                    if(habilitado == 1) {
+                        Castration newCastration = new Castration(sIdCastration, new String(Util.decode64AsText(sNombre).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(sDoctor).getBytes("ISO-8859-1"), "UTF-8"), monto, new String(Util.decode64AsText(direccion).getBytes("ISO-8859-1"), "UTF-8"),
+                                new String(Util.decode64AsText(sDescripcion).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(encargado).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(dInicioDate).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(dFinDate).getBytes("ISO-8859-1"), "UTF-8"), tipo, date, new String(Util.decode64AsText(latitud).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(longitud).getBytes("ISO-8859-1"), "UTF-8"), photo, habilitado, muestraMonto);
+                        castrationList.add(newCastration);
+                    }
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return false;
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
+					return false;
 				}
 			}
 			return true;
@@ -361,10 +363,15 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 					itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
 
-					FreqAnswer newPreg = new FreqAnswer(sIdPreg,  Util.decode64AsText(sPregunta),  Util.decode64AsText(sRespuesta), iOrden, itipo, dCreationDate, iHabilitado);
-					freqAnswerList.add(newPreg);
+					if(iHabilitado == 1) {
+						FreqAnswer newPreg = new FreqAnswer(sIdPreg, Util.decode64AsText(sPregunta), Util.decode64AsText(sRespuesta), iOrden, itipo, dCreationDate, iHabilitado);
+						freqAnswerList.add(newPreg);
+					}
 
 				} catch (JSONException e) {
+					e.printStackTrace();
+					return false;
+				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 					return false;
 				}

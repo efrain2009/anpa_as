@@ -27,6 +27,7 @@ import com.shephertz.app42.paas.sdk.android.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -181,7 +182,11 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 						Tip newTip = new Tip(sIdTip, Util.decode64AsText(sAutor), Util.decode64AsText(sConsejo), null, unoEstrellas, dosEstrellas, tresEstrellas, cuatroEstrellas, cincoEstrellas, totalVotos, raza, especie, dCreationDate, estado, iHabilitado);
 						tipsList.add(newTip);
 					}
+
 				} catch (JSONException e) {
+					e.printStackTrace();
+					return false;
+				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 					return false;
 				}

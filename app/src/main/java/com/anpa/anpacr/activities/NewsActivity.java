@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -260,13 +261,18 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					sPhotoURL = jsonObject.getString(Constants.IMAGEN_NOTICIA);
 					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
 
-					News news = new News(sIdNews,  Util.decode64AsText(sTitle),  Util.decode64AsText(sContent), dCreationDate, photo, dateInicio, iHabilitado);
-					newsList.add(news);
+					if(iHabilitado == 1) {
+						News news = new News(sIdNews, Util.decode64AsText(sTitle), Util.decode64AsText(sContent), dCreationDate, photo, dateInicio, iHabilitado);
+						newsList.add(news);
+					}
 
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return false;
-				}
+				} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				return false;
+			}
 			}
 			return true;
 		}
@@ -332,13 +338,18 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					itipo = jsonObject.getInt(Constants.TIPO_PREGUNTA);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_PREGUNTA);
 
-					FreqAnswer newPreg = new FreqAnswer(sIdPreg,  Util.decode64AsText(sPregunta),  Util.decode64AsText(sRespuesta), iOrden, itipo, dCreationDate, iHabilitado);
-					freqAnswerList.add(newPreg);
+					if(iHabilitado == 1) {
+						FreqAnswer newPreg = new FreqAnswer(sIdPreg, Util.decode64AsText(sPregunta), Util.decode64AsText(sRespuesta), iOrden, itipo, dCreationDate, iHabilitado);
+						freqAnswerList.add(newPreg);
+					}
 
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return false;
-				}
+				} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				return false;
+			}
 				Collections.sort(freqAnswerList, new Comparator<FreqAnswer>() {
 					@Override
 					public int compare(FreqAnswer freqAnswer1, FreqAnswer freqAnswer2) {
@@ -387,10 +398,15 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					sPhotoURL = jsonObject.getString(Constants.IMAGEN_PATROCINIO);
 					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
 
-					Sponsor newSpon = new Sponsor(sIdPatrocinios,  Util.decode64AsText(sNombre),  Util.decode64AsText(sDescripcion), sURL, iOrden, photo, dCreationDate, iHabilitado);
-					sponsorList.add(newSpon);
+					if(iHabilitado == 1) {
+						Sponsor newSpon = new Sponsor(sIdPatrocinios, Util.decode64AsText(sNombre), Util.decode64AsText(sDescripcion), sURL, iOrden, photo, dCreationDate, iHabilitado);
+						sponsorList.add(newSpon);
+					}
 
 				}  catch (JSONException e) {
+					e.printStackTrace();
+					return false;
+				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 					return false;
 				}
@@ -410,44 +426,4 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 			progressDialog.dismiss();
 		}
 	}
-
-
-
-
-
-	/* //Metodo para decodificar el json de patrocinios
-	private void decodePatrociniosJson(Storage response){
-		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
-
-		String sIdPatrocinios = "", sNombre = "", sDescripcion = "", sURL = "", dCreationDate="", sPhotoURL = "";
-		Integer iOrden = 0, iHabilitado = 0;
-
-		//Ver como se hace las imagenes - pegadero
-		//	ParseFile imageFile
-
-		for(int i=0; i < jsonDocList.size(); i ++){
-			sIdPatrocinios = jsonDocList.get(i).getDocId();
-			dCreationDate = jsonDocList.get(i).getCreatedAt();
-
-			JSONObject jsonObject;
-			try {
-				jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
-				sNombre = jsonObject.getString(Constants.NOMBRE_PATROCINIO);
-				sDescripcion = jsonObject.getString(Constants.DESCRIPCION_PATROCINIO);
-				sURL = jsonObject.getString(Constants.URL_PATROCINIO);
-				iOrden = jsonObject.getInt(Constants.ORDEN_PATROCINIO);
-				iHabilitado = jsonObject.getInt(Constants.HABILITADO_PATROCINIO);
-				sPhotoURL = jsonObject.getString(Constants.IMAGEN_PATROCINIO);
-				byte[] photo = Util.getBitmap(sPhotoURL);
-
-				Sponsor newSpon = new Sponsor(sIdPatrocinios, sNombre, sDescripcion, sURL, iOrden, photo, dCreationDate, iHabilitado);
-				sponsorList.add(newSpon);
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-*/
-
 }

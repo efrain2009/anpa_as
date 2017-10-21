@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -46,14 +47,15 @@ public class Util {
        return Base64.encodeBytes(column.getBytes());
     }
 
-    public static String decode64AsText(String column){
+    public static String decode64AsText(String column) throws UnsupportedEncodingException {
         byte[] decodeByte = new byte[0];
         try {
             decodeByte = Base64.decode(column);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new String (decodeByte);
+        String text = new String(decodeByte, "UTF-8");
+        return text;
     }
 
 

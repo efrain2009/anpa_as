@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -131,49 +132,6 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 	}
 
-
-	/* Metodo para decodificar el json de noticias */
-	/*private void decodeLostJson(Storage response){
-		ArrayList<Storage.JSONDocument> jsonDocList = response.getJsonDocList();
-		String sIdLost = "", sNomMascota = "", dCreationDate = "", sNomDueno = "", date = "", sTelefono ="", sDetalle ="", sLatitud ="", sLongitud ="", sRaza ="", sPhotoURL = "";
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
-		int iProvincia = 0, iCanton = 0, iHabilitado = 0;
-
-		for(int i=0; i < jsonDocList.size(); i ++){
-			sIdLost = jsonDocList.get(i).getDocId();
-			dCreationDate = jsonDocList.get(i).getCreatedAt();
-			//date = dt.format(dCreationDate);
-
-			JSONObject jsonObject;
-			try {
-				jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
-				sNomMascota = jsonObject.getString(Constants.NOM_MASCOTA);
-				sNomDueno = jsonObject.getString(Constants.NOM_DUENO);
-				sTelefono = jsonObject.getString(Constants.TELEFONO_PERDIDO);
-				iProvincia = jsonObject.getInt(Constants.PROVINCIA_PERDIDO);
-				iCanton = jsonObject.getInt(Constants.CANTON_PERDIDO);
-				sDetalle = jsonObject.getString(Constants.DETALLE_PERDIDO);
-				sLatitud = jsonObject.getString(Constants.LATITUD_PERDIDO);
-				sLongitud = jsonObject.getString(Constants.LONGITUD_PERDIDO);
-				sRaza = jsonObject.getString(Constants.RAZA_PERDIDO);
-				iHabilitado =jsonObject.getInt(Constants.HABILITADO_PERDIDO);
-				sPhotoURL =jsonObject.getString(Constants.FOTO_PERDIDO);
-
-				Bitmap photo = getBitmap(sPhotoURL);
-
-				if(iHabilitado == 1) {
-					Lost newLost = new Lost(sIdLost, sNomMascota, sNomDueno, sTelefono, iProvincia, iCanton, sDetalle, sRaza, date, photo, sLatitud, sLongitud, iHabilitado);
-					lostList.add(newLost);
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		lostAdapter = new LostListAdapter(this, lostList);
-		lostAdapter.notifyDataSetChanged();
-		lv_lost.setAdapter(lostAdapter);
-	}*/
-
 	//Obtiene la imagen desde una URL
 	public static byte[] getBitmap(String url) {
 		try {
@@ -265,7 +223,11 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return false;
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+					return false;
 				}
+
 			}
 			return true;
 		}
