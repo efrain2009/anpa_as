@@ -60,7 +60,7 @@
     <string name="txt_subtitle_contacto">Contacto*: </string>
     <string name="txt_subtitle_telefono">Teléfono*: </string>
     <string name="txt_subtitle_short_direction">¿Dirección?</string>
-    <string name="txt_subtitle_detalle">Detalles*: </string>
+    <string name="txt_subtitle_detalle">Detalles de la mascota*: </string>
     <!--    <string name="txt_add_lost">Encontrar a mi mascota</string> -->
     <string name="txt_add_lost">Publicar mi adopción</string>
     <string name="txt_add_lost_photo">Seleccionar Foto</string>

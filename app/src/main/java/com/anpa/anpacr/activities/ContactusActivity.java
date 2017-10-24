@@ -174,8 +174,8 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 					correo2 = jsonObject.getString(Constants.MAIL2_MISCELANEOS);
 					url = jsonObject.getString(Constants.URL_MISCELANEOS);
 
-					newMiscelaneo = new Miscelaneo(sId,  Util.decode64AsText(direccion),  Util.decode64AsText(correo1),  Util.decode64AsText(correo2), tel1,
-							tel2, url, facebook);
+					newMiscelaneo = new Miscelaneo(sId,  Util.decode64AsText(direccion),  Util.decode64AsText(correo1),  Util.decode64AsText(correo2), Util.decode64AsText(tel1),
+                            Util.decode64AsText(tel2), Util.decode64AsText(url), Util.decode64AsText(facebook));
 
 				} catch (JSONException e) {
 					e.printStackTrace();

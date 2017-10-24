@@ -391,15 +391,13 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 				try {
 					jsonObject = new JSONObject(jsonDocList.get(i).getJsonDoc());
 					sNombre = jsonObject.getString(Constants.NOMBRE_PATROCINIO);
-					sDescripcion = jsonObject.getString(Constants.DESCRIPCION_PATROCINIO);
-					sURL = jsonObject.getString(Constants.URL_PATROCINIO);
 					iOrden = jsonObject.getInt(Constants.ORDEN_PATROCINIO);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_PATROCINIO);
 					sPhotoURL = jsonObject.getString(Constants.IMAGEN_PATROCINIO);
 					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
 
 					if(iHabilitado == 1) {
-						Sponsor newSpon = new Sponsor(sIdPatrocinios, Util.decode64AsText(sNombre), Util.decode64AsText(sDescripcion), sURL, iOrden, photo, dCreationDate, iHabilitado);
+						Sponsor newSpon = new Sponsor(sIdPatrocinios, Util.decode64AsText(sNombre), Util.decode64AsText(sDescripcion), Util.decode64AsText(sURL), iOrden, photo, dCreationDate, iHabilitado);
 						sponsorList.add(newSpon);
 					}
 
