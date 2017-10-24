@@ -54,8 +54,7 @@ public class Util {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String text = new String(decodeByte, "UTF-8");
-        return text;
+        return new String(decodeByte);
     }
 
 
