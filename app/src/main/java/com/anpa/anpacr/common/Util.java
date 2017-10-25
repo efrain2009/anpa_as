@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Susanita on 04/09/2016.
@@ -34,7 +35,7 @@ public class Util {
             if(value1.isEmpty()){
                 json.put(column, value2);
             }else {
-                json.put(column, textAsEncode64(value1));
+                json.put(column, new String (textAsEncode64(value1)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -44,17 +45,30 @@ public class Util {
 
 
     public static String textAsEncode64(String column){
-       return Base64.encodeBytes(column.getBytes());
+        byte[] data;
+        String base64 = "";
+        try {
+            data = column.getBytes("UTF-8");
+            base64 = Base64.encodeBytes(data, Base64.DECODE);
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return base64;
     }
 
     public static String decode64AsText(String column) throws UnsupportedEncodingException {
         byte[] decodeByte = new byte[0];
+        String text = "";
         try {
-            decodeByte = Base64.decode(column);
+            decodeByte = Base64.decode(column, Base64.DECODE);
+            text = new String(decodeByte, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new String(decodeByte);
+        return text;
     }
 
 

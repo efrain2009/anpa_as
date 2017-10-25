@@ -289,8 +289,8 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
 
                     if(habilitado == 1) {
-                        Castration newCastration = new Castration(sIdCastration, new String(Util.decode64AsText(sNombre).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(sDoctor).getBytes("ISO-8859-1"), "UTF-8"), monto, new String(Util.decode64AsText(direccion).getBytes("ISO-8859-1"), "UTF-8"),
-                                new String(Util.decode64AsText(sDescripcion).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(encargado).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(dInicioDate).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(dFinDate).getBytes("ISO-8859-1"), "UTF-8"), tipo, date, new String(Util.decode64AsText(latitud).getBytes("ISO-8859-1"), "UTF-8"), new String(Util.decode64AsText(longitud).getBytes("ISO-8859-1"), "UTF-8"), photo, habilitado, muestraMonto);
+                        Castration newCastration = new Castration(sIdCastration, Util.decode64AsText(sNombre), Util.decode64AsText(sDoctor), monto, Util.decode64AsText(direccion),
+                               Util.decode64AsText(sDescripcion), Util.decode64AsText(encargado), Util.decode64AsText(dInicioDate), Util.decode64AsText(dFinDate), tipo, date, Util.decode64AsText(latitud),Util.decode64AsText(longitud), photo, habilitado, muestraMonto);
                         castrationList.add(newCastration);
                     }
 				} catch (JSONException e) {
