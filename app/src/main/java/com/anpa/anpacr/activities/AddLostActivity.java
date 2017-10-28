@@ -1,7 +1,6 @@
 package com.anpa.anpacr.activities;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -24,7 +22,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,7 +42,6 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.shephertz.app42.paas.sdk.android.App42API;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
@@ -59,14 +55,16 @@ import com.shephertz.app42.paas.sdk.android.upload.UploadService;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class AddLostActivity extends AnpaAppFraqmentActivity {
 
@@ -214,7 +212,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		}
 	};
 
-
+/*
 	private class AsyncUploadInfoTask extends AsyncTask<String, Integer, Boolean> {
 		ProgressDialog progressDialog = new ProgressDialog(AddLostActivity.this);
 		@Override
@@ -250,7 +248,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				Toast.makeText(getApplicationContext(), "Ocurrió un error, intente de nuevo", Toast.LENGTH_SHORT).show();
 		}
 	}
-
+*/
 	private void saveInfo() {
 		if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
 			alertaLogeoFB();
@@ -326,7 +324,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	}
 
 	public void pickImage() {
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		Intent intent = new Intent(Intent.ACTION_PICK);
 		intent.setType("image/*");
 		startActivityForResult(intent, 1);
 	}
@@ -336,25 +334,31 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		callbackManager.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == 1 && resultCode == this.RESULT_OK) {
+		if (requestCode == 1 && resultCode == RESULT_OK) {
 
 			if (data == null) {
 				//Display an error
 				return;
 			}
 			try {
-				InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
+				Uri selectedImage = data.getData();
+				InputStream inputStream = getContentResolver().openInputStream(selectedImage);
 
 				Bitmap bmp = BitmapFactory.decodeStream(inputStream);
+				bmp = getResizedBitmap(bmp, 600);
 				img_detail_lost.setImageBitmap(bmp);
-				String[] filePathColumn = {MediaStore.Images.Media.DATA};
-				Uri selectedImage = data.getData();
+				String[] filePathColumn = {MediaStore.Images.Media.DISPLAY_NAME};
 				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 				cursor.moveToFirst();
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				photoPath = cursor.getString(columnIndex);
+				int fileNameIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String fileName = cursor.getString(fileNameIndex);
 				cursor.close();
-				uploadImage();
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				bmp.compress(Bitmap.CompressFormat.JPEG, 90, bos);
+				byte[] bitmapdata = bos.toByteArray();
+				ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
+
+				uploadImage(bs, fileName);
 
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -464,35 +468,40 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		cantonSpinner.setAdapter(adapterCanton);
 	}
 
-	private void uploadImage() {
-		UploadService uploadService = App42API.buildUploadService();
-		long time= System.currentTimeMillis();
-		Random r = new Random();
-		int i1 = r.nextInt(100);
-		String name = Long.toString(time) + i1;
+	private void uploadImage(ByteArrayInputStream inputStream, String fileName) {
+		Date currentDate = new Date();
+		String[] nameSplit = fileName.split("\\.");
+		StringBuilder sbUploadName = new StringBuilder();
+		sbUploadName.append(nameSplit[0]);
+		sbUploadName.append(currentDate.getTime());
+		sbUploadName.append(".");
+		sbUploadName.append(nameSplit[1]);
 
+		UploadService uploadService = App42API.buildUploadService();
+		UploadFileType fileType = UploadFileType.IMAGE;
 		String description = "Mascota Perdida";
 
-		uploadService.uploadFile(name, photoPath, UploadFileType.IMAGE, description, new App42CallBack() {
-			public void onSuccess(Object response) {
-				Upload upload = (Upload) response;
-				// This will have only a single file uploaded above
-				ArrayList<Upload.File> fileList = upload.getFileList();
-				String filePath = "";
-				for (int i = 0; i < fileList.size(); i++) {
+		uploadService.uploadFile(sbUploadName.toString(), inputStream, fileType, description, new App42CallBack() {
+			public void onSuccess(Object response)
+			{
+				Upload upload = (Upload)response;
+				ArrayList<Upload.File>  fileList = upload.getFileList();
+				for(int i = 0; i < fileList.size();i++ )
+				{
 					System.out.println("fileName is :" + fileList.get(i).getName());
 					System.out.println("fileType is :" + fileList.get(i).getType());
 					System.out.println("fileUrl is :" + fileList.get(i).getUrl());
-					System.out.println("Tiny Url is :" + fileList.get(i).getTinyUrl());
+					System.out.println("Tiny Url is :"+fileList.get(i).getTinyUrl());
 					System.out.println("fileDescription is: " + fileList.get(i).getDescription());
-					Log.e("RUTA", fileList.get(i).getUrl());
 					app42PhotoURL = fileList.get(i).getUrl();
 				}
+				//pdUploadingPhoto.dismiss();
 			}
 
 			public void onException(Exception ex) {
+				//pdUploadingPhoto.dismiss();
 				System.out.println("Exception Message" + ex.getMessage());
-				Toast.makeText(getApplicationContext(), Constants.MSG_IMAGE_UPLOAD_ERROR, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(AddLostActivity.this, Constants.MSG_IMAGE_UPLOAD_ERROR, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -635,5 +644,23 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				}
 			}
 		});
+	}
+
+/*
+Redimensiona un bitmap, si la imagen es muy grande
+ */
+	public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+		int width = image.getWidth();
+		int height = image.getHeight();
+
+		float bitmapRatio = (float)width / (float) height;
+		if (bitmapRatio > 1) {
+			width = maxSize;
+			height = (int) (width / bitmapRatio);
+		} else {
+			height = maxSize;
+			width = (int) (height * bitmapRatio);
+		}
+		return Bitmap.createScaledBitmap(image, width, height, true);
 	}
 }
