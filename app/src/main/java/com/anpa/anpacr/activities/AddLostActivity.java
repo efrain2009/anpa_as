@@ -37,11 +37,11 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.widget.ShareDialog;
 import com.shephertz.app42.paas.sdk.android.App42API;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
@@ -76,10 +76,10 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private SpinnerAdapter adapter;
 	private SpinnerAdapter adapter1;
 	SpinnerAdapter adapterRaces;
+	SpinnerAdapter adapterCantones;
 	private EditText editxt_nomMascota, editxt_contacto, editxt_telefono, editxt_detail_lost_description;
 	private Button saveLost;
 	private ImageView img_detail_lost;
-	private Bitmap bitMapPhoto;
 	private String _sLatitud;
 	private String _sLongitud;
 	private String _sRaza;
@@ -88,13 +88,15 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private String app42PhotoURL;
 	private LocationManager _locationManager;
 	CheckBox check_facebook;
+	private Bitmap bmp;
+	private String urlBmp;
 
 	//Integration with facebook
 	CallbackManager callbackManager;
 	ShareDialog shareDialog;
 	AccessTokenTracker accessTokenTracker;
 	AccessToken accessToken;
-	String lost = "";
+	String msjFabebooklost = "";
 
 
 
@@ -155,22 +157,24 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 			String[] provinciaSplit = provincia.split(",");
 			provinciaItems.add(new GenericNameValue(provinciaSplit[1], Integer.parseInt(provinciaSplit[0])));
 		}
-
-
 		adapter = new SpinnerAdapter(this,
 				R.layout.spinner_item,
 				provinciaItems);
+
 		provinciaSpinner = (Spinner) findViewById(R.id.spn_provincia_selector);
-		provinciaSpinner.setAdapter(adapter); // Set the custom adapter to the spinner
-		provinciaSpinner.setOnItemSelectedListener(onSelectItem);
+
 		cantonSpinner = (Spinner) findViewById(R.id.spn_canton_selector);
+		cantonSpinner.setAdapter(adapter); // Set the custom adapter to the spinner
+		cantonSpinner.setOnItemSelectedListener(onSelectItemCanton);
+
+
 		editxt_contacto = (EditText) findViewById(R.id.editxt_contacto);
 		editxt_nomMascota = (EditText) findViewById(R.id.editxt_nom_mascota);
 		editxt_detail_lost_description = (EditText) findViewById(R.id.editxt_detail_lost_description);
 		editxt_telefono = (EditText) findViewById(R.id.editxt_telefono);
 		img_detail_lost = (ImageView) findViewById(R.id.img_detail_lost);
 		img_detail_lost.buildDrawingCache();
-		bitMapPhoto = img_detail_lost.getDrawingCache();
+		bmp = img_detail_lost.getDrawingCache();
 		check_facebook = (CheckBox) findViewById(R.id.chkCompFB);
 
 
@@ -212,43 +216,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		}
 	};
 
-/*
-	private class AsyncUploadInfoTask extends AsyncTask<String, Integer, Boolean> {
-		ProgressDialog progressDialog = new ProgressDialog(AddLostActivity.this);
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			progressDialog.show(AddLostActivity.this, "Cargando", "");
-		}
 
-		protected Boolean doInBackground(String... storage) {
-			int maxAttemps = 0;
-			boolean canSave = false;
-			if (!photoPath.equals("") && app42PhotoURL.equals("")) {
-				do {
-					maxAttemps += 1;
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}while (app42PhotoURL.equals("") && maxAttemps < 15);
-			}
-			else if(!app42PhotoURL.equals(""))
-				canSave = true;
-			return canSave;
-		}
-
-		protected void onPostExecute(Boolean result) {
-			progressDialog.dismiss();
-
-			if(result)
-				saveInfo();
-			else
-				Toast.makeText(getApplicationContext(), "Ocurrió un error, intente de nuevo", Toast.LENGTH_SHORT).show();
-		}
-	}
-*/
 	private void saveInfo() {
 		if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
 			alertaLogeoFB();
@@ -259,8 +227,15 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 			if (app42PhotoURL != null && !app42PhotoURL.equals(""))
 				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, app42PhotoURL, -1);
-			else
-				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, "null", -1);
+			else {
+				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_no_image);
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+				byte[] bitMapData = stream.toByteArray();
+				ByteArrayInputStream bs = new ByteArrayInputStream(bitMapData);
+				saveImage(bs, "loadImgDefault");
+				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, app42PhotoURL, -1);
+			}
 			Util.textAsJSON(lostJSON, Constants.NOM_MASCOTA, editxt_nomMascota.getText().toString(), -1);
 			Util.textAsJSON(lostJSON, Constants.NOM_DUENO, editxt_contacto.getText().toString(), -1);
 			Util.textAsJSON(lostJSON, Constants.LATITUD_PERDIDO, _sLatitud, -1);
@@ -288,7 +263,9 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 						System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
 						if (check_facebook.isChecked()) {
 							if (AccessToken.getCurrentAccessToken() != null) {
-								lost = Constants.TITTLE_PERDIDO_FB + " Nombre: " + editxt_nomMascota.getText().toString() + ". Detalles: " + editxt_detail_lost_description.getText().toString() + ". Descarga nuestra app y entérate.";
+								msjFabebooklost = "\nNombre: " + editxt_nomMascota.getText().toString() + "." +
+										"\nDetalles: " + editxt_detail_lost_description.getText().toString() + "." +
+										"Descarga nuestra app y entérate.";
 								shareOnFacebook();
 							}
 						}
@@ -318,6 +295,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		builder.setMessage(Constants.MSJ_SUCCESS_TIP)
 				.setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
+						finish();
 						// FIRE ZE MISSILES!
 					}
 				}).create().show();
@@ -344,7 +322,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				Uri selectedImage = data.getData();
 				InputStream inputStream = getContentResolver().openInputStream(selectedImage);
 
-				Bitmap bmp = BitmapFactory.decodeStream(inputStream);
+				bmp = BitmapFactory.decodeStream(inputStream);
 				bmp = getResizedBitmap(bmp, 600);
 				img_detail_lost.setImageBitmap(bmp);
 				String[] filePathColumn = {MediaStore.Images.Media.DISPLAY_NAME};
@@ -390,20 +368,37 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	/**
 	 * Listener del spinner
 	 */
-	private OnItemSelectedListener onSelectItem = new OnItemSelectedListener() {
+	private OnItemSelectedListener onSelectItemProvincias = new OnItemSelectedListener() {
 		@Override
 		public void onItemSelected(AdapterView<?> adapterView, View view,
 								   int position, long id) {
 			// Here you get the current item (a User object) that is selected by its position
-			GenericNameValue selectedItem = adapter.getItem(position);
+			GenericNameValue selectedItem = adapterCantones.getItem(position);
 			// Here you can do the action you want to...
-			readCantones(selectedItem.getValue());
+			_sRaza = selectedItem.getName();
 		}
 
 		@Override
 		public void onNothingSelected(AdapterView<?> adapter) {
 		}
 	};
+
+	/**
+	 * Listener del spinner
+	 */
+	private OnItemSelectedListener onSelectItemCanton = new OnItemSelectedListener() {
+		@Override
+		public void onItemSelected(AdapterView<?> adapterView, View view,
+								   int position, long id) {
+			GenericNameValue selectedItem = adapter.getItem(position);
+
+
+			readCantones(selectedItem.getValue());
+		}
+		@Override
+		public void onNothingSelected(AdapterView<?> adapter) {  }
+	};
+
 	/**
 	 * Listener del spinner
 	 */
@@ -422,52 +417,6 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		}
 	};
 
-
-	/* carga la lista de cantones de una provncia */
-	private void readCantones(int provinciaId) {
-		ArrayList<GenericNameValue> cantonesList = new ArrayList<GenericNameValue>();
-
-		BufferedReader in = null;
-		StringBuilder buf = new StringBuilder();
-		try {
-			InputStream is = getApplicationContext().getAssets().open("cantones_costa_rica.txt");
-			in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
-			String canton;
-			boolean isFirst = true;
-			while ((canton = in.readLine()) != null) {
-				if (isFirst)
-					isFirst = false;
-				else
-					buf.append('\n');
-				buf.append(canton);
-			}
-
-			String[] provinciaCantonArray = buf.toString().split("#");
-
-			for (String provincia : provinciaCantonArray) {
-				String[] values = provincia.split(",");
-				cantonesList.add(new GenericNameValue(values[2], Integer.parseInt(values[1])));
-			}
-		} catch (IOException e) {
-			Log.e("OJO", "Error opening asset ");
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					Log.e("OJO", "Error closing asset ");
-				}
-			}
-		}
-
-		//Carga el spinner:
-		SpinnerAdapter adapterCanton = new SpinnerAdapter(this,
-				R.layout.spinner_item,
-				cantonesList);
-		cantonSpinner.setAdapter(adapterCanton);
-	}
-
 	private void uploadImage(ByteArrayInputStream inputStream, String fileName) {
 		Date currentDate = new Date();
 		String[] nameSplit = fileName.split("\\.");
@@ -476,32 +425,32 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		sbUploadName.append(currentDate.getTime());
 		sbUploadName.append(".");
 		sbUploadName.append(nameSplit[1]);
+		saveImage(inputStream, sbUploadName.toString());
+	}
 
-		UploadService uploadService = App42API.buildUploadService();
-		UploadFileType fileType = UploadFileType.IMAGE;
-		String description = "Mascota Perdida";
+	private void saveImage(ByteArrayInputStream inputStream, String sbUploadName) {
 
-		uploadService.uploadFile(sbUploadName.toString(), inputStream, fileType, description, new App42CallBack() {
-			public void onSuccess(Object response)
-			{
-				Upload upload = (Upload)response;
-				ArrayList<Upload.File>  fileList = upload.getFileList();
-				for(int i = 0; i < fileList.size();i++ )
-				{
-					System.out.println("fileName is :" + fileList.get(i).getName());
-					System.out.println("fileType is :" + fileList.get(i).getType());
-					System.out.println("fileUrl is :" + fileList.get(i).getUrl());
-					System.out.println("Tiny Url is :"+fileList.get(i).getTinyUrl());
-					System.out.println("fileDescription is: " + fileList.get(i).getDescription());
-					app42PhotoURL = fileList.get(i).getUrl();
-				}
-				//pdUploadingPhoto.dismiss();
+	UploadService uploadService = App42API.buildUploadService();
+	UploadFileType fileType = UploadFileType.IMAGE;
+	String description = "Mascota Perdida";
+
+		uploadService.uploadFile(sbUploadName, inputStream, fileType, description, new App42CallBack() {
+		public void onSuccess (Object response)
+		{
+			Upload upload = (Upload) response;
+			ArrayList<Upload.File> fileList = upload.getFileList();
+			for (int i = 0; i < fileList.size(); i++) {
+				System.out.println("fileName is :" + fileList.get(i).getName());
+				System.out.println("fileType is :" + fileList.get(i).getType());
+				System.out.println("fileUrl is :" + fileList.get(i).getUrl());
+				System.out.println("Tiny Url is :" + fileList.get(i).getTinyUrl());
+				System.out.println("fileDescription is: " + fileList.get(i).getDescription());
+				urlBmp = fileList.get(i).getUrl();
+				app42PhotoURL = fileList.get(i).getUrl();
 			}
-
+		}
 			public void onException(Exception ex) {
-				//pdUploadingPhoto.dismiss();
 				System.out.println("Exception Message" + ex.getMessage());
-				//Toast.makeText(AddLostActivity.this, Constants.MSG_IMAGE_UPLOAD_ERROR, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -581,69 +530,148 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				}
 			}
 		}
-
-		//Carga el spinner:
+		//racesSpinner el spinner:
 		adapterRaces = new SpinnerAdapter(AddLostActivity.this,
 				R.layout.spinner_item,
 				speciesList);
 		razaSpinner.setAdapter(adapterRaces);
-		razaSpinner.setOnItemSelectedListener(onSelectItemRaza);
+		razaSpinner.setOnItemSelectedListener(onSelectItemEspecie);
+	}
+
+
+	/* carga la lista de cantones de una especie */
+	private void readCantones(int provinciaId)
+	{
+		ArrayList<GenericNameValue> provinciasList = new ArrayList<GenericNameValue>();
+
+		String selectedFile = "";
+		switch (provinciaId) {
+			case 2:
+				selectedFile = "canton_alajuela";
+				break;
+			case 3:
+				selectedFile = "canton_cartago";
+				break;
+			case 4:
+				selectedFile = "canton_heredia";
+				break;
+			case 5:
+				selectedFile = "canton_guanacaste";
+				break;
+			case 6:
+				selectedFile = "canton_puntarenas";
+				break;
+			case 7:
+				selectedFile = "canton_limon";
+				break;
+			default:
+				selectedFile = "canton_san_jose";
+				break;
+		}
+
+		BufferedReader in = null;
+		StringBuilder buf = new StringBuilder();
+		try{
+			InputStream is = getApplicationContext().getAssets().open(selectedFile + ".txt");
+			in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+			String cantones;
+			boolean isFirst = true;
+			while ((cantones = in.readLine()) != null ){
+				if (isFirst)
+					isFirst = false;
+				else
+					buf.append('\n');
+				buf.append(cantones);
+			}
+
+			String[] cantonesArray = buf.toString().split("#");
+
+			for (String canton : cantonesArray)
+			{
+				String[] values = canton.split(",");
+				provinciasList.add(new GenericNameValue(values[1], Integer.parseInt(values[0])));
+			}
+		}
+		catch(IOException e) {
+			Log.e("OJO", "Error opening asset ");
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					Log.e("OJO", "Error closing asset ");
+				}
+			}
+		}
+
+		//Carga el spinner:
+		adapterCantones = new SpinnerAdapter(AddLostActivity.this,
+				R.layout.spinner_item,
+				provinciasList);
+		cantonSpinner.setAdapter(adapterCantones);
+		cantonSpinner.setOnItemSelectedListener(onSelectItemProvincias);
 	}
 
 	private void shareOnFacebook(){
 		FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
-			@Override
-			public void onInitialized() {
-				if(AccessToken.getCurrentAccessToken() == null){
-					/*Inicia Sesion*/
-		/*Facbook*/
-					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-					buttonFb.clearPermissions();
+					@Override
+					public void onInitialized() {
+						if (AccessToken.getCurrentAccessToken() == null) {
+						/*Inicia Sesion*/
+						/*Facbook*/
+							LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
+							buttonFb.clearPermissions();
 
-					List<String> publishPermissions = Arrays.asList("publish_actions");
-					//	buttonFb.setReadPermissions("user_friends");
-					//LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
+							List<String> publishPermissions = Arrays.asList("publish_actions");
 
-					buttonFb.setPublishPermissions(publishPermissions);
+							buttonFb.setPublishPermissions(publishPermissions);
 
-					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-						@Override
-						public void onSuccess(LoginResult loginResult) {
-							accessToken = loginResult.getAccessToken();
-							System.out.print("Access Token: " + accessToken.getToken());
-						}
-
-						@Override
-						public void onCancel() {
-							System.out.print("Cancelado");
-						}
-
-						@Override
-						public void onError(FacebookException error) {
-							System.out.print("Error: " + error);
-						}
-					});
-				} else {
-					Bundle params = new Bundle();
-					params.putString("message", lost);
-					//			.setImageUrl(Uri.parse("http://cdn.shephertz.com/repository/files/7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4/da5802be1fc4fd0ba497a9e6bb393627051789c9/ANPA.png"))
-					//			.build();
-					params.putString("link", "https://www.facebook.com/ANPACR/");
-					new GraphRequest(
-							AccessToken.getCurrentAccessToken() ,
-							"/me/feed",
-							params,
-							HttpMethod.POST,
-							new GraphRequest.Callback() {
-								public void onCompleted(GraphResponse response) {
-									Log.d("", "------ graphResponse = " + response);
+							buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+								@Override
+								public void onSuccess(LoginResult loginResult) {
+									accessToken = loginResult.getAccessToken();
+									System.out.print("Access Token: " + accessToken.getToken());
 								}
+
+								@Override
+								public void onCancel() {
+									System.out.print("Cancelado");
+								}
+
+								@Override
+								public void onError(FacebookException error) {
+									System.out.print("Error: " + error);
+								}
+							});
+						} else {
+							ShareOpenGraphObject object = new ShareOpenGraphObject
+									.Builder()
+									.putString("fb:app_id", "915274545177488")
+									.putString("og:type", "article")
+									.putString("og:title", Constants.PUBLICA_PERDIDO)
+									.putString("og:image",  urlBmp)
+									.putString("og:url", Constants.ANPA_FACEBOOK_PUBLICA)
+									.putString("og:description", msjFabebooklost)
+									.build();
+
+							// Create an action
+							ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+								.setActionType("news.publishes")
+								.putObject("article", object)
+									.build();
+
+							if (ShareDialog.canShow(ShareOpenGraphContent.class)) {
+								ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+										.setPreviewPropertyName("article")
+										.setAction(action)
+										.build();
+								shareDialog.show(content);
 							}
-					).executeAsync();
-					System.out.println("Logged in");
-				}
-			}
+						}
+					}
 		});
+
 	}
 
 /*

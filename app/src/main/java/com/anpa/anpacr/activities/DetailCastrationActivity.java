@@ -49,6 +49,9 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.widget.ShareDialog;
 
 public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
@@ -261,7 +264,7 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 		intent.putExtra("allDay", false);
 		intent.putExtra("rrule", "FREQ=YEARLY");
 		intent.putExtra("endTime", dateEndCastrationCalendar.getTimeInMillis()+60*60*1000);
-		intent.putExtra("title", "Asistir a Castración en" + titleCastracionCalendar);
+		intent.putExtra("title", "Asistir a Castración en " + titleCastracionCalendar);
 		startActivity(intent);
 		Toast.makeText(getApplicationContext(), "Se ha agregado la castración a su calendario", Toast.LENGTH_SHORT).show();
 	}
@@ -273,43 +276,72 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 
 		@Override
 		public void onClick(View v) {
-			goFacebook();
+			shareOnFacebook();
 		}
 	};
 
-	/**
-	 * Publica en facebook la castracion
-	 */
-	public void goFacebook(){
-
+	private void shareOnFacebook(){
 		FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
 			@Override
 			public void onInitialized() {
-				if(AccessToken.getCurrentAccessToken() != null){
+				if (AccessToken.getCurrentAccessToken() == null) {
+						/*Inicia Sesion*/
+						/*Facbook*/
+					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
+					buttonFb.clearPermissions();
 
-					Bundle params = new Bundle();
-					params.putString("message", Constants.TITTLE_CASTRACION_FB);
-					//			.setImageUrl(Uri.parse("http://cdn.shephertz.com/repository/files/7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4/da5802be1fc4fd0ba497a9e6bb393627051789c9/ANPA.png"))
-					//			.build();
-					params.putString("link", "https://www.facebook.com/ANPACR/");
-					new GraphRequest(
-							AccessToken.getCurrentAccessToken() ,
-							"/me/feed",
-							params,
-							HttpMethod.POST,
-							new GraphRequest.Callback() {
-								public void onCompleted(GraphResponse response) {
-									Log.d("", "------ graphResponse = " + response);
-								}
-							}
-					).executeAsync();
-					System.out.println("Logged in");
-				}else{
-					alertaLogeoFB();
+					List<String> publishPermissions = Arrays.asList("publish_actions");
+
+					buttonFb.setPublishPermissions(publishPermissions);
+
+					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+						@Override
+						public void onSuccess(LoginResult loginResult) {
+							accessToken = loginResult.getAccessToken();
+							System.out.print("Access Token: " + accessToken.getToken());
+						}
+
+						@Override
+						public void onCancel() {
+							System.out.print("Cancelado");
+						}
+
+						@Override
+						public void onError(FacebookException error) {
+							System.out.print("Error: " + error);
+						}
+					});
+				} else {
+
+					String msjFabebook= "El evento de castración será en " + titleCastracionCalendar;
+					ShareOpenGraphObject object = new ShareOpenGraphObject
+							.Builder()
+							.putString("fb:app_id", "915274545177488")
+							.putString("og:type", "article")
+							.putString("og:title", Constants.TITTLE_CASTRACION_FB)
+							.putString("og:url", Constants.ANPA_FACEBOOK_PUBLICA)
+							.putString("og:description", msjFabebook)
+							.build();
+
+					// Create an action
+					ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+							.setActionType("news.publishes")
+							.putObject("article", object)
+							.build();
+
+					if (ShareDialog.canShow(ShareOpenGraphContent.class)) {
+						ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+								.setPreviewPropertyName("article")
+								.setAction(action)
+								.build();
+						shareDialog.show(content);
+					}
 				}
 			}
 		});
+
 	}
+
 
 	private void alertaLogeoFB() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);

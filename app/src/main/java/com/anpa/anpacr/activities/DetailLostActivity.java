@@ -64,17 +64,8 @@ public class DetailLostActivity extends AnpaAppFraqmentActivity {
 					 break;
 				}
 			}
-					
-			String canton = "";
-			
-			for (String cant : Constants.CANTON) {
-				String[] cantSplit = cant.split(",");
-				if(cantSplit[1].contains(value.get_icanton().toString()))
-					 canton = cantSplit[2];
-			}	
-			
-			
-			String txtShortDirection = canton + ", " + provincia;
+
+			String txtShortDirection = provincia;
 			txt_short_direction.setText(txtShortDirection);
 
 			TextView txt_detail_lost_description = (TextView) findViewById(R.id.txt_detail_lost_description);

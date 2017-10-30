@@ -47,6 +47,9 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
 import com.facebook.share.widget.ShareDialog;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
 import com.shephertz.app42.paas.sdk.android.ServiceAPI;
@@ -167,7 +170,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 							System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
 							if (check_facebook.isChecked()) {
 								if (AccessToken.getCurrentAccessToken() != null) {
-									consejo = "Ha compartido una experiencia:  " + editxt_description_tip.getText().toString();
+									consejo = editxt_description_tip.getText().toString();
 									shareOnFacebook();
 								}
 							}
@@ -199,6 +202,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
         builder.setMessage(Constants.MSJ_SUCCESS_TIP)
                .setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
+					   finish();
                        // FIRE ZE MISSILES!
                    }
                }).create().show();
@@ -268,31 +272,65 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 	}
 
 	private void shareOnFacebook(){
-			FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
+		FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
+			@Override
+			public void onInitialized() {
+				if (AccessToken.getCurrentAccessToken() == null) {
+						/*Inicia Sesion*/
+						/*Facbook*/
+					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
+					buttonFb.clearPermissions();
 
-				@Override
-				public void onInitialized() {
-						Bundle params = new Bundle();
-						params.putString("message", consejo);
-						//			.setImageUrl(Uri.parse("http://cdn.shephertz.com/repository/files/7389dc177e03422884045c7ac9227db10be51606e6bddbca4939f9d8d9b5cbb4/da5802be1fc4fd0ba497a9e6bb393627051789c9/ANPA.png"))
-						//			.build();
-						params.putString("link", "https://www.facebook.com/ANPACR/");
-						new GraphRequest(
-								AccessToken.getCurrentAccessToken(),
-								"/me/feed",
-								params,
-								HttpMethod.POST,
-								new GraphRequest.Callback() {
-									public void onCompleted(GraphResponse response) {
-										Log.d("", "------ graphResponse = " + response);
-									}
-								}
-						).executeAsync();
-						System.out.println("Logged in");
+					List<String> publishPermissions = Arrays.asList("publish_actions");
 
+					buttonFb.setPublishPermissions(publishPermissions);
+
+					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+						@Override
+						public void onSuccess(LoginResult loginResult) {
+							accessToken = loginResult.getAccessToken();
+							System.out.print("Access Token: " + accessToken.getToken());
+						}
+
+						@Override
+						public void onCancel() {
+							System.out.print("Cancelado");
+						}
+
+						@Override
+						public void onError(FacebookException error) {
+							System.out.print("Error: " + error);
+						}
+					});
+				} else {
+					ShareOpenGraphObject object = new ShareOpenGraphObject
+							.Builder()
+							.putString("fb:app_id", "915274545177488")
+							.putString("og:type", "article")
+							.putString("og:title", Constants.PUBLICA_CONSEJO)
+							.putString("og:url", Constants.ANPA_FACEBOOK_PUBLICA)
+							.putString("og:description", consejo)
+							.build();
+
+					// Create an action
+					ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+							.setActionType("news.publishes")
+							.putObject("article", object)
+							.build();
+
+					if (ShareDialog.canShow(ShareOpenGraphContent.class)) {
+						ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+								.setPreviewPropertyName("article")
+								.setAction(action)
+								.build();
+						shareDialog.show(content);
+					}
 				}
-			});
+			}
+		});
+
 	}
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

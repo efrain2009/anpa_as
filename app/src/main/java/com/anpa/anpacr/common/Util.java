@@ -1,10 +1,12 @@
 package com.anpa.anpacr.common;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import com.shephertz.app42.paas.sdk.android.util.Base64;
@@ -71,5 +73,10 @@ public class Util {
         return text;
     }
 
-
+    public String getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return path;
+    }
 }

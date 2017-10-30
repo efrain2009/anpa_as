@@ -66,23 +66,14 @@ public class LostListAdapter extends BaseAdapter{
 		TextView txt_short_direction_lost = (TextView) view.findViewById(R.id.txt_short_direction_lost);		
 		
 		String provincia = "";
-		
+
 		for (String prov : Constants.PROVINCE) {
 			String[] provSplit = prov.split(",");
-			if(provSplit[0].contains(item.get_iprovinvia().toString()))
-				 provincia = provSplit[1];
+			if(provSplit[1].contains(item.get_iprovinvia().toString()))
+				 provincia = provSplit[2];
 		}
-				
-		String canton = "";
-		
-		for (String cant : Constants.CANTON) {
-			String[] cantSplit = cant.split(",");
-			if(cantSplit[1].contains(item.get_icanton().toString()))
-				 canton = cantSplit[2];
-		}	
-		
-		
-		String txtShortDirection = canton + ", " + provincia;
+
+		String txtShortDirection = provincia;
 		txt_short_direction_lost.setText(txtShortDirection);
 
 		if(item.get_bFoto() != null){
