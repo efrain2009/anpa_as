@@ -72,11 +72,11 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private String docId = "";
 	private ServiceAPI api;
 	private StorageService storageService;
-	private Spinner provinciaSpinner, cantonSpinner, especieSpinner, razaSpinner;
+	private Spinner cantSpinner, provSpinner, especieSpinner, razaSpinner;
 	private SpinnerAdapter adapter;
 	private SpinnerAdapter adapter1;
 	SpinnerAdapter adapterRaces;
-	SpinnerAdapter adapterCantones;
+	SpinnerAdapter adapterProv;
 	private EditText editxt_nomMascota, editxt_contacto, editxt_telefono, editxt_detail_lost_description;
 	private Button saveLost;
 	private ImageView img_detail_lost;
@@ -161,11 +161,11 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				R.layout.spinner_item,
 				provinciaItems);
 
-		provinciaSpinner = (Spinner) findViewById(R.id.spn_provincia_selector);
+		cantSpinner = (Spinner) findViewById(R.id.spn_canton_selector);
 
-		cantonSpinner = (Spinner) findViewById(R.id.spn_canton_selector);
-		cantonSpinner.setAdapter(adapter); // Set the custom adapter to the spinner
-		cantonSpinner.setOnItemSelectedListener(onSelectItemCanton);
+		provSpinner = (Spinner) findViewById(R.id.spn_provincia_selector);
+		provSpinner.setAdapter(adapter); // Set the custom adapter to the spinner
+		provSpinner.setOnItemSelectedListener(onSelectItemProv);
 
 
 		editxt_contacto = (EditText) findViewById(R.id.editxt_contacto);
@@ -240,8 +240,8 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 			Util.textAsJSON(lostJSON, Constants.NOM_DUENO, editxt_contacto.getText().toString(), -1);
 			Util.textAsJSON(lostJSON, Constants.LATITUD_PERDIDO, _sLatitud, -1);
 			Util.textAsJSON(lostJSON, Constants.LONGITUD_PERDIDO, _sLongitud, -1);
-			Util.textAsJSON(lostJSON, Constants.PROVINCIA_PERDIDO, "", provinciaSpinner.getAdapter().getItemId(provinciaSpinner.getSelectedItemPosition()));
-			Util.textAsJSON(lostJSON, Constants.CANTON_PERDIDO, "", cantonSpinner.getAdapter().getItemId(cantonSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(lostJSON, Constants.PROVINCIA_PERDIDO, "", provSpinner.getAdapter().getItemId(provSpinner.getSelectedItemPosition()));
+			Util.textAsJSON(lostJSON, Constants.CANTON_PERDIDO, "", cantSpinner.getAdapter().getItemId(cantSpinner.getSelectedItemPosition()));
 			Util.textAsJSON(lostJSON, Constants.RAZA_PERDIDO, "", razaSpinner.getAdapter().getItemId(razaSpinner.getSelectedItemPosition()));
 			Util.textAsJSON(lostJSON, Constants.ESPECIE_PERDIDO, "", especieSpinner.getAdapter().getItemId(especieSpinner.getSelectedItemPosition()));
 			Util.textAsJSON(lostJSON, Constants.TELEFONO_PERDIDO, editxt_telefono.getText().toString(), -1);
@@ -264,7 +264,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 						if (check_facebook.isChecked()) {
 							if (AccessToken.getCurrentAccessToken() != null) {
 								msjFabebooklost = "\nNombre: " + editxt_nomMascota.getText().toString() + "." +
-										"\nDetalles: " + editxt_detail_lost_description.getText().toString() + "." +
+										"\nDetalles: " + editxt_detail_lost_description.getText().toString() + ". " +
 										"Descarga nuestra app y entérate.";
 								shareOnFacebook();
 							}
@@ -289,6 +289,16 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
                     }
                 }).create().show();
     }
+
+	private void alertaGPSnoActivado() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(Constants.MSJ_ERROR_GPS_ACTIVADO)
+				.setPositiveButton(Constants.BTN_ACEPTAR, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// FIRE ZE MISSILES!
+					}
+				}).create().show();
+	}
 
 	public void alertDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -348,32 +358,36 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	 * Verifica que el GPS esta activado.
 	 */
 	public void comprobarGPS() {
-		_locationManager = Gps.getInstance().revisarGPS(this, _locationManager);
-		if (_locationManager != null) {
-			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-			startActivityForResult(intent, Constants.SET_GPS);
-		} else {
-			_locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-			Location respuestaLocalizacion = Gps.getInstance().obtenerGeolocalizacion(_locationManager);
-			if (respuestaLocalizacion != null) {
-				_sLatitud = Double.toString(respuestaLocalizacion.getLatitude());
-				_sLongitud = Double.toString(respuestaLocalizacion.getLongitude());
+		if(Gps.getInstance() != null) {
+			_locationManager = Gps.getInstance().revisarGPS(this, _locationManager);
+			if (_locationManager != null) {
+				Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+				startActivityForResult(intent, Constants.SET_GPS);
 			} else {
-				_sLatitud = Constants.LATITUD_COSTA_RICA;
-				_sLongitud = Constants.LONGITUD_COSTA_RICA;
+				_locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+				Location respuestaLocalizacion = Gps.getInstance().obtenerGeolocalizacion(_locationManager);
+				if (respuestaLocalizacion != null) {
+					_sLatitud = Double.toString(respuestaLocalizacion.getLatitude());
+					_sLongitud = Double.toString(respuestaLocalizacion.getLongitude());
+				} else {
+					_sLatitud = Constants.LATITUD_COSTA_RICA;
+					_sLongitud = Constants.LONGITUD_COSTA_RICA;
+				}
 			}
+		}else{
+			alertaGPSnoActivado();
 		}
 	}
 
 	/**
 	 * Listener del spinner
 	 */
-	private OnItemSelectedListener onSelectItemProvincias = new OnItemSelectedListener() {
+	private OnItemSelectedListener onSelectItemCant = new OnItemSelectedListener() {
 		@Override
 		public void onItemSelected(AdapterView<?> adapterView, View view,
 								   int position, long id) {
 			// Here you get the current item (a User object) that is selected by its position
-			GenericNameValue selectedItem = adapterCantones.getItem(position);
+			GenericNameValue selectedItem = adapterProv.getItem(position);
 			// Here you can do the action you want to...
 			_sRaza = selectedItem.getName();
 		}
@@ -386,7 +400,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	/**
 	 * Listener del spinner
 	 */
-	private OnItemSelectedListener onSelectItemCanton = new OnItemSelectedListener() {
+	private OnItemSelectedListener onSelectItemProv = new OnItemSelectedListener() {
 		@Override
 		public void onItemSelected(AdapterView<?> adapterView, View view,
 								   int position, long id) {
@@ -531,18 +545,18 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 			}
 		}
 		//racesSpinner el spinner:
-		adapterRaces = new SpinnerAdapter(AddLostActivity.this,
+		//Carga el spinner:
+		SpinnerAdapter adapterRaces = new SpinnerAdapter(AddLostActivity.this,
 				R.layout.spinner_item,
 				speciesList);
 		razaSpinner.setAdapter(adapterRaces);
-		razaSpinner.setOnItemSelectedListener(onSelectItemEspecie);
 	}
 
 
 	/* carga la lista de cantones de una especie */
 	private void readCantones(int provinciaId)
 	{
-		ArrayList<GenericNameValue> provinciasList = new ArrayList<GenericNameValue>();
+		ArrayList<GenericNameValue> cantonesList = new ArrayList<GenericNameValue>();
 
 		String selectedFile = "";
 		switch (provinciaId) {
@@ -590,7 +604,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 			for (String canton : cantonesArray)
 			{
 				String[] values = canton.split(",");
-				provinciasList.add(new GenericNameValue(values[1], Integer.parseInt(values[0])));
+				cantonesList.add(new GenericNameValue(values[1], Integer.parseInt(values[0])));
 			}
 		}
 		catch(IOException e) {
@@ -606,11 +620,11 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		}
 
 		//Carga el spinner:
-		adapterCantones = new SpinnerAdapter(AddLostActivity.this,
+		SpinnerAdapter adapterCant = new SpinnerAdapter(AddLostActivity.this,
 				R.layout.spinner_item,
-				provinciasList);
-		cantonSpinner.setAdapter(adapterCantones);
-		cantonSpinner.setOnItemSelectedListener(onSelectItemProvincias);
+				cantonesList);
+		cantSpinner.setAdapter(adapterCant);
+
 	}
 
 	private void shareOnFacebook(){

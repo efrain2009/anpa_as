@@ -203,6 +203,7 @@ public class Constants {
 
 	public final static String MSG_IMAGE_UPLOAD_ERROR = "Ha ocurrido un error cargando la imagen: ";
 
+	public final static String MSJ_ERROR_GPS_ACTIVADO = "Debe de contar con el servicio de GPS activado";
 
 	//PUBLICACIONES EN FACEBOOK
 	public static final String PUBLICA_PERDIDO = "Ha publicado una adopción";
