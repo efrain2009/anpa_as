@@ -158,7 +158,7 @@ public class Constants {
 	public final static String FACEBOOK_MISCELANEOS = "ANPA08_FACEBOOK";
 	public final static String DIRECCION_MISCELANEOS = "ANPA08_DIRECCION";
 	public final static String TELEFONO1_MISCELANEOS = "ANPA08_TELEFONO1";
-	public final static String TELEFONO2_MISCELANEOS = "ANPA08_TELEFONO1";
+	public final static String TELEFONO2_MISCELANEOS = "ANPA08_TELEFONO2";
 	public final static String MAIL1_MISCELANEOS = "ANPA08_EMAIL1";
 	public final static String MAIL2_MISCELANEOS = "ANPA08_EMAIL2";
 	public final static String URL_MISCELANEOS = "ANPA08_URL";

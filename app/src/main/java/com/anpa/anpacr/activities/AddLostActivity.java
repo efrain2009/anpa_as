@@ -52,6 +52,7 @@ import com.shephertz.app42.paas.sdk.android.upload.Upload;
 import com.shephertz.app42.paas.sdk.android.upload.UploadFileType;
 import com.shephertz.app42.paas.sdk.android.upload.UploadService;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -228,13 +229,17 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 			if (app42PhotoURL != null && !app42PhotoURL.equals(""))
 				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, app42PhotoURL, -1);
 			else {
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_no_image);
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-				byte[] bitMapData = stream.toByteArray();
-				ByteArrayInputStream bs = new ByteArrayInputStream(bitMapData);
-				saveImage(bs, "loadImgDefault");
-				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, app42PhotoURL, -1);
+				try {
+					Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_no_image);
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+					byte[] bitMapData = stream.toByteArray();
+					ByteArrayInputStream bs = new ByteArrayInputStream(bitMapData);
+					saveImage(bs, "loadImgDefault");
+					lostJSON.put(Constants.FOTO_PERDIDO, app42PhotoURL);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			}
 			Util.textAsJSON(lostJSON, Constants.NOM_MASCOTA, editxt_nomMascota.getText().toString(), -1);
 			Util.textAsJSON(lostJSON, Constants.NOM_DUENO, editxt_contacto.getText().toString(), -1);

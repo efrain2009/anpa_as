@@ -67,14 +67,14 @@ public class LostListAdapter extends BaseAdapter{
 		
 		String provincia = "";
 
+
 		for (String prov : Constants.PROVINCE) {
 			String[] provSplit = prov.split(",");
-			if(provSplit[1].contains(item.get_iprovinvia().toString()))
-				 provincia = provSplit[2];
+			if(provSplit[0].contains(item.get_iprovinvia().toString()))
+				provincia = provSplit[1];
 		}
 
-		String txtShortDirection = provincia;
-		txt_short_direction_lost.setText(txtShortDirection);
+		txt_short_direction_lost.setText(provincia);
 
 		if(item.get_bFoto() != null){
 			ImageView img_lost = (ImageView) view.findViewById(R.id.img_lost);

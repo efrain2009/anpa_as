@@ -259,7 +259,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					sContent = jsonObject.getString(Constants.CONTENIDO_NOTICIA);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_NOTICIA);
 					sPhotoURL = jsonObject.getString(Constants.IMAGEN_NOTICIA);
-					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
+					byte[] photo = getBitmap(sPhotoURL);
 
 					if(iHabilitado == 1) {
 						News news = new News(sIdNews, Util.decode64AsText(sTitle), Util.decode64AsText(sContent), dCreationDate, photo, dateInicio, iHabilitado);
@@ -394,7 +394,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 					iOrden = jsonObject.getInt(Constants.ORDEN_PATROCINIO);
 					iHabilitado = jsonObject.getInt(Constants.HABILITADO_PATROCINIO);
 					sPhotoURL = jsonObject.getString(Constants.IMAGEN_PATROCINIO);
-					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
+					byte[] photo = getBitmap(sPhotoURL);
 
 					if(iHabilitado == 1) {
 						Sponsor newSpon = new Sponsor(sIdPatrocinios, Util.decode64AsText(sNombre), Util.decode64AsText(sDescripcion), Util.decode64AsText(sURL), iOrden, photo, dCreationDate, iHabilitado);

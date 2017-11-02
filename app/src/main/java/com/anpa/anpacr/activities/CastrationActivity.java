@@ -286,7 +286,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 					latitud = jsonObject.getString(Constants.LATITUD_CASTRACION);
 					longitud = jsonObject.getString(Constants.LONGITUD_CASTRACION);
 
-					byte[] photo = getBitmap(Util.decode64AsText(sPhotoURL));
+					byte[] photo = getBitmap(sPhotoURL);
 
                     if(habilitado == 1) {
                         Castration newCastration = new Castration(sIdCastration, Util.decode64AsText(sNombre), Util.decode64AsText(sDoctor), monto, Util.decode64AsText(direccion),
