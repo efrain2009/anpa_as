@@ -225,21 +225,22 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 			String dbName = Constants.App42DBName;
 			String collectionName = Constants.TABLE_PERDIDOS;
 			JSONObject lostJSON = new JSONObject();
-
-			if (app42PhotoURL != null && !app42PhotoURL.equals(""))
-				Util.textAsJSON(lostJSON, Constants.FOTO_PERDIDO, app42PhotoURL, -1);
-			else {
-				try {
-					Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_no_image);
-					ByteArrayOutputStream stream = new ByteArrayOutputStream();
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-					byte[] bitMapData = stream.toByteArray();
-					ByteArrayInputStream bs = new ByteArrayInputStream(bitMapData);
-					saveImage(bs, "loadImgDefault");
+			try {
+				if (app42PhotoURL != null && !app42PhotoURL.equals(""))
 					lostJSON.put(Constants.FOTO_PERDIDO, app42PhotoURL);
-				} catch (JSONException e) {
-					e.printStackTrace();
+				else {
+
+						Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_no_image);
+						ByteArrayOutputStream stream = new ByteArrayOutputStream();
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+						byte[] bitMapData = stream.toByteArray();
+						ByteArrayInputStream bs = new ByteArrayInputStream(bitMapData);
+						saveImage(bs, "loadImgDefault");
+						lostJSON.put(Constants.FOTO_PERDIDO, app42PhotoURL);
+
 				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 			Util.textAsJSON(lostJSON, Constants.NOM_MASCOTA, editxt_nomMascota.getText().toString(), -1);
 			Util.textAsJSON(lostJSON, Constants.NOM_DUENO, editxt_contacto.getText().toString(), -1);

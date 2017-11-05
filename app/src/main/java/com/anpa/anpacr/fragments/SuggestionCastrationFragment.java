@@ -45,13 +45,26 @@ public class SuggestionCastrationFragment extends android.support.v4.app.Fragmen
 				 List<GenericListItem> groups = new ArrayList<GenericListItem>();
 				 
 					 GenericListItem object = new GenericListItem();
-					 String [] respuestas = new String [] {"El animal debe de estar al menos 12 horas sin haber ingerido alimentos.", "No  utilice desparacitantes externos el día antes de la castración.","Lleve una cobija para proteger a su perro o gato al traslado a su casa."};
+					 String [] respuestas = new String [] {"Llevar al animal en ayunas (que su última comida sea a las 10:00 p.m. del día anterior a la campaña).",
+							 "Llevar una cobija para después de operados.",
+							 "No bañar a su mascota ni el día de la castración, ni el día antes.",
+							 "Gatos trasladarlos en fundas de almohada.",
+							 "Se castran animales sanos mayores de 3 meses y si son gatos machos mayores de 5 meses."};
 					 object.set_lArreglo(respuestas);
 					 object.set_sTitle("Antes de la operación");
 					 groups.add(object);
 				 
 					 GenericListItem object1 = new GenericListItem();
-					 String [] respuestas1 = new String [] {"Acúeste al animal extendido en un lugar cerrado, tranquilo, oscuro y protegido de corrientes de aire, del frío y la lluvia o el sol y permanezca pendiente de él"};
+
+				String [] respuestas1 = new String [] {"Su mascota se entregará saliendo bien de la anestesia total que se le aplicó para la cirugía.",
+						"Debe mantenerlo en un lugar seguro dentro de la casa, sobre una cobija, limpio, poco iluminado, sin viento, agua, ni sol directo.",
+						"No acostarlo en lugares altos.","Los hilos son absorbibles, con el pasar del tiempo se deshacen, el tiempo puede variar según los organismos.",
+						"Cuidar la herida, que no se chupen, ni se golpe, ni se abran la herida. Se recomienda el uso de collar isabelino.",
+						"Esperar al menos 5 horas después de la cirugía para darle agua y comida; que sea cuando el animal esté bien despierto.",
+						"Reforzar el cuidado post operatorio con analgésico y antibióticos por al menos 4 días.",
+						"En caso de consultas o emergencias contactar al médico veterinario que realizó la cirugía, el número está en el manual entregado durante la campaña de " +
+						"castración; adicionalmente el teléfono de ANPA 4000-2672, Correo electrónico: castraciones@anpacostarica.org FB: ANPA Costa Rica."};
+
 					 object1.set_lArreglo(respuestas1);
 					 object1.set_sTitle("Despúes de la operación");
 					 groups.add(object1);

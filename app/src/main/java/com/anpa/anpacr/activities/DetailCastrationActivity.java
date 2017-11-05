@@ -152,7 +152,7 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 			String horario = "";
 
 			try {
-				DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				DateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
 				Date dateInicio = format.parse(fechaInicio);
 				Date dateFin = format.parse(fechaFin);
 
