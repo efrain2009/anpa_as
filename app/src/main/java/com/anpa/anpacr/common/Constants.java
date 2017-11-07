@@ -208,7 +208,7 @@ public class Constants {
 	//PUBLICACIONES EN FACEBOOK
 	public static final String PUBLICA_PERDIDO = "Ha publicado una adopción";
 	public static final String PUBLICA_CONSEJO = "Ha compartido una experiencia";
+
+	//Tipo de cambio BCCR
+	public static final String WS_BCCR_ERROR = "En este momento no hay comunicación con el BCCR.";
 }
-
-
-

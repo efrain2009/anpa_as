@@ -3,6 +3,7 @@
     <string name="app_name">ANPA</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="txt_cancel">Cancelar</string>
 
     <string name="facebook_app_id">915274545177488</string>
     <string name="fb_login_protocol_scheme">915274545177488</string>
@@ -20,6 +21,11 @@
     <string name="txt_donation_link">http://www.anpacostarica.org/done_aqui</string>
     <string name="txt_donation_text1">Deseo donar: $</string>
     <string name="bt_send_donation">¡Donar!</string>
+    <string name="bt_send_calculate">Calcular en dólares</string>
+    <string name="bt_send_convert">Convertir a dólares</string>
+    <string name="txt_donation_exchange_rate">IMPORTANTE: Paypal recibe el pago en dólares americanos ($). El tipo de cambio según el BCCR en este momento es el siguiente:</string>
+    <string name="txt_donation_colones">Deseo donar: ¢</string>
+    <string name="txt_donation_colones_detail">Acá podés calcular el monto a donar en Colones. Este monto se convertirá a dólares para hacer la donación en Paypal.</string>
 
     <!-- Castration -->
     <string name="txt_subtitle_castration_date">Fecha:</string>
