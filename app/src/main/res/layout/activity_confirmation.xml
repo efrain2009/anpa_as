@@ -10,12 +10,22 @@
     android:background="@drawable/anpa_background"
     tools:context="com.anpa.anpacr.activities.ConfirmationActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_app_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/tl_payment_detail"
+        android:paddingBottom="40dp"/>
+
     <TableLayout
+        android:id="@+id/tl_payment_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="@color/item_semitransparent_child">
 
         <TableRow android:paddingBottom="10dp">
             <TextView
@@ -23,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_amount"
                 android:textColor="@color/button_pressed"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/paymentAmount"
@@ -31,7 +41,7 @@
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:textColor="@color/button_pressed"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </TableRow>
 
         <TableRow android:paddingBottom="10dp">
@@ -40,14 +50,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_status"
                 android:textColor="@color/button_pressed"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/paymentStatus"
                 android:layout_width="wrap_content"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:textColor="@color/button_pressed"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </TableRow>
 
         <TableRow android:paddingBottom="10dp">
@@ -56,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_payment_id"
                 android:textColor="@color/button_pressed"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/paymentId"
@@ -64,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/button_pressed"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </TableRow>
     </TableLayout>
 
