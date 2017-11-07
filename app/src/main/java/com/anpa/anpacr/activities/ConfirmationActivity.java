@@ -20,8 +20,6 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         //Getting Intent
         Intent intent = getIntent();
-
-
         try {
             JSONObject jsonDetails = new JSONObject(intent.getStringExtra("PaymentDetails"));
 
@@ -41,7 +39,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         String state = jsonDetails.getString("state");
 
         if(state.equals("approved"))
-            state = "Aprovado";
+            state = "Aprobado";
         //Showing the details from json object
         textViewId.setText(jsonDetails.getString("id"));
         textViewStatus.setText(state);

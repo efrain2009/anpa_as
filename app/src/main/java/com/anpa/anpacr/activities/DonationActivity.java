@@ -2,7 +2,6 @@ package com.anpa.anpacr.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,12 +59,10 @@ public class DonationActivity extends AnpaAppFraqmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //If the result is from paypal
         if (requestCode == PAYPAL_REQUEST_CODE) {
-
             //If the result is OK i.e. user has not canceled the payment
             if (resultCode == Activity.RESULT_OK) {
                 //Getting the payment confirmation
                 PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-
                 //if confirmation is not null
                 if (confirm != null) {
                     try {
