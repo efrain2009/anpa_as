@@ -319,21 +319,21 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		fm.popBackStackImmediate();
 	}
 
-	//Obtiene la imagen desde una URL
-	public static byte[] getBitmap(String url) {
-		try {
-			InputStream is = (InputStream) new URL(url).getContent();
-			Bitmap d = BitmapFactory.decodeStream(is);
-			is.close();
+    //Obtiene la imagen desde una URL
+    public static byte[] getBitmap(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Bitmap d = BitmapFactory.decodeStream(is);
+            is.close();
 
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			d.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-			byte[] byteArray = stream.toByteArray();
-			return byteArray;
-		} catch (Exception e) {
-			return null;
-		}
-	}
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            d.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            return byteArray;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 	/* Metodo para decodificar el json de preguntas */
 	private class AsyncLoadFreqAnswerListTask extends AsyncTask<Storage, Integer, Boolean> {
