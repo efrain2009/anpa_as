@@ -39,6 +39,7 @@ public class Lost implements Serializable{
 		this._iprovinvia = iProvincia;
 		this._icanton = iCanton;
 		this._sraza = sRaza;
+		this._sespecie = sEspecie;
 		this._sDate = sDate;
 		this._bFoto = bFoto;
 		this._slatitud = sLatitud;

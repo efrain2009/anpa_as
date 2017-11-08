@@ -1,11 +1,17 @@
 package com.anpa.anpacr.adapter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +80,11 @@ public class LostListAdapter extends BaseAdapter{
 				provincia = provSplit[1];
 		}
 
-		txt_short_direction_lost.setText(provincia);
+		String canton = readCantones(item.get_iprovinvia(), item.get_icanton());
+
+		String txtShortDirection = canton + ", " + provincia;
+
+		txt_short_direction_lost.setText(txtShortDirection);
 
 		if(item.get_bFoto() != null){
 			ImageView img_lost = (ImageView) view.findViewById(R.id.img_lost);
@@ -92,5 +102,78 @@ public class LostListAdapter extends BaseAdapter{
 	
 	public void clearAdapter(){
 		lostList.clear();
-	}	
+	}
+
+
+
+	/* carga la lista de cantones de una especie */
+	private String readCantones(int provinciaId, int cantonId)
+	{
+		ArrayList<GenericNameValue> cantonesList = new ArrayList<GenericNameValue>();
+
+		String selectedFile = "";
+		switch (provinciaId) {
+			case 2:
+				selectedFile = "canton_alajuela";
+				break;
+			case 3:
+				selectedFile = "canton_cartago";
+				break;
+			case 4:
+				selectedFile = "canton_heredia";
+				break;
+			case 5:
+				selectedFile = "canton_guanacaste";
+				break;
+			case 6:
+				selectedFile = "canton_puntarenas";
+				break;
+			case 7:
+				selectedFile = "canton_limon";
+				break;
+			default:
+				selectedFile = "canton_san_jose";
+				break;
+		}
+
+		BufferedReader in = null;
+		StringBuilder buf = new StringBuilder();
+		try{
+			InputStream is = activity.getApplicationContext().getAssets().open(selectedFile + ".txt");
+			in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+			String cantones;
+			boolean isFirst = true;
+			while ((cantones = in.readLine()) != null ){
+				if (isFirst)
+					isFirst = false;
+				else
+					buf.append('\n');
+				buf.append(cantones);
+			}
+
+			String[] cantonArray = buf.toString().split("#");
+
+			for (String canton : cantonArray)
+			{
+				String[] values = canton.split(",");
+				if(cantonId == Integer.parseInt(values[0]))
+					return values[1];
+			}
+		}
+		catch(IOException e) {
+			Log.e("OJO", "Error opening asset ");
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					Log.e("OJO", "Error closing asset ");
+				}
+			}
+		}
+		return "";
+	}
+
+
 }

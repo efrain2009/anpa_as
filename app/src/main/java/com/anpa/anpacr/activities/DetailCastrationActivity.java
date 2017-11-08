@@ -152,7 +152,7 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 			String horario = "";
 
 			try {
-				DateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+				DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 				Date dateInicio = format.parse(fechaInicio);
 				Date dateFin = format.parse(fechaFin);
 
@@ -288,7 +288,7 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 					alertaLogeoFB();
 				} else {
 
-					String msjFabebook= "El evento de castración será en " + titleCastracionCalendar + ". " +
+					String msjFabebook= "Será en " + titleCastracionCalendar + ". " +
 							"Descarga nuestra app y entérate.";
 					ShareOpenGraphObject object = new ShareOpenGraphObject
 							.Builder()

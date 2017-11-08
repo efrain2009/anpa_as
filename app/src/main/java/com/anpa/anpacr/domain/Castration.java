@@ -53,7 +53,7 @@ public class Castration implements Serializable{
 		this._sEncargado = _sEncargado;
 		this._sDateInicio = _sDateInicio;
 		this._sDateFin = _sDateFin;
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         try {
             this._dDateInicio = formatter.parse(_sDateInicio);
             this._dDateFin = formatter.parse(_sDateFin);

@@ -226,6 +226,8 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 			Intent intent = new Intent(TipsActivity.this,
 					DetailTipActivity.class);
 			intent.putExtra(Constants.ID_OBJ_DETAIL_TIP, tip);
+			intent.putExtra("razaSearch", razaBusqueda);
+			intent.putExtra("especieSearch", especieBusqueda);
 			startActivity(intent);
 		}
 	};

@@ -43,7 +43,7 @@ public class DetailLostActivity extends AnpaAppFraqmentActivity {
 			txt_nom_mascota.setText(value.get_snombreMascota());
 			
 			TextView txt_raza = (TextView) findViewById(R.id.txt_raza_mascota);
-			String raza = readSpecies(value.get_icanton(), value.get_sraza());
+			String raza = readSpecies(value.get_sespecie(), value.get_sraza());
 			txt_raza.setText(raza);
 			
 			TextView txt_contacto = (TextView) findViewById(R.id.txt_contacto);
@@ -53,19 +53,22 @@ public class DetailLostActivity extends AnpaAppFraqmentActivity {
 			txt_telefono.setText(value.get_stelefono());
 			
 			TextView txt_short_direction = (TextView) findViewById(R.id.txt_short_direction);
-			
-			
-			String provincia = "";
-			
-			for (String prov : Constants.PROVINCE) {
-				String[] provSplit = prov.split(",");
-				if(provSplit[0].contains(value.get_iprovinvia().toString())){
-					 provincia = provSplit[1];
-					 break;
-				}
-			}
 
-			String txtShortDirection = provincia;
+            String provincia = "";
+
+            for (String prov : Constants.PROVINCE) {
+                String[] provSplit = prov.split(",");
+                if(provSplit[0].contains(value.get_iprovinvia().toString())){
+                    provincia = provSplit[1];
+                    break;
+                }
+            }
+			
+
+			String canton = readCantones(value.get_iprovinvia(), value.get_icanton());
+
+
+            String txtShortDirection = canton + ", " + provincia;
 			txt_short_direction.setText(txtShortDirection);
 
 			TextView txt_detail_lost_description = (TextView) findViewById(R.id.txt_detail_lost_description);
@@ -148,6 +151,76 @@ public class DetailLostActivity extends AnpaAppFraqmentActivity {
 		}
 		return "";
 	}
+
+
+    /* carga la lista de cantones de una especie */
+    private String readCantones(int provinciaId, int cantonId)
+    {
+        ArrayList<GenericNameValue> cantonesList = new ArrayList<GenericNameValue>();
+
+        String selectedFile = "";
+        switch (provinciaId) {
+            case 2:
+                selectedFile = "canton_alajuela";
+                break;
+            case 3:
+                selectedFile = "canton_cartago";
+                break;
+            case 4:
+                selectedFile = "canton_heredia";
+                break;
+            case 5:
+                selectedFile = "canton_guanacaste";
+                break;
+            case 6:
+                selectedFile = "canton_puntarenas";
+                break;
+            case 7:
+                selectedFile = "canton_limon";
+                break;
+            default:
+                selectedFile = "canton_san_jose";
+                break;
+        }
+
+        BufferedReader in = null;
+        StringBuilder buf = new StringBuilder();
+        try{
+            InputStream is = getApplicationContext().getAssets().open(selectedFile + ".txt");
+            in = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+            String cantones;
+            boolean isFirst = true;
+            while ((cantones = in.readLine()) != null ){
+                if (isFirst)
+                    isFirst = false;
+                else
+                    buf.append('\n');
+                buf.append(cantones);
+            }
+
+            String[] cantonArray = buf.toString().split("#");
+
+            for (String canton : cantonArray)
+            {
+                String[] values = canton.split(",");
+                if(cantonId == Integer.parseInt(values[0]))
+                    return values[1];
+            }
+        }
+        catch(IOException e) {
+            Log.e("OJO", "Error opening asset ");
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.e("OJO", "Error closing asset ");
+                }
+            }
+        }
+        return "";
+    }
 	
 	/**
 	 * Listener del bot�n

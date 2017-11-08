@@ -79,6 +79,8 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 	AccessTokenTracker accessTokenTracker;
 	AccessToken accessToken;
 	String consejo = "";
+	Long razaBusqueda;
+	Long especieBusqueda;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +97,8 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 
 		Bundle pantallaBusquedaTip = getIntent().getExtras();
-		Long razaBusqueda = pantallaBusquedaTip.getLong("razaSearch");
-		Long especieBusqueda = pantallaBusquedaTip.getLong("especieSearch");
+		razaBusqueda = pantallaBusquedaTip.getLong("razaSearch");
+		especieBusqueda = pantallaBusquedaTip.getLong("especieSearch");
 
         /* Facebook*/
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -147,8 +149,8 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 				Util.textAsJSON(tipJSON, Constants.DESCR_CONSEJO, editxt_description_tip.getText().toString(), -1);
 				Util.textAsJSON(tipJSON, Constants.AUTOR_CONSEJO, editxt_breed_author.getText().toString(), -1);
 				//Mandar los valores que se setearon en el listado de filtros
-				Util.textAsJSON(tipJSON, Constants.RAZA_CONSEJO, "", 1);
-				Util.textAsJSON(tipJSON, Constants.ESPECIE_CONSEJO, "", 1);
+				Util.textAsJSON(tipJSON, Constants.RAZA_CONSEJO, "", razaBusqueda.intValue());
+				Util.textAsJSON(tipJSON, Constants.ESPECIE_CONSEJO, "", especieBusqueda.intValue());
 				//
 				Util.textAsJSON(tipJSON, Constants.ESTRELLA1_CONSEJO, "", 0);
 				Util.textAsJSON(tipJSON, Constants.ESTRELLA2_CONSEJO, "", 0);

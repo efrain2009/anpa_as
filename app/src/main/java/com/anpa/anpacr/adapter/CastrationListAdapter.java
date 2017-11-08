@@ -74,7 +74,7 @@ public class CastrationListAdapter extends BaseAdapter{
 		String horario = "";
 
 		try {
-			DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 			Date dateInicio = format.parse(item.get_sDateInicio());
 
 			///////////////////////////FORMAT FECHA DE LAS CASTRACION/////////////////////////
@@ -84,7 +84,7 @@ public class CastrationListAdapter extends BaseAdapter{
 
 			///////////////////////////FORMAT HORA DE LAS CASTRACION/////////////////////////
 			// Converting to String again, using an alternative format hora
-			SimpleDateFormat dthora = new SimpleDateFormat("hh:mm a");
+			SimpleDateFormat dthora = new SimpleDateFormat("HH:mm a");
 			String startHora = dthora.format(dateInicio);
 			horario = startDate + " - " +startHora;
 

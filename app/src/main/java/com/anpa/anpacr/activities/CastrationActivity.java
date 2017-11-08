@@ -263,7 +263,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			Double monto = Double.valueOf(0);
 			Date dCreationDate;
 
-			SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm aaa");
+			SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
 			for(int i=0; i < jsonDocList.size(); i ++){
 				sIdCastration = jsonDocList.get(i).getDocId();
