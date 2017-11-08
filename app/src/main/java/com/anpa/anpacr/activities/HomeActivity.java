@@ -16,9 +16,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class HomeActivity extends ActionBarActivity {
 
 	CallbackManager callbackManager;
@@ -37,13 +34,14 @@ public class HomeActivity extends ActionBarActivity {
 		LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
 		buttonFb.clearPermissions();
 
+
 		callbackManager = CallbackManager.Factory.create();
 
-		List<String> publishPermissions = Arrays.asList("publish_actions");
+		//List<String> publishPermissions = Arrays.asList("publish_actions");
 	//	buttonFb.setReadPermissions("user_friends");
 		//LoginManager.getInstance().logInWithPublishPermissions(this, publishPermissions);
 
-		buttonFb.setPublishPermissions(publishPermissions);
+		//buttonFb.setPublishPermissions(publishPermissions);
 
 		buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 			@Override
@@ -152,7 +150,7 @@ public class HomeActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			//Como hacer mensaje System.out
 			//Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_LONG).show();
-			//startDonationActivity();
+			//startDonationActivity();lo
 			startCommingUpActivity();
 		}
 	};
