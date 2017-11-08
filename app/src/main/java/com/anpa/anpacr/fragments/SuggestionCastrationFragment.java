@@ -63,7 +63,7 @@ public class SuggestionCastrationFragment extends android.support.v4.app.Fragmen
 						"Esperar al menos 5 horas después de la cirugía para darle agua y comida; que sea cuando el animal esté bien despierto.",
 						"Reforzar el cuidado post operatorio con analgésico y antibióticos por al menos 4 días.",
 						"En caso de consultas o emergencias contactar al médico veterinario que realizó la cirugía, el número está en el manual entregado durante la campaña de " +
-						"castración; adicionalmente el teléfono de ANPA 4000-2672, Correo electrónico: castraciones@anpacostarica.org FB: ANPA Costa Rica."};
+						"castración, ó bien, al teléfono de ANPA +506 4000-2672, correo electrónico: castraciones@anpacostarica.org, Facebook: ANPA Costa Rica."};
 
 					 object1.set_lArreglo(respuestas1);
 					 object1.set_sTitle("Despúes de la operación");

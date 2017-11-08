@@ -54,6 +54,7 @@
         <activity android:name=".activities.TipSearchActivity" />
         <activity android:name=".activities.AddTipActivity" />
         <activity android:name=".activities.AddLostActivity" />
+        <activity android:name=".activities.CommingUpActivity" />
 
         <!-- Facebook -->
 

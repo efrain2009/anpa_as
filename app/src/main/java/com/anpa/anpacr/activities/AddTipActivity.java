@@ -68,7 +68,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 
 	EditText editxt_description_tip, editxt_breed_author;
 
-	CheckBox check_facebook;
+	//CheckBox check_facebook;
 
 	Button saveTip;
 	String _sRaza;
@@ -107,6 +107,10 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
+		//Ir a compartir en facebook
+		Button btnGoFacebook = (Button) findViewById(R.id.btn_add_facebook);
+		btnGoFacebook.setOnClickListener(onGoFacebook);
+
 
 		saveTip = (Button) findViewById(R.id.btn_add_tip);
 		saveTip.setOnClickListener(onSave);
@@ -115,7 +119,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 
 		editxt_breed_author = (EditText) findViewById(R.id.editxt_breed_author);
 
-		check_facebook = (CheckBox) findViewById(R.id.ck_public_fb);
+		//check_facebook = (CheckBox) findViewById(R.id.ck_public_fb);
 
 		//Obtener valores q se obtuvieron en el filtro//
 		TextView txt_raza = (TextView) findViewById(R.id.txt_addRaza_consejo);
@@ -132,10 +136,10 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		@Override
 		public void onClick(View v) {
 
-			if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
+		/*	if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
 				alertaLogeoFB();
 			} else {
-
+		*/
 				String dbName = Constants.App42DBName;
 				String collectionName = Constants.TABLE_CONSEJO;
 
@@ -168,12 +172,13 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 							System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
 							System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
 							System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+							/*
 							if (check_facebook.isChecked()) {
 								if (AccessToken.getCurrentAccessToken() != null) {
-									consejo = editxt_description_tip.getText().toString();
 									shareOnFacebook();
 								}
 							}
+							*/
 						}
 					}
 
@@ -183,7 +188,7 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 				});
 				alertDialog();
 				consejo = "";
-			}
+			//}
 		}
 	};
 
@@ -272,36 +277,12 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 	}
 
 	private void shareOnFacebook(){
+
 		FacebookSdk.sdkInitialize(this.getApplicationContext(), new FacebookSdk.InitializeCallback() {
 			@Override
 			public void onInitialized() {
 				if (AccessToken.getCurrentAccessToken() == null) {
-						/*Inicia Sesion*/
-						/*Facbook*/
-					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-					buttonFb.clearPermissions();
-
-					List<String> publishPermissions = Arrays.asList("publish_actions");
-
-					buttonFb.setPublishPermissions(publishPermissions);
-
-					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-						@Override
-						public void onSuccess(LoginResult loginResult) {
-							accessToken = loginResult.getAccessToken();
-							System.out.print("Access Token: " + accessToken.getToken());
-						}
-
-						@Override
-						public void onCancel() {
-							System.out.print("Cancelado");
-						}
-
-						@Override
-						public void onError(FacebookException error) {
-							System.out.print("Error: " + error);
-						}
-					});
+					alertaLogeoFB();
 				} else {
 					ShareOpenGraphObject object = new ShareOpenGraphObject
 							.Builder()
@@ -337,4 +318,14 @@ public class AddTipActivity extends AnpaAppFraqmentActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
+
+	private OnClickListener onGoFacebook = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			consejo = editxt_description_tip.getText().toString() + ". " +
+					"Descarga nuestra app y entérate.";
+			shareOnFacebook();
+		}
+	};
 }

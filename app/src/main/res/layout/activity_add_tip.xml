@@ -45,62 +45,50 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingTop="20dp" >
 
-        <CheckBox
-            android:id="@+id/ck_public_fb"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:paddingTop="5dp"
-            android:text="@string/txt_public_fb" />
-
-        <ImageView
-            android:id="@+id/img_icon_facebook_tip"
-            android:layout_width="55dp"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/txt_description_image"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:src="@drawable/icon_facebook" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:baselineAligned="false"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingTop="20dp"
-        android:visibility="gone">
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
+        <Button
+            android:id="@+id/btn_add_facebook"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/com_facebook_blue"
+            android:padding="10dp"
+            android:text="@string/bt_buton_add_facebook"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/lv_buttons_block"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/com_facebook_button_icon"/>
     </LinearLayout>
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:id="@+id/lv_buttons_block"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="10dp">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:paddingTop="20dp">
 
         <Button
             android:id="@+id/btn_add_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_weight="0.23"
             android:background="@color/red"
             android:padding="10dp"
             android:text="@string/txt_add_tip_public"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

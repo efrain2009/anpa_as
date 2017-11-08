@@ -88,7 +88,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 	private String photoPath;
 	private String app42PhotoURL;
 	private LocationManager _locationManager;
-	CheckBox check_facebook;
+	//CheckBox check_facebook;
 	private Bitmap bmp;
 	private String urlBmp;
 
@@ -130,6 +130,10 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 		Button photoLost = (Button) findViewById(R.id.btn_add_lost_photo);
 		photoLost.setOnClickListener(onSetPhoto);
+
+		//Ir a compartir en facebook
+		Button btnGoFacebook = (Button) findViewById(R.id.btn_add_facebook);
+		btnGoFacebook.setOnClickListener(onGoFacebook);
 
 		//Crea la lista de especie:
 		ArrayList<GenericNameValue> racesItems = new ArrayList<GenericNameValue>();
@@ -176,7 +180,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 		img_detail_lost = (ImageView) findViewById(R.id.img_detail_lost);
 		img_detail_lost.buildDrawingCache();
 		bmp = img_detail_lost.getDrawingCache();
-		check_facebook = (CheckBox) findViewById(R.id.chkCompFB);
+		//check_facebook = (CheckBox) findViewById(R.id.chkCompFB);
 
 
 		_locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -219,9 +223,9 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 
 
 	private void saveInfo() {
-		if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
+	/*	if (check_facebook.isChecked() && AccessToken.getCurrentAccessToken() == null) {
 			alertaLogeoFB();
-		} else {
+		} else {*/
 			String dbName = Constants.App42DBName;
 			String collectionName = Constants.TABLE_PERDIDOS;
 			JSONObject lostJSON = new JSONObject();
@@ -267,14 +271,13 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 						System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
 						System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
 						System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
-						if (check_facebook.isChecked()) {
+
+					/*	if (check_facebook.isChecked()) {
 							if (AccessToken.getCurrentAccessToken() != null) {
-								msjFabebooklost = "\nNombre: " + editxt_nomMascota.getText().toString() + "." +
-										"\nDetalles: " + editxt_detail_lost_description.getText().toString() + ". " +
-										"Descarga nuestra app y entérate.";
+
 								shareOnFacebook();
 							}
-						}
+						}*/
 					}
 				}
 
@@ -283,7 +286,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 				}
 			});
 			alertDialog();
-		}
+		//}
 	}
 
     private void alertaLogeoFB() {
@@ -638,33 +641,8 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
 					@Override
 					public void onInitialized() {
 						if (AccessToken.getCurrentAccessToken() == null) {
-						/*Inicia Sesion*/
-						/*Facbook*/
-							LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-							buttonFb.clearPermissions();
-
-							List<String> publishPermissions = Arrays.asList("publish_actions");
-
-							buttonFb.setPublishPermissions(publishPermissions);
-
-							buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-								@Override
-								public void onSuccess(LoginResult loginResult) {
-									accessToken = loginResult.getAccessToken();
-									System.out.print("Access Token: " + accessToken.getToken());
-								}
-
-								@Override
-								public void onCancel() {
-									System.out.print("Cancelado");
-								}
-
-								@Override
-								public void onError(FacebookException error) {
-									System.out.print("Error: " + error);
-								}
-							});
-						} else {
+							alertaLogeoFB();
+					} else {
 							ShareOpenGraphObject object = new ShareOpenGraphObject
 									.Builder()
 									.putString("fb:app_id", "915274545177488")
@@ -711,4 +689,15 @@ Redimensiona un bitmap, si la imagen es muy grande
 		}
 		return Bitmap.createScaledBitmap(image, width, height, true);
 	}
+
+	private OnClickListener onGoFacebook = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			msjFabebooklost = "\nNombre: " + editxt_nomMascota.getText().toString() + "." +
+					"\nDetalles: " + editxt_detail_lost_description.getText().toString() + ". " +
+					"Descarga nuestra app y entérate.";
+			shareOnFacebook();
+		}
+	};
 }

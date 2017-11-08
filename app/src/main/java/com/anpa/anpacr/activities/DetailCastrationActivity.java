@@ -285,35 +285,11 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 			@Override
 			public void onInitialized() {
 				if (AccessToken.getCurrentAccessToken() == null) {
-						/*Inicia Sesion*/
-						/*Facbook*/
-					LoginButton buttonFb = (LoginButton) findViewById(R.id.login_button);
-					buttonFb.clearPermissions();
-
-					List<String> publishPermissions = Arrays.asList("publish_actions");
-
-					buttonFb.setPublishPermissions(publishPermissions);
-
-					buttonFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-						@Override
-						public void onSuccess(LoginResult loginResult) {
-							accessToken = loginResult.getAccessToken();
-							System.out.print("Access Token: " + accessToken.getToken());
-						}
-
-						@Override
-						public void onCancel() {
-							System.out.print("Cancelado");
-						}
-
-						@Override
-						public void onError(FacebookException error) {
-							System.out.print("Error: " + error);
-						}
-					});
+					alertaLogeoFB();
 				} else {
 
-					String msjFabebook= "El evento de castración será en " + titleCastracionCalendar;
+					String msjFabebook= "El evento de castración será en " + titleCastracionCalendar + ". " +
+							"Descarga nuestra app y entérate.";
 					ShareOpenGraphObject object = new ShareOpenGraphObject
 							.Builder()
 							.putString("fb:app_id", "915274545177488")
