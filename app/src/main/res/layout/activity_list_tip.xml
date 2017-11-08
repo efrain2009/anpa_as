@@ -20,8 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/txt_list_title_tip"
-        android:layout_above="@+id/btn_add_tip">
-    </ListView>
+        android:layout_above="@+id/btn_add_tip"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/divider_separator"/>
 
     <Button
         android:id="@+id/btn_add_tip"

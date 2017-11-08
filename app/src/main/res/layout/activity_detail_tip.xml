@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/anpa_background"
     android:orientation="vertical"
     android:padding="10dp">
 
-	<ScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_add_tip">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/txt_raza_consejo"
@@ -22,36 +23,37 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
+                android:paddingBottom="10dp"
                 android:textColor="@color/red"
-                android:textSize="20sp"
-                android:paddingBottom="10dp" />
+                android:textSize="20sp" />
 
             <TextView
-                 android:id="@+id/txt_detail_consejo"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_gravity="center_horizontal"
-                 android:layout_weight="2"
-                 android:gravity="top"
-                 android:textColor="@color/black" />
+                android:id="@+id/txt_detail_consejo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="2"
+                android:background="@color/item_semitransparent_child"
+                android:gravity="top"
+                android:lines="6"
+                android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="20dp" >
+                android:paddingTop="20dp">
 
                 <TextView
                     android:id="@+id/txt_detail_raza"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
                     android:textColor="@color/red" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="181dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp">
@@ -61,9 +63,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:paddingRight="6dp"
                     android:text="@string/txt_subtitle_autor"
-                    android:textColor="@color/red"
-                    android:paddingRight="6dp" />
+                    android:textColor="@color/red" />
 
                 <TextView
                     android:id="@+id/txt_detail_autor"
@@ -73,10 +75,11 @@
                     android:textColor="@color/black" />
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:paddingTop="20dp">
                 <!--
                 <Button
@@ -95,67 +98,75 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
                     android:text="@string/txt_tip_opinion" />
 
-                <LinearLayout android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
                     <ImageButton
                         android:id="@+id/img_detail_tip_star1"
                         android:layout_width="@dimen/ratings_footprints_size"
                         android:layout_height="@dimen/ratings_footprints_size"
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
-                        android:paddingRight="5dp"
-                        android:onClick="setRating" />
+                        android:onClick="setRating"
+                        android:paddingRight="5dp" />
+
                     <ImageButton
                         android:id="@+id/img_detail_tip_star2"
                         android:layout_width="@dimen/ratings_footprints_size"
                         android:layout_height="@dimen/ratings_footprints_size"
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
-                        android:paddingRight="5dp"
-                        android:onClick="setRating" />
+                        android:onClick="setRating"
+                        android:paddingRight="5dp" />
+
                     <ImageButton
                         android:id="@+id/img_detail_tip_star3"
                         android:layout_width="@dimen/ratings_footprints_size"
                         android:layout_height="@dimen/ratings_footprints_size"
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
-                        android:paddingRight="5dp"
-                        android:onClick="setRating" />
+                        android:onClick="setRating"
+                        android:paddingRight="5dp" />
+
                     <ImageButton
                         android:id="@+id/img_detail_tip_star4"
                         android:layout_width="@dimen/ratings_footprints_size"
                         android:layout_height="@dimen/ratings_footprints_size"
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
-                        android:paddingRight="5dp"
-                        android:onClick="setRating" />
+                        android:onClick="setRating"
+                        android:paddingRight="5dp" />
+
                     <ImageButton
                         android:id="@+id/img_detail_tip_star5"
                         android:layout_width="@dimen/ratings_footprints_size"
                         android:layout_height="@dimen/ratings_footprints_size"
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
-                        android:paddingRight="5dp"
-                        android:onClick="setRating" />
+                        android:onClick="setRating"
+                        android:paddingRight="5dp" />
                 </LinearLayout>
-
             </LinearLayout>
-            <Button
-                android:id="@+id/btn_add_tip"
-                android:layout_marginTop="80dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-				android:layout_gravity="center"
-                android:layout_centerHorizontal="true"
-                android:background="@color/red"
-                android:padding="10dp"
-                android:text="@string/txt_add_tip"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <Button
+        android:id="@+id/btn_add_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:background="@color/red"
+        android:padding="10dp"
+        android:text="@string/txt_add_tip"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+</RelativeLayout>

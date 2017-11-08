@@ -24,10 +24,12 @@
                 <ImageView
                     android:id="@+id/img_detail_castration"
                     android:layout_width="60dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/txt_description_image"
-                    android:src="@drawable/ic_anpa_square" />
+                    android:src="@drawable/ic_anpa_square"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="5dp"/>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
