@@ -14,8 +14,9 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_alignParentLeft="true"
-            android:contentDescription="@string/txt_description_image"
-            android:src="@drawable/ic_anpa_square" />
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/txt_description_image" />
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -1,11 +1,11 @@
 package com.anpa.anpacr.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.domain.News;
+
+import java.util.List;
 
 public class NewsListAdapter extends BaseAdapter{
 	
@@ -68,13 +70,18 @@ public class NewsListAdapter extends BaseAdapter{
 		if(txtPreviewDescrip.length() > 30)
 			txtPreviewDescrip = txtPreviewDescrip.substring(0,30) + "...";
 		txt_descrip_news.setText(txtPreviewDescrip);
-		
+
+		ImageView img_news = (ImageView) view.findViewById(R.id.img_news);
 		if(item.get_bImagen() != null){
-			ImageView img_news = (ImageView) view.findViewById(R.id.img_news);
-			Bitmap bmpImage = BitmapFactory.decodeByteArray(
-				      item.get_bImagen(), 0, item.get_bImagen().length);
-			img_news.setImageBitmap(bmpImage);
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			Bitmap bmp = BitmapFactory.decodeByteArray(item.get_bImagen(), 0, item.get_bImagen().length, options);
+			RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(img_news.getResources(), bmp);
+			dr.setCornerRadius(20);;
+
+			img_news.setImageDrawable(dr);
 		}
+		else
+			img_news.setImageResource(R.drawable.ic_anpa_square);
 		
 		return view;
 	}

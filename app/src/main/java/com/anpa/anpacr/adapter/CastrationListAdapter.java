@@ -1,15 +1,11 @@
 package com.anpa.anpacr.adapter;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +15,12 @@ import android.widget.TextView;
 
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.domain.Castration;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class CastrationListAdapter extends BaseAdapter{
 	
@@ -62,12 +64,17 @@ public class CastrationListAdapter extends BaseAdapter{
 		
 		Castration item = castrationList.get(position);
 
+		ImageView img_castracion = (ImageView) view.findViewById(R.id.img_detail_castration);
 		if(item.get_bImagen() != null){
-			ImageView img_castracion = (ImageView) view.findViewById(R.id.img_detail_castration);
-			Bitmap bmpImage = BitmapFactory.decodeByteArray(
-					item.get_bImagen(), 0, item.get_bImagen().length);
-			img_castracion.setImageBitmap(bmpImage);
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			Bitmap bmp = BitmapFactory.decodeByteArray(item.get_bImagen(), 0, item.get_bImagen().length, options);
+			RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(img_castracion.getResources(), bmp);
+			dr.setCornerRadius(20);
+
+			img_castracion.setImageDrawable(dr);
 		}
+		else
+			img_castracion.setImageResource(R.drawable.ic_anpa_square);
 		
 		TextView txt_title_castration = (TextView) view.findViewById(R.id.txt_title_castration);
 		txt_title_castration.setText(item.get_snombre());

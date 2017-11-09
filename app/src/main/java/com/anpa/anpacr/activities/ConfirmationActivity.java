@@ -1,29 +1,21 @@
 package com.anpa.anpacr.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anpa.anpacr.R;
-import com.anpa.anpacr.common.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ConfirmationActivity extends AppCompatActivity {
+public class ConfirmationActivity extends AnpaAppFraqmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
-
-        // Btn de back (anterior)
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_DONATION);
 
         //Getting Intent
         Intent intent = getIntent();
