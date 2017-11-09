@@ -152,7 +152,8 @@ public class HomeActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			//Como hacer mensaje System.out
 			//Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_LONG).show();
-			startCommingUpActivity();
+			startDonationActivity();
+			//startCommingUpActivity();
 		}
 	};
 	
