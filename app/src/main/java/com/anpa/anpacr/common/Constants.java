@@ -111,7 +111,7 @@ public class Constants {
 	public final static String USUARIO_CONSEJO = "ANPA02_USUARIO";
 	public final static String ESPERA_CONSEJO = "Olfateando consejos....";
 	public final static String MSJ_ERROR_CONSEJO = "Ups! Perdimos el rastro de las consejos. Intenta más tarde.";
-	public final static String MSJ_SUCCESS_CALIFICATION_TIP = "Acabas de calificar el consejo. Gracias por puntuar!";
+	public final static String MSJ_SUCCESS_CALIFICATION_TIP = "Acabas de calificar una experiencia.\n\n Gracias por puntuar!";
 	public final static String TITTLE_CONSEJO_FB = "Ha compartido una experiencia en ANPACR: ";
 
 	/*Home Activity*/	
@@ -120,7 +120,7 @@ public class Constants {
 	public final static String TITLE_DESCRIPTION_ADOPTION = "Centro de adopción";
 	public final static String TITLE_DESCRIPTION_CASTRATION = "Castraciones";	
 	public final static String TITLE_DESCRIPTION_NEWS = "Noticias";
-	public final static String TITLE_DESCRIPTION_TIPS = "Consejos";
+	public final static String TITLE_DESCRIPTION_TIPS = "Experiencias";
 	
 	/*Castration Activity*/
 	public static final String TITLE_SUGGESTION = "Sugerencias";
