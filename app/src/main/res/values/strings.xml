@@ -96,4 +96,8 @@
     <string name="txt_loading_castrations">Olfateando castraciones...</string>
 
     <string name="txt_proximamente">¡Próximamente!</string>
+
+    <string name="txt_title_location_permission">Permiso para usar tu GPS</string>
+    <string name="txt_location_permission">Seleccionaste compartir tu ubicación para que tu aviso sea más efectivo. \n Pero necesitamos permiso para usar el GPS.</string>
+    <string name="txt_location_accept">Sí, permitir uso de GPS</string>
 </resources>

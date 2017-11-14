@@ -1,43 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
-
-     Copyright (C) 2011 The Android Open Source Project
-     Copyright (C) 2012 readyState Software Ltd
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-  
-          http://www.apache.org/licenses/LICENSE-2.0
-  
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
 <resources>
-
 
     <style name="Theme.Anpa_theme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:popupMenuStyle">@style/PopupMenu.Anpa_theme</item>
-<!--         <item name="android:dropDownListViewStyle">@style/DropDownListView.Anpa_theme</item> -->
-<!--         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Anpa_theme</item> -->
-<!--         <item name="android:actionDropDownStyle">@style/DropDownNav.Anpa_theme</item> -->
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Anpa_theme</item>
         <item name="android:actionModeBackground">@drawable/cab_background_top_anpa_theme</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_anpa_theme</item>
-<!--         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Anpa_theme</item> -->
-        <!-- Temas nuevos -->
         <item name="android:actionBarTabStyle">@style/Theme.Anpa_theme.ActionBar.TabView</item>
         <item name="android:actionBarTabBarStyle">@style/Theme.Anpa_theme.ActionBar.TabBar</item>
         <item name="android:buttonStyle">@style/Theme.Anpa_theme.Buttons</item>
         
                 <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Anpa_theme.Widget</item>
-<!--         <item name="android:spinnerItemStyle">@style/SpinnerItem</item> -->
-<!--         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item> -->
         <item name="colorPrimary">@color/action_bar_background</item>
         <item name="colorAccent">@color/button_pressed</item>
         <item name="colorPrimaryDark">@color/action_bar_background</item>
@@ -102,7 +76,7 @@
     <!-- Botones -->
     <style name="Theme.Anpa_theme.Buttons" parent="@android:style/Widget.Button">
     <item name="android:background">@drawable/selector_button_style</item>
-    <item name="android:textColor">@android:color/white</item> <!-- Here is specified text color -->
+    <item name="android:textColor">@color/hiperlink</item> <!-- Here is specified text color -->
 </style>
 
     <!-- Spinner -->
@@ -114,4 +88,5 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/selector_spinner_title_style</item>
     </style>
+
 </resources>

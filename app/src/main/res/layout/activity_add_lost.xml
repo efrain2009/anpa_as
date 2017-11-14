@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_detail_lost_title"
@@ -28,10 +28,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1"
-                android:gravity="center_vertical">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_nom_mascota"
@@ -53,10 +53,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1"
-                android:gravity="center_vertical">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_especie_mascota"
@@ -66,7 +66,7 @@
                     android:text="@string/txt_subtitle_especie_mascota"
                     android:textColor="@color/red" />
 
-                  <Spinner
+                <Spinner
                     android:id="@+id/spn_especieLost_selector"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -77,10 +77,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1"
-                android:gravity="center_vertical">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_raza_mascota"
@@ -101,10 +101,10 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1"
-                android:gravity="center_vertical">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_contacto"
@@ -126,10 +126,10 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1"
-                android:gravity="center_vertical">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_telefono"
@@ -151,10 +151,10 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1"
-                android:gravity="center_vertical">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_detalle"
@@ -178,7 +178,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_add_lost_photo"
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1" >
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_provincia"
@@ -226,10 +226,10 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="20dp"
-                android:weightSum="1"
-                android:gravity="center_vertical">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_canton"
@@ -252,7 +252,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="20dp" >
+                android:paddingTop="20dp">
 
                 <CheckBox
                     android:id="@+id/chkDireccion"
@@ -263,56 +263,44 @@
                     android:text="@string/txt_send_direction" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingTop="20dp" >
+                android:paddingTop="20dp">
 
                 <Button
                     android:id="@+id/btn_add_facebook"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:background="@color/com_facebook_blue"
+                    android:drawableLeft="@drawable/com_facebook_button_icon"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/com_facebook_button_icon"
                     android:padding="10dp"
                     android:text="@string/bt_buton_add_facebook"
-                    android:textColor="@android:color/white"
-                    android:layout_below="@+id/lv_buttons_block"
-                    android:gravity="center"
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@drawable/com_facebook_button_icon"/>
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:id="@+id/lv_buttons_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="1">
+                    android:textColor="@android:color/white" />
 
                 <Button
                     android:id="@+id/btn_save_lost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_alignEnd="@+id/btn_add_facebook"
+                    android:layout_alignLeft="@+id/btn_add_facebook"
+                    android:layout_alignRight="@+id/btn_add_facebook"
+                    android:layout_alignStart="@+id/btn_add_facebook"
+                    android:layout_below="@+id/btn_add_facebook"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:background="@color/red"
-                    android:padding="10dp"
-                    android:gravity="center"
-                    android:text="Publicar mi anuncio"
                     android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Publicar mi anuncio"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:layout_weight="0.37" />
-            </LinearLayout>
+                    android:textSize="14sp" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
