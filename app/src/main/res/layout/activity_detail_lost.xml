@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_detail_content_lost"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/anpa_background"
@@ -223,4 +224,10 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:visibility="invisible" />
+</RelativeLayout>

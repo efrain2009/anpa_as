@@ -226,5 +226,4 @@ public class DetailNewsActivity extends AnpaAppFraqmentActivity {
 			}
 		});
 	}
-
 }

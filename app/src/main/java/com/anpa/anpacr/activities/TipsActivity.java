@@ -22,7 +22,6 @@ import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.storage.Query;
 import com.shephertz.app42.paas.sdk.android.storage.QueryBuilder;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
-import com.shephertz.app42.paas.sdk.android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,8 +133,8 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 		@Override
 		public void onFindDocFailed(App42Exception ex) {
-		//	progressDialog.dismiss();
-		//	Toast.makeText(getApplicationContext(), "No hay experiencias registradas por el momento", Toast.LENGTH_SHORT).show();
+		progressDialog.dismiss();
+		Toast.makeText(getApplicationContext(), "No hay experiencias registradas por el momento", Toast.LENGTH_SHORT).show();
 		}
 
 		@Override

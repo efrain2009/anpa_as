@@ -85,7 +85,8 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 			asyncService.findDocByColletionQuery(Constants.App42DBName, Constants.TABLE_PERDIDOS, query1, 1, this);
 
 		} catch (Exception e) {
-			showMessage(Constants.MSJ_ERROR_NOTICIA);
+			progressDialog.dismiss();
+			showMessage(Constants.TITTLE_PERDIDO_NO_LIST);
 			e.printStackTrace();
 		}
 		finally {
@@ -123,8 +124,8 @@ public class LostActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
-		//progressDialog.dismiss();
-		//Toast.makeText(getApplicationContext(),Constants.TITTLE_PERDIDO_NO_LIST, Toast.LENGTH_SHORT).show();
+		progressDialog.dismiss();
+		showMessage(Constants.TITTLE_PERDIDO_NO_LIST);
 	}
 
 	@Override

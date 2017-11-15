@@ -1,24 +1,5 @@
 package com.anpa.anpacr.activities;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,16 +19,25 @@ import com.anpa.anpacr.domain.FreqAnswer;
 import com.anpa.anpacr.fragments.FreqAnswerCastrationFragment;
 import com.anpa.anpacr.fragments.LastCastrationFragment;
 import com.anpa.anpacr.fragments.SuggestionCastrationFragment;
-
 import com.shephertz.app42.paas.sdk.android.App42Exception;
 import com.shephertz.app42.paas.sdk.android.storage.Query;
 import com.shephertz.app42.paas.sdk.android.storage.QueryBuilder;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
-import com.shephertz.app42.paas.sdk.android.upload.Upload;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		LastCastrationFragment.OnLoadListListener,
@@ -178,8 +168,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
-	//	progressDialog.dismiss();
-	//	Toast.makeText(getApplicationContext(), "No hay castraciones registradas por el momento", Toast.LENGTH_SHORT).show();
+	    progressDialog.dismiss();
 	}
 
 	@Override
@@ -308,6 +297,8 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			progressDialog.dismiss();
 			if(result)
 				updateAdapterLastCastrationFragment();
+			else
+				Toast.makeText(getApplicationContext(), "No hay castraciones registradas por el momento", Toast.LENGTH_SHORT).show();
 		}
 	}
 
