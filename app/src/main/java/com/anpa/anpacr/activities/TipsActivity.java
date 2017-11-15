@@ -134,8 +134,8 @@ public class TipsActivity extends AnpaAppFraqmentActivity implements
 
 		@Override
 		public void onFindDocFailed(App42Exception ex) {
-			progressDialog.dismiss();
-			Toast.makeText(getApplicationContext(), "No hay experiencias registradas por el momento", Toast.LENGTH_SHORT).show();
+		//	progressDialog.dismiss();
+		//	Toast.makeText(getApplicationContext(), "No hay experiencias registradas por el momento", Toast.LENGTH_SHORT).show();
 		}
 
 		@Override

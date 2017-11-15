@@ -225,8 +225,8 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
-		progressDialog.dismiss();
-		Toast.makeText(getApplicationContext(), "No hay noticias registradas por el momento", Toast.LENGTH_SHORT).show();
+	//	progressDialog.dismiss();
+	//	Toast.makeText(getApplicationContext(), "No hay noticias registradas por el momento", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
