@@ -32,7 +32,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -225,8 +224,7 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 
 	@Override
 	public void onFindDocFailed(App42Exception ex) {
-	//	progressDialog.dismiss();
-	//	Toast.makeText(getApplicationContext(), "No hay noticias registradas por el momento", Toast.LENGTH_SHORT).show();
+		progressDialog.dismiss();
 	}
 
 	@Override
@@ -281,6 +279,8 @@ AsyncApp42ServiceApi.App42StorageServiceListener{
 			progressDialog.dismiss();
 			if(result)
 				updateAdapterLastNewsFragment();
+			else
+				showMessage("No hay noticias registradas por el momento");
 		}
 	}
 
