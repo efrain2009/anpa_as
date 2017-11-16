@@ -5,4 +5,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="ratings_footprints_size">30dp</dimen>
     <dimen name="divider_separator">5dp</dimen>
+    <!-- Buttons -->
+    <dimen name="home_circle_buttons_ratio">90dp</dimen>
+    <dimen name="margin_text_layout">12dp</dimen>
+
+    <!-- Texts -->
+    <dimen name="txt_home_buttons">25sp</dimen>
 </resources>

@@ -14,7 +14,7 @@
     <application
         android:name=".AnpacrApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_app_logo"
+        android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
         android:logo="@drawable/ic_app_logo_white"
         android:theme="@style/Theme.Anpa_theme">
@@ -33,7 +33,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         -->
-        <activity android:name=".activities.SplashScreenActivity">
+        <activity android:name=".activities.SplashScreenActivity" android:theme="@style/Theme.Anpa_theme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,7 +50,7 @@
         <activity android:name=".activities.DetailCastrationActivity" />
         <activity android:name=".activities.DetailTipActivity" />
         <activity android:name=".activities.DetailLostActivity" />
-        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.HomeActivity" android:theme="@style/Theme.Anpa_theme.NoActionBar" />
         <activity android:name=".activities.TipSearchActivity" />
         <activity android:name=".activities.AddTipActivity" />
         <activity android:name=".activities.AddLostActivity" />
@@ -68,13 +68,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <!--
-        <activity android:name="com.facebook.FacebookActivity"
-          android:configChanges=
-                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-          android:theme="@android:style/Theme.Translucent.NoTitleBar"
-          android:label="@string/app_name" />
-        -->
+
         <!-- Paypal payments -->
         <service
             android:name="com.paypal.android.sdk.payments.PayPalService"

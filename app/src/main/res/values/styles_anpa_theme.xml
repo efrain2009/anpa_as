@@ -12,9 +12,21 @@
         
                 <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Anpa_theme.Widget</item>
-        <item name="colorPrimary">@color/action_bar_background</item>
-        <item name="colorAccent">@color/button_pressed</item>
-        <item name="colorPrimaryDark">@color/action_bar_background</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Theme.Anpa_theme.NoActionBar" parent="Theme.Anpa_theme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Anpa_theme.FullScreen" parent="Theme.Anpa_theme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="ActionBar.Solid.Anpa_theme" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
@@ -89,4 +101,31 @@
         <item name="android:background">@drawable/selector_spinner_title_style</item>
     </style>
 
+    <!-- Estilos ANPA 2.0 -->
+    <style name="Theme.Anpa_theme.MainTextsStyle" parent="@android:style/Widget.TextView">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">@dimen/txt_home_buttons</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="Theme.Anpa_theme.MainOptionView" parent="@android:style/Widget">
+        <item name="android:layout_marginLeft">-50dp</item>
+        <item name="android:layout_marginStart">-50dp</item>
+        <item name="android:background">@drawable/bg_option_text</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/margin_text_layout</item>
+        <item name="android:layout_marginBottom">@dimen/margin_text_layout</item>
+    </style>
+
+    <style name="Theme.Anpa_theme.MainLayout" parent="@android:style/Widget">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+    </style>
 </resources>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#FF0000</color>
+    <color name="colorPrimaryDark">#F22613</color>
+    <color name="colorAccent">#ff8c00</color>
+
     <color name="red">#FF0000</color>
     <color name="black">#000000</color>
     <color name="gray">#B0B0B0</color>
-<!--     <color name="item_semitransparent_parent">#7F040404</color> -->
 	<color name="item_semitransparent_parent">#7F1F3A93</color>
     <color name="item_semitransparent_child">#59FFFFFF</color>
     
@@ -14,5 +17,11 @@
     <color name="hiperlink">#49BCE7</color>
     <color name="button_unpressed">#F22613</color>
     <color name="button_pressed">#1F3A93</color>
-    
+    <color name="btn_option_home">#EEEEEE</color>
+
+    <!-- Botones de menú -->
+    <color name="btn_color_2">#F18314</color>
+    <color name="btn_color_3">#F3AF12</color>
+    <color name="btn_color_4">#F4D211</color>
+    <color name="btn_color_5">#F0EB15</color>
 </resources>

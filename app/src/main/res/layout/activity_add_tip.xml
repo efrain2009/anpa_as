@@ -5,91 +5,98 @@
     android:background="@drawable/anpa_background"
     android:orientation="vertical"
     android:padding="10dp">
-
-    <TextView
-        android:id="@+id/txt_addRaza_consejo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="@color/red"
-        android:textSize="20sp" />
-
-
-    <EditText
-        android:id="@+id/editxt_description_tip"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/item_semitransparent_child"
-        android:inputType="textMultiLine"
-        android:gravity="top"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_breed_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="6dp"
-            android:text="@string/txt_breed_author" />
-
-        <EditText
-            android:id="@+id/editxt_breed_author"
-            android:layout_width="266dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:paddingTop="20dp" >
-
-        <Button
-            android:id="@+id/btn_add_facebook"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/com_facebook_blue"
-            android:padding="10dp"
-            android:text="@string/bt_buton_add_facebook"
-            android:textColor="@android:color/white"
-            android:layout_below="@+id/lv_buttons_block"
-            android:gravity="center"
-            android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/com_facebook_button_icon"/>
-    </LinearLayout>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_addRaza_consejo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/red"
+                android:textSize="20sp" />
 
 
-    <LinearLayout
-        android:id="@+id/lv_buttons_block"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:paddingTop="20dp">
+            <EditText
+                android:id="@+id/editxt_description_tip"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/item_semitransparent_child"
+                android:inputType="textMultiLine"
+                android:gravity="top"/>
 
-        <Button
-            android:id="@+id/btn_add_tip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="0.23"
-            android:background="@color/red"
-            android:padding="10dp"
-            android:text="@string/txt_add_tip_public"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/tv_breed_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="6dp"
+                    android:text="@string/txt_breed_author" />
+
+                <EditText
+                    android:id="@+id/editxt_breed_author"
+                    android:layout_width="266dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingTop="20dp" >
+
+                <Button
+                    android:id="@+id/btn_add_facebook"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/com_facebook_blue"
+                    android:padding="10dp"
+                    android:text="@string/bt_buton_add_facebook"
+                    android:textColor="@android:color/white"
+                    android:layout_below="@+id/lv_buttons_block"
+                    android:gravity="center"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/com_facebook_button_icon"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lv_buttons_block"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:paddingTop="20dp">
+
+                <Button
+                    android:id="@+id/btn_add_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_weight="0.23"
+                    android:background="@color/red"
+                    android:padding="10dp"
+                    android:text="@string/txt_add_tip_public"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
