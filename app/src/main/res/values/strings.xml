@@ -13,7 +13,7 @@
     <string name="txt_castration">Castraciones</string>
     <string name="txt_adoption">Perdidos</string>
     <string name="txt_donation">¡Yo Dono!</string>
-    <string name="txt_contactus">Contáctenos</string>
+    <string name="txt_contactus">Contáctanos</string>
     <string name="txt_description_image">Descripción imagen</string>
 
     <!-- donation -->
@@ -58,7 +58,7 @@
     <!-- Lost -->
     <string name="txt_search_lost">Buscar</string>
     <string name="txt_disclaimer_lost">*Aclaración: Los siguientes anuncios de mascotas pérdidas son elaborados por la comunidad de usuarios.</string>
-    <string name="txt_list_title_lost">Lista de adopciones cerca de mi</string>
+    <string name="txt_list_title_lost">Lista de perdidos cerca de mi</string>
     <string name="txt_detail_lost_title">Aviso</string>
     <string name="txt_subtitle_nom_mascota">Nombre mascota*: </string>
     <string name="txt_subtitle_especie_mascota">Especie*: </string>

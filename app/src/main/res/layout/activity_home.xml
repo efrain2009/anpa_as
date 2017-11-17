@@ -1,5 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,276 +6,300 @@
     tools:context=".activities.HomeActivity">
 
     <RelativeLayout
+        android:id="@+id/rl_home_header"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:background="@drawable/bg_curved_shape">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/txt_description_image"
+            android:src="@drawable/ic_main_logo" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_home_header"
+        android:layout_above="@+id/ll_facebook_options"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- Botón de castraciones -->
+            <RelativeLayout
+                android:id="@+id/btn_home_castration"
+                style="@style/Theme.Anpa_theme.MainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/view"
+                    style="@style/Theme.Anpa_theme.MainOptionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/circle_color_cast"
+                    android:layout_alignTop="@+id/circle_color_cast"
+                    android:layout_toEndOf="@+id/circle_color_cast"
+                    android:layout_toRightOf="@+id/circle_color_cast" />
+
+                <ImageView
+                    android:id="@+id/circle_color_cast"
+                    android:layout_width="@dimen/home_circle_buttons_ratio"
+                    android:layout_height="@dimen/home_circle_buttons_ratio"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_option_icon_1"
+                    android:contentDescription="@string/txt_description_image"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_castration_new" />
+
+                <TextView
+                    style="@style/Theme.Anpa_theme.MainTextsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view"
+                    android:layout_alignStart="@+id/view"
+                    android:layout_toEndOf="@+id/circle_color_cast"
+                    android:layout_toRightOf="@+id/circle_color_cast"
+                    android:text="@string/txt_castration" />
+            </RelativeLayout>
+
+            <!-- Botón de noticias -->
+            <RelativeLayout
+                android:id="@+id/btn_home_news"
+                style="@style/Theme.Anpa_theme.MainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_home_castration"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/view2"
+                    style="@style/Theme.Anpa_theme.MainOptionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/circle_color_news"
+                    android:layout_alignTop="@+id/circle_color_news"
+                    android:layout_toEndOf="@+id/circle_color_news"
+                    android:layout_toRightOf="@+id/circle_color_news" />
+
+                <ImageView
+                    android:id="@+id/circle_color_news"
+                    android:layout_width="@dimen/home_circle_buttons_ratio"
+                    android:layout_height="@dimen/home_circle_buttons_ratio"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_option_icon_2"
+                    android:contentDescription="@string/txt_description_image"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_news_new" />
+
+                <TextView
+                    style="@style/Theme.Anpa_theme.MainTextsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view2"
+                    android:layout_alignStart="@+id/view2"
+                    android:layout_toEndOf="@+id/circle_color_news"
+                    android:layout_toRightOf="@+id/circle_color_news"
+                    android:text="@string/txt_news" />
+            </RelativeLayout>
+
+            <!-- Botón de Experiencias -->
+            <RelativeLayout
+                android:id="@+id/btn_home_tips"
+                style="@style/Theme.Anpa_theme.MainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_home_news"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/view3"
+                    style="@style/Theme.Anpa_theme.MainOptionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/circle_color_tips"
+                    android:layout_alignTop="@+id/circle_color_tips"
+                    android:layout_toEndOf="@+id/circle_color_tips"
+                    android:layout_toRightOf="@+id/circle_color_tips" />
+
+                <ImageView
+                    android:id="@+id/circle_color_tips"
+                    android:layout_width="@dimen/home_circle_buttons_ratio"
+                    android:layout_height="@dimen/home_circle_buttons_ratio"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_option_icon_3"
+                    android:contentDescription="@string/txt_description_image"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_tip_new" />
+
+                <TextView
+                    style="@style/Theme.Anpa_theme.MainTextsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view3"
+                    android:layout_alignStart="@+id/view3"
+                    android:layout_toEndOf="@+id/circle_color_tips"
+                    android:layout_toRightOf="@+id/circle_color_tips"
+                    android:text="@string/txt_tips" />
+            </RelativeLayout>
+
+            <!-- Botón de Perdidos -->
+            <RelativeLayout
+                android:id="@+id/btn_home_adoption"
+                style="@style/Theme.Anpa_theme.MainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_home_tips"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/view4"
+                    style="@style/Theme.Anpa_theme.MainOptionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/circle_color_lost"
+                    android:layout_alignTop="@+id/circle_color_lost"
+                    android:layout_toEndOf="@+id/circle_color_lost"
+                    android:layout_toRightOf="@+id/circle_color_lost" />
+
+                <ImageView
+                    android:id="@+id/circle_color_lost"
+                    android:layout_width="@dimen/home_circle_buttons_ratio"
+                    android:layout_height="@dimen/home_circle_buttons_ratio"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_option_icon_4"
+                    android:contentDescription="@string/txt_description_image"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_lost_new" />
+
+                <TextView
+                    style="@style/Theme.Anpa_theme.MainTextsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view4"
+                    android:layout_alignStart="@+id/view4"
+                    android:layout_toEndOf="@+id/circle_color_lost"
+                    android:layout_toRightOf="@+id/circle_color_lost"
+                    android:text="@string/txt_adoption" />
+            </RelativeLayout>
+
+            <!-- Botón de Donaciones -->
+            <RelativeLayout
+                android:id="@+id/btn_home_donation"
+                style="@style/Theme.Anpa_theme.MainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_home_adoption"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/view5"
+                    style="@style/Theme.Anpa_theme.MainOptionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/circle_color_donation"
+                    android:layout_alignTop="@+id/circle_color_donation"
+                    android:layout_toEndOf="@+id/circle_color_donation"
+                    android:layout_toRightOf="@+id/circle_color_donation" />
+
+                <ImageView
+                    android:id="@+id/circle_color_donation"
+                    android:layout_width="@dimen/home_circle_buttons_ratio"
+                    android:layout_height="@dimen/home_circle_buttons_ratio"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_option_icon_5"
+                    android:contentDescription="@string/txt_description_image"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_donation_new" />
+
+                <TextView
+                    style="@style/Theme.Anpa_theme.MainTextsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view5"
+                    android:layout_alignStart="@+id/view5"
+                    android:layout_toEndOf="@+id/circle_color_donation"
+                    android:layout_toRightOf="@+id/circle_color_donation"
+                    android:text="@string/txt_donation" />
+            </RelativeLayout>
+
+            <!-- Botón de Contacto -->
+            <RelativeLayout
+                android:id="@+id/btn_home_contactus"
+                style="@style/Theme.Anpa_theme.MainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_home_donation"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/view6"
+                    style="@style/Theme.Anpa_theme.MainOptionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/circle_color_contact"
+                    android:layout_alignTop="@+id/circle_color_contact"
+                    android:layout_toEndOf="@+id/circle_color_contact"
+                    android:layout_toRightOf="@+id/circle_color_contact" />
+
+                <ImageView
+                    android:id="@+id/circle_color_contact"
+                    android:layout_width="@dimen/home_circle_buttons_ratio"
+                    android:layout_height="@dimen/home_circle_buttons_ratio"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_option_icon_6"
+                    android:contentDescription="@string/txt_description_image"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_contactus_new" />
+
+                <TextView
+                    style="@style/Theme.Anpa_theme.MainTextsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view6"
+                    android:layout_alignStart="@+id/view6"
+                    android:layout_toEndOf="@+id/circle_color_contact"
+                    android:layout_toRightOf="@+id/circle_color_contact"
+                    android:text="@string/txt_contactus" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_facebook_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:padding="8dp">
 
-        <RelativeLayout
-            android:id="@+id/rl_home_header"
-            android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:background="@drawable/bg_curved_shape">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:contentDescription="@string/txt_description_image"
-                android:src="@drawable/ic_main_logo" />
-        </RelativeLayout>
-
-        <!-- Botón de castraciones -->
-        <RelativeLayout
-            android:id="@+id/btn_home_castration"
-            android:layout_width="match_parent"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rl_home_header"
-            style="@style/Theme.Anpa_theme.MainLayout">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/circle_color_cast"
-                android:layout_alignTop="@+id/circle_color_cast"
-                android:layout_toEndOf="@+id/circle_color_cast"
-                android:layout_toRightOf="@+id/circle_color_cast"
-                style="@style/Theme.Anpa_theme.MainOptionView"
-                android:id="@+id/view" />
-            <ImageView
-                android:id="@+id/circle_color_cast"
-                android:layout_width="@dimen/home_circle_buttons_ratio"
-                android:layout_height="@dimen/home_circle_buttons_ratio"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_option_icon"
-                android:contentDescription="@string/txt_description_image"
-                android:padding="20dp"
-                android:src="@drawable/ic_castration_new" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_castration"
-                android:layout_toEndOf="@+id/circle_color_cast"
-                android:layout_toRightOf="@+id/circle_color_cast"
-                style="@style/Theme.Anpa_theme.MainTextsStyle"
-                android:layout_alignLeft="@+id/view"
-                android:layout_alignStart="@+id/view" />
-        </RelativeLayout>
-
-        <!-- Botón de noticias -->
-        <RelativeLayout
-            android:id="@+id/btn_home_news"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_home_castration"
-            android:layout_marginTop="10dp"
-            style="@style/Theme.Anpa_theme.MainLayout">
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/circle_color_news"
-                android:layout_alignTop="@+id/circle_color_news"
-                android:layout_toEndOf="@+id/circle_color_news"
-                android:layout_toRightOf="@+id/circle_color_news"
-                style="@style/Theme.Anpa_theme.MainOptionView" />
-            <ImageView
-                android:id="@+id/circle_color_news"
-                android:layout_width="@dimen/home_circle_buttons_ratio"
-                android:layout_height="@dimen/home_circle_buttons_ratio"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_option_icon"
-                android:contentDescription="@string/txt_description_image"
-                android:padding="20dp"
-                android:src="@drawable/ic_news_new"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_news"
-                android:layout_toEndOf="@+id/circle_color_news"
-                android:layout_toRightOf="@+id/circle_color_news"
-                style="@style/Theme.Anpa_theme.MainTextsStyle"
-                android:layout_alignLeft="@+id/view2"
-                android:layout_alignStart="@+id/view2" />
-        </RelativeLayout>
-
-        <!-- Botón de Experiencias -->
-        <RelativeLayout
-            android:id="@+id/btn_home_tips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_home_news"
-            android:layout_marginTop="10dp"
-            style="@style/Theme.Anpa_theme.MainLayout">
-            <View
-                android:id="@+id/view3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/circle_color_tips"
-                android:layout_alignTop="@+id/circle_color_tips"
-                android:layout_toEndOf="@+id/circle_color_tips"
-                android:layout_toRightOf="@+id/circle_color_tips"
-                style="@style/Theme.Anpa_theme.MainOptionView" />
-            <ImageView
-                android:id="@+id/circle_color_tips"
-                android:layout_width="@dimen/home_circle_buttons_ratio"
-                android:layout_height="@dimen/home_circle_buttons_ratio"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_option_icon"
-                android:contentDescription="@string/txt_description_image"
-                android:padding="20dp"
-                android:src="@drawable/ic_news_new"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_tips"
-                android:layout_toEndOf="@+id/circle_color_tips"
-                android:layout_toRightOf="@+id/circle_color_tips"
-                style="@style/Theme.Anpa_theme.MainTextsStyle"
-                android:layout_alignLeft="@+id/view3"
-                android:layout_alignStart="@+id/view3" />
-        </RelativeLayout>
-
-        <!-- Botón de Perdidos -->
-        <RelativeLayout
-            android:id="@+id/btn_home_adoption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_home_tips"
-            android:layout_marginTop="10dp"
-            style="@style/Theme.Anpa_theme.MainLayout">
-            <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/circle_color_lost"
-                android:layout_alignTop="@+id/circle_color_lost"
-                android:layout_toEndOf="@+id/circle_color_lost"
-                android:layout_toRightOf="@+id/circle_color_lost"
-                style="@style/Theme.Anpa_theme.MainOptionView" />
-            <ImageView
-                android:id="@+id/circle_color_lost"
-                android:layout_width="@dimen/home_circle_buttons_ratio"
-                android:layout_height="@dimen/home_circle_buttons_ratio"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_option_icon"
-                android:contentDescription="@string/txt_description_image"
-                android:padding="20dp"
-                android:src="@drawable/ic_news_new"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_adoption"
-                android:layout_toEndOf="@+id/circle_color_lost"
-                android:layout_toRightOf="@+id/circle_color_lost"
-                style="@style/Theme.Anpa_theme.MainTextsStyle"
-                android:layout_alignLeft="@+id/view4"
-                android:layout_alignStart="@+id/view4" />
-        </RelativeLayout>
-
-        <!-- Botón de Donaciones -->
-        <RelativeLayout
-            android:id="@+id/btn_home_donation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_home_adoption"
-            android:layout_marginTop="10dp"
-            style="@style/Theme.Anpa_theme.MainLayout">
-            <View
-                android:id="@+id/view5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/circle_color_donation"
-                android:layout_alignTop="@+id/circle_color_donation"
-                android:layout_toEndOf="@+id/circle_color_donation"
-                android:layout_toRightOf="@+id/circle_color_donation"
-                style="@style/Theme.Anpa_theme.MainOptionView" />
-            <ImageView
-                android:id="@+id/circle_color_donation"
-                android:layout_width="@dimen/home_circle_buttons_ratio"
-                android:layout_height="@dimen/home_circle_buttons_ratio"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_option_icon"
-                android:contentDescription="@string/txt_description_image"
-                android:padding="20dp"
-                android:src="@drawable/ic_news_new"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_donation"
-                android:layout_toEndOf="@+id/circle_color_donation"
-                android:layout_toRightOf="@+id/circle_color_donation"
-                style="@style/Theme.Anpa_theme.MainTextsStyle"
-                android:layout_alignLeft="@+id/view5"
-                android:layout_alignStart="@+id/view5" />
-        </RelativeLayout>
-
-        <!-- Botón de Contacto -->
-        <RelativeLayout
-            android:id="@+id/btn_home_contactus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_home_donation"
-            android:layout_marginTop="10dp"
-            style="@style/Theme.Anpa_theme.MainLayout">
-            <View
-                android:id="@+id/view6"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/circle_color_contact"
-                android:layout_alignTop="@+id/circle_color_contact"
-                android:layout_toEndOf="@+id/circle_color_contact"
-                android:layout_toRightOf="@+id/circle_color_contact"
-                style="@style/Theme.Anpa_theme.MainOptionView" />
-            <ImageView
-                android:id="@+id/circle_color_contact"
-                android:layout_width="@dimen/home_circle_buttons_ratio"
-                android:layout_height="@dimen/home_circle_buttons_ratio"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_option_icon"
-                android:contentDescription="@string/txt_description_image"
-                android:padding="20dp"
-                android:src="@drawable/ic_news_new"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_contactus"
-                android:layout_toEndOf="@+id/circle_color_contact"
-                android:layout_toRightOf="@+id/circle_color_contact"
-                style="@style/Theme.Anpa_theme.MainTextsStyle"
-                android:layout_alignLeft="@+id/view6"
-                android:layout_alignStart="@+id/view6" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_below="@+id/btn_home_contactus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:gravity="center"
-            android:padding="5sp">
-
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp" />
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+</RelativeLayout>

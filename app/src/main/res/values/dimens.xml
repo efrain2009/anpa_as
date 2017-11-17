@@ -6,7 +6,7 @@
     <dimen name="ratings_footprints_size">30dp</dimen>
     <dimen name="divider_separator">5dp</dimen>
     <!-- Buttons -->
-    <dimen name="home_circle_buttons_ratio">90dp</dimen>
+    <dimen name="home_circle_buttons_ratio">80dp</dimen>
     <dimen name="margin_text_layout">12dp</dimen>
 
     <!-- Texts -->

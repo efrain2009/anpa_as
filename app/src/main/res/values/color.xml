@@ -20,8 +20,10 @@
     <color name="btn_option_home">#EEEEEE</color>
 
     <!-- Botones de menú -->
-    <color name="btn_color_2">#F18314</color>
-    <color name="btn_color_3">#F3AF12</color>
-    <color name="btn_color_4">#F4D211</color>
-    <color name="btn_color_5">#F0EB15</color>
+    <color name="btn_color_1">#FD0000</color>
+    <color name="btn_color_2">#F22613</color>
+    <color name="btn_color_3">#F18314</color>
+    <color name="btn_color_4">#F3AF12</color>
+    <color name="btn_color_5">#F4D211</color>
+    <color name="btn_color_6">#F0EB15</color>
 </resources>

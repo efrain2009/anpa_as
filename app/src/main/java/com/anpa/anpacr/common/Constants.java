@@ -36,7 +36,7 @@ public class Constants {
     public final static String LONGITUD_PERDIDO = "ANPA03_LONGITUDE";
     public final static String PROVINCIA_PERDIDO = "ANPA03_PROVINCIA";
     public final static String CANTON_PERDIDO = "ANPA03_CANTON";
-    public final static String ESPERA_PERDIDO = "Olfateando adopciones...."; //"Olfateando perdidos....";
+    public final static String ESPERA_PERDIDO = "Rastreando mascotas perdias...."; //"Olfateando perdidos....";
     public final static String HABILITADO_PERDIDO = "ANPA03_HABILITADO";
     public final static String MSJ_ERROR_PERDIDO = "Ups! Perdimos el rastro de las mascotas en adopción. Intenta más tarde.";//"Ups! Perdimos el rastro de las mascotas perdidas. Intenta más tarde.";
     public final static String USUARIO = "ANPA03_USUARIO";
@@ -114,7 +114,7 @@ public class Constants {
     public final static String TITTLE_CONSEJO_FB = "Ha compartido una experiencia en ANPACR: ";
 
     /*Home Activity*/
-    public final static String TITLE_DESCRIPTION_CONTACTUS = "Contáctenos";
+    public final static String TITLE_DESCRIPTION_CONTACTUS = "Contáctanos";
     public final static String TITLE_DESCRIPTION_DONATION = "Donaciones";
     public final static String TITLE_DESCRIPTION_ADOPTION = "Centro de adopción";
     public final static String TITLE_DESCRIPTION_CASTRATION = "Castraciones";
@@ -146,7 +146,7 @@ public class Constants {
     public final static String ID_OBJ_DETAIL_FREQ_ANSWER = "answer_objects";
 
     /*Preg frecuentes Activity*/
-    public final static String TITLE_DESCRIPTION_LOST = "Adopciones";
+    public final static String TITLE_DESCRIPTION_LOST = "Perdidos";
     public static final String TITLE_LAST_LOST = "Ultimamente";
     public static final String TITLE_LOST = "Adopciones";
     public final static String ID_OBJ_DETAIL_LIST = "lost_objects";
