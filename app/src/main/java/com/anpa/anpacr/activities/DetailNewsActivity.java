@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -34,8 +35,9 @@ public class DetailNewsActivity extends AnpaAppFraqmentActivity {
 		setContentView(R.layout.activity_detail_news);
 
 		//Btn de back (anterior)
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_NEWS);
 		
