@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FF0000</color>
     <color name="colorPrimaryDark">#F22613</color>
-    <color name="colorAccent">#ff8c00</color>
+    <color name="colorAccent">#F3AF12</color>
 
     <color name="red">#FF0000</color>
     <color name="black">#000000</color>
@@ -15,9 +15,9 @@
     <color name="tabs_indicator">#FFFFFF</color>
     <color name="tabs_spaces_background">#F1A9A0</color>
     <color name="hiperlink">#49BCE7</color>
-    <color name="button_unpressed">#F22613</color>
     <color name="button_pressed">#1F3A93</color>
     <color name="btn_option_home">#EEEEEE</color>
+    <color name="action_buttons_text">#FFFFFF</color>
 
     <!-- Botones de menú -->
     <color name="btn_color_1">#FD0000</color>

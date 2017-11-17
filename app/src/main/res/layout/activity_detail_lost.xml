@@ -202,25 +202,6 @@
                         android:textColor="@color/black"/>
                 </LinearLayout>
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="10dp" >
-
-                <Button
-                    android:id="@+id/btn_add_lost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/red"
-                    android:padding="10dp"
-                    android:text="@string/txt_add_lost"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:layout_marginTop="15dp"/>
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

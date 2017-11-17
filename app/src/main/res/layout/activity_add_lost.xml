@@ -184,14 +184,9 @@
                     android:id="@+id/btn_add_lost_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:background="@color/red"
                     android:padding="10dp"
-                    android:text="@string/txt_add_lost_photo"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                    android:text="@string/txt_add_lost_photo" />
 
                 <ImageView
                     android:id="@+id/img_detail_lost"
@@ -274,17 +269,16 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:background="@color/com_facebook_blue"
+                    android:background="@drawable/selector_button_style_facebook"
                     android:drawableLeft="@drawable/com_facebook_button_icon"
                     android:drawablePadding="5dp"
                     android:drawableStart="@drawable/com_facebook_button_icon"
                     android:padding="10dp"
-                    android:text="@string/bt_buton_add_facebook"
-                    android:textColor="@android:color/white" />
+                    android:text="@string/bt_buton_add_facebook" />
 
                 <Button
                     android:id="@+id/btn_save_lost"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/btn_add_facebook"
                     android:layout_alignLeft="@+id/btn_add_facebook"
@@ -293,13 +287,10 @@
                     android:layout_below="@+id/btn_add_facebook"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:background="@color/red"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Publicar mi anuncio"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                    android:text="Publicar mi anuncio" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

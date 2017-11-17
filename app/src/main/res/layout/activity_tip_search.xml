@@ -20,14 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:text="@string/txt_specie"
-            android:textColor="@color/action_bar_background" />
+            style="@style/Theme.Anpa_theme.TextViews"/>
 
         <Spinner
             android:id="@+id/spn_specie_selector"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_spinner_title_style"
-            android:layout_weight="0.8" />
+            android:layout_weight="0.8"
+            android:background="@drawable/selector_spinner_title_style"/>
     </LinearLayout>
     
     <LinearLayout
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:text="@string/txt_race"
-            android:textColor="@color/action_bar_background" />
+            style="@style/Theme.Anpa_theme.TextViews"/>
 
         <Spinner
             android:id="@+id/spn_race_selector"
@@ -57,16 +57,12 @@
 
     <Button
         android:id="@+id/btn_tip_search"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_race_selector"
         android:layout_centerHorizontal="true"
-        android:background="@color/red"
-        android:padding="10dp"
         android:layout_marginTop="20dp"
-        android:text="@string/txt_search_tip"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:text="@string/txt_search_tip" />
 
     <TextView
         android:layout_width="match_parent"
@@ -76,6 +72,6 @@
         android:layout_alignParentRight="true"
         android:padding="10dp"
         android:text="@string/txt_disclaimer"
-        android:textColor="@color/action_bar_background" />
+        style="@style/Theme.Anpa_theme.TextViews" />
 
 </RelativeLayout>

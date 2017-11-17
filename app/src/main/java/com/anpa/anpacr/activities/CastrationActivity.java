@@ -182,7 +182,6 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 		@Override
 		public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-			// TODO Auto-generated method stub
 			if (tab.getPosition() == 0) {
 				LastCastrationFragment frag = new LastCastrationFragment();
 				ft.replace(android.R.id.content, frag, TAG_CASTRATION);

@@ -36,7 +36,7 @@ public class Constants {
     public final static String LONGITUD_PERDIDO = "ANPA03_LONGITUDE";
     public final static String PROVINCIA_PERDIDO = "ANPA03_PROVINCIA";
     public final static String CANTON_PERDIDO = "ANPA03_CANTON";
-    public final static String ESPERA_PERDIDO = "Rastreando mascotas perdias...."; //"Olfateando perdidos....";
+    public final static String ESPERA_PERDIDO = "Rastreando perdidos...."; //"Olfateando perdidos....";
     public final static String HABILITADO_PERDIDO = "ANPA03_HABILITADO";
     public final static String MSJ_ERROR_PERDIDO = "Ups! Perdimos el rastro de las mascotas en adopción. Intenta más tarde.";//"Ups! Perdimos el rastro de las mascotas perdidas. Intenta más tarde.";
     public final static String USUARIO = "ANPA03_USUARIO";
@@ -81,7 +81,7 @@ public class Constants {
     public final static String CONTENIDO_NOTICIA = "ANPA01_CONTENIDO";
     public final static String IMAGEN_NOTICIA = "ANPA01_IMAGE";
     public final static String HABILITADO_NOTICIA = "ANPA01_HABILITADO";
-    public final static String ESPERA_NOTICIAS = "Olfateando noticias....";
+    public final static String ESPERA_NOTICIAS = "Mordiendo noticias....";
     public final static String MSJ_ERROR_NOTICIA = "Ups! Perdimos el rastro de las noticias. Intenta más tarde.";
 
     /*Table Patrocionios*/
@@ -108,7 +108,7 @@ public class Constants {
     public final static String ESTADO_CONSEJO = "ANPA02_ESTADO";
     public final static String HABILITADO_CONSEJO = "ANPA02_HABILITADO";
     public final static String USUARIO_CONSEJO = "ANPA02_USUARIO";
-    public final static String ESPERA_CONSEJO = "Olfateando consejos....";
+    public final static String ESPERA_CONSEJO = "Persiguiendo consejos....";
     public final static String MSJ_ERROR_CONSEJO = "Ups! Perdimos el rastro de las consejos. Intenta más tarde.";
     public final static String MSJ_SUCCESS_CALIFICATION_TIP = "Acabas de calificar una experiencia.\n\n Gracias por puntuar!";
     public final static String TITTLE_CONSEJO_FB = "Ha compartido una experiencia en ANPACR: ";

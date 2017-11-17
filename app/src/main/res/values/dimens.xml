@@ -8,7 +8,9 @@
     <!-- Buttons -->
     <dimen name="home_circle_buttons_ratio">80dp</dimen>
     <dimen name="margin_text_layout">12dp</dimen>
+    <dimen name="button_width">250dp</dimen>
 
     <!-- Texts -->
     <dimen name="txt_home_buttons">25sp</dimen>
+    <dimen name="txt_regular_text">16sp</dimen>
 </resources>

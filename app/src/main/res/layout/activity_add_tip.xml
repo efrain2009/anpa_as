@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/item_semitransparent_child"
+                android:background="@drawable/bg_text_area"
                 android:inputType="textMultiLine"
                 android:gravity="top"/>
 
@@ -63,12 +63,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/com_facebook_blue"
+                    android:background="@drawable/selector_button_style_facebook"
                     android:padding="10dp"
                     android:text="@string/bt_buton_add_facebook"
-                    android:textColor="@android:color/white"
                     android:layout_below="@+id/lv_buttons_block"
                     android:gravity="center"
                     android:drawablePadding="5dp"
@@ -82,20 +79,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="1"
                 android:paddingTop="20dp">
 
                 <Button
                     android:id="@+id/btn_add_tip"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_weight="0.23"
-                    android:background="@color/red"
-                    android:padding="10dp"
-                    android:text="@string/txt_add_tip_public"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                    android:text="@string/txt_add_tip_public" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
