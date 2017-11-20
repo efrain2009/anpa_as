@@ -1,13 +1,8 @@
 package com.anpa.anpacr.activities;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +16,12 @@ import com.anpa.anpacr.adapter.SpinnerAdapter;
 import com.anpa.anpacr.common.Constants;
 import com.anpa.anpacr.domain.GenericNameValue;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 public class TipSearchActivity extends AnpaAppFraqmentActivity {
 	private Spinner specieSpinner, raceSpinner;
 	private SpinnerAdapter adapter;
@@ -31,8 +32,9 @@ public class TipSearchActivity extends AnpaAppFraqmentActivity {
 			setContentView(R.layout.activity_tip_search);
 			
 			//Btn de back (anterior)
+			Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+			setSupportActionBar(toolbar);
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setHomeButtonEnabled(true);
 			getSupportActionBar().setDisplayShowHomeEnabled(true);
 			getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_TIPS);
 			

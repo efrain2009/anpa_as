@@ -1,39 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:background="@drawable/anpa_background"
     android:gravity="center_horizontal"
-    android:background="@drawable/anpa_background" >
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txt_list_title_lost"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/txt_list_title_lost"
-        android:textColor="@color/red"
-        android:textSize="14sp" />
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize"
+        android:elevation="@dimen/toolbar_elevation"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <ListView
-        android:id="@+id/list_lost"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/divider_separator"
-        android:layout_below="@+id/txt_list_title_lost"
-        android:layout_above="@+id/btn_add_lost">
-    </ListView>
+        android:background="@drawable/anpa_background"
+        android:gravity="center_horizontal"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/btn_add_lost"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/txt_add_lost" />
+        <TextView
+            android:id="@+id/txt_list_title_lost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/txt_list_title_lost"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
 
-</RelativeLayout>
+        <ListView
+            android:id="@+id/list_lost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_add_lost"
+            android:layout_below="@+id/txt_list_title_lost"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/divider_separator"/>
+
+        <Button
+            android:id="@+id/btn_add_lost"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="@string/txt_add_lost" />
+    </RelativeLayout>
+</LinearLayout>

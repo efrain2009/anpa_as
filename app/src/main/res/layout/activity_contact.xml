@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/anpa_background"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize"
+        android:elevation="@dimen/toolbar_elevation"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
-  <TextView
-        android:id="@+id/txt_title_contact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/txt_title_contact"
-        android:textColor="@color/red"
-        android:textSize="14sp" />
-  
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_title_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/txt_title_contact"
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp" >
+                android:paddingBottom="5dp">
 
                 <ImageView
                     android:id="@+id/img_map"
@@ -50,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp" >
+                android:paddingBottom="5dp">
 
                 <ImageView
                     android:id="@+id/img_phone"
@@ -64,21 +77,21 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:paddingBottom="5dp" >
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:id="@+id/txt_description_phone1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textColor="@color/hiperlink"/>
+                        android:textColor="@color/hiperlink" />
 
                     <TextView
                         android:id="@+id/txt_description_phone2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textColor="@color/hiperlink"/>
+                        android:textColor="@color/hiperlink" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -87,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp" >
+                android:paddingBottom="5dp">
 
                 <ImageView
                     android:id="@+id/img_mail"
@@ -103,17 +116,16 @@
                     android:layout_marginRight="5dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:paddingBottom="5dp" >
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:id="@+id/txt_description_mail1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:linksClickable="true"
                         android:autoLink="email"
-                         />
-                    
+                        android:linksClickable="true" />
+
                     <TextView
                         android:id="@+id/txt_description_mail2"
                         android:layout_width="wrap_content"
@@ -128,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp" >
+                android:paddingBottom="5dp">
 
                 <ImageView
                     android:id="@+id/img_facebook"
@@ -142,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:textColor="@color/hiperlink"/>
+                    android:textColor="@color/hiperlink" />
             </LinearLayout>
 
             <LinearLayout
@@ -150,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="5dp" >
+                android:paddingBottom="5dp">
 
                 <ImageView
                     android:id="@+id/img_webPage"

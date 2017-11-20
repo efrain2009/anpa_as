@@ -1,77 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/anpa_background"
-    android:padding="10dp" >
+    android:background="@drawable/anpa_background">
 
-    <LinearLayout
-        android:id="@+id/ll_specie_selector"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="100dp">
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="@dimen/toolbar_elevation"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/ll_specie_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="100dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                style="@style/Theme.Anpa_theme.TextViews"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="@string/txt_specie" />
+
+            <Spinner
+                android:id="@+id/spn_specie_selector"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:background="@drawable/selector_spinner_title_style" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_race_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_specie_selector"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                style="@style/Theme.Anpa_theme.TextViews"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="@string/txt_race" />
+
+            <Spinner
+                android:id="@+id/spn_race_selector"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:background="@drawable/selector_spinner_title_style" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_tip_search"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_race_selector"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/txt_search_tip" />
 
         <TextView
-            android:layout_width="0dp"
+            style="@style/Theme.Anpa_theme.TextViews"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="@string/txt_specie"
-            style="@style/Theme.Anpa_theme.TextViews"/>
-
-        <Spinner
-            android:id="@+id/spn_specie_selector"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:background="@drawable/selector_spinner_title_style"/>
-    </LinearLayout>
-    
-    <LinearLayout
-        android:id="@+id/ll_race_selector"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/ll_specie_selector"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="@string/txt_race"
-            style="@style/Theme.Anpa_theme.TextViews"/>
-
-        <Spinner
-            android:id="@+id/spn_race_selector"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_spinner_title_style"
-            android:layout_weight="0.8" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_tip_search"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_race_selector"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/txt_search_tip" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:padding="10dp"
-        android:text="@string/txt_disclaimer"
-        style="@style/Theme.Anpa_theme.TextViews" />
-
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:text="@string/txt_disclaimer" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -50,8 +51,9 @@ public class ContactusActivity extends AnpaAppFraqmentActivity implements AsyncA
 		asyncService = AsyncApp42ServiceApi.instance(this);
 
 		// Btn de back (anterior)
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CONTACTUS);
 
