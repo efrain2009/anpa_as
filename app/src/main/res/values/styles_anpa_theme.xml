@@ -5,7 +5,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Anpa_theme</item>
         <item name="android:actionModeBackground">@drawable/cab_background_top_anpa_theme</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_anpa_theme</item>
-        <item name="android:buttonStyle">@style/Theme.Anpa_theme.ActionButtons</item>
+        <item name="buttonStyle">@style/Theme.Anpa_theme.ActionButtons</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
                 <!-- Light.DarkActionBar specific -->
@@ -95,7 +95,7 @@
     </style>
 
 <!-- Action Buttons -->
-    <style name="Theme.Anpa_theme.ActionButtons" parent="android:Widget.Button">
+    <style name="Theme.Anpa_theme.ActionButtons" parent="Widget.AppCompat.Button">
         <item name="android:layout_margin">5dp</item>
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">wrap_content</item>
