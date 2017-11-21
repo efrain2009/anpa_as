@@ -1,7 +1,5 @@
 package com.anpa.anpacr.adapter;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.domain.GenericNameValue;
+
+import java.util.ArrayList;
 
 public class SpinnerAdapter extends ArrayAdapter<GenericNameValue>{
 
@@ -43,12 +43,10 @@ public class SpinnerAdapter extends ArrayAdapter<GenericNameValue>{
     // This is for the "passive" state of the spinner
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // I created a dynamic TextView here, but you can reference your own  custom layout for each spinner item
         TextView label = new TextView(context);
         label.setTextColor(Color.BLACK);
-        // Then you can get the current item using the values array (Users array) and the current position
-        // You can NOW reference each method you has created in your bean object (User class)
         label.setText(values.get(position).getName());
+        label.setTextSize(16);
 
         // And finally return your dynamic (or custom) view for each spinner item
         return label;

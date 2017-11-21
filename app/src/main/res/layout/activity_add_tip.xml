@@ -21,10 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txt_addRaza_consejo"
                 android:layout_width="wrap_content"
@@ -40,11 +42,13 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_text_area"
-                android:inputType="textMultiLine"
-                android:gravity="top"/>
+                android:gravity="top"
+                style="@style/Theme.Anpa_theme.TextViews"
+                android:textColor="@color/black"
+                android:inputType="textMultiLine" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
@@ -54,51 +58,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="6dp"
+                    style="@style/Theme.Anpa_theme.TextViews"
                     android:text="@string/txt_breed_author" />
 
                 <EditText
                     android:id="@+id/editxt_breed_author"
-                    android:layout_width="266dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textMultiLine" />
+                    style="@style/Theme.Anpa_theme.TextViews"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingTop="20dp" >
+                android:orientation="vertical"
+                android:paddingTop="20dp">
 
                 <Button
                     android:id="@+id/btn_add_facebook"
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/selector_button_style_facebook"
+                    android:drawableLeft="@drawable/com_facebook_button_icon"
+                    android:drawablePadding="5dp"
+                    android:elevation="@dimen/button_elevation"
+                    android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/bt_buton_add_facebook"
-                    android:layout_below="@+id/lv_buttons_block"
-                    android:gravity="center"
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@drawable/com_facebook_button_icon"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/lv_buttons_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="20dp">
+                    android:layout_marginBottom="10dp"/>
 
                 <Button
                     android:id="@+id/btn_add_tip"
                     android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_add_tip_public" />
+                    android:text="@string/txt_add_tip_public"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

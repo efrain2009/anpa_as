@@ -1,7 +1,5 @@
 package com.anpa.anpacr.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -14,6 +12,8 @@ import android.widget.TextView;
 
 import com.anpa.anpacr.R;
 import com.anpa.anpacr.domain.Tip;
+
+import java.util.List;
 
 public class TipListAdapter extends BaseAdapter{
 	
@@ -69,7 +69,7 @@ public class TipListAdapter extends BaseAdapter{
 
 
 		if(txtPreviewConsejo.length() > 30)
-			txtPreviewConsejo = txtPreviewConsejo.substring(0,30) + "...";
+			txtPreviewConsejo = txtPreviewConsejo.substring(0,40) + "...";
 		txt_title_tip.setText(txtPreviewConsejo);
 
 		TextView txt_autor = (TextView) view.findViewById(R.id.txt_autor);

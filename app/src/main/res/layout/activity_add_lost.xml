@@ -286,7 +286,8 @@
                     android:drawablePadding="5dp"
                     android:drawableStart="@drawable/com_facebook_button_icon"
                     android:padding="10dp"
-                    android:text="@string/bt_buton_add_facebook" />
+                    android:text="@string/bt_buton_add_facebook"
+                    android:elevation="@dimen/button_elevation"/>
 
                 <Button
                     android:id="@+id/btn_save_lost"
@@ -302,9 +303,9 @@
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Publicar mi anuncio" />
+                    android:text="Publicar mi anuncio"
+                    android:layout_marginBottom="6dp"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

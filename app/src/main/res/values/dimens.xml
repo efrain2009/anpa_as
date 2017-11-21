@@ -15,4 +15,5 @@
     <dimen name="txt_regular_text">16sp</dimen>
 
     <dimen name="toolbar_elevation">5dp</dimen>
+    <dimen name="button_elevation">4dp</dimen>
 </resources>
