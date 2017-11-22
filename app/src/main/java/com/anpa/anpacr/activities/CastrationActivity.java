@@ -5,9 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.anpa.anpacr.R;
@@ -56,6 +59,9 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 	public static final String TAG_CASTRATION = "castraciones";
 
+	private ViewPager viewPager;
+	private TabLayout tabLayout;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,23 +75,20 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		suggestionList = new ArrayList<FreqAnswer>();
 
 		// Btn de back (anterior)
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CASTRATION);
 
-		ActionBar actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		/* Instacia de los tabs a crear */
-		ActionBar.Tab tab_last_castration = actionBar.newTab();
-		tab_last_castration.setText(Constants.TITLE_LAST_CASTRATION);
-
-		ActionBar.Tab tab_freq_Answer_castration = actionBar.newTab();
-		tab_freq_Answer_castration.setText(Constants.TITLE_FREQ_ANSWER);
-
-		ActionBar.Tab tab_suggestion = actionBar.newTab();
-		tab_suggestion.setText(Constants.TITLE_SUGGESTION);
+		tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+		// Set the text for each tab.
+		tabLayout.addTab(tabLayout.newTab().setText(Constants.TITLE_LAST_CASTRATION));
+		tabLayout.addTab(tabLayout.newTab().setText(Constants.TITLE_FREQ_ANSWER));
+		tabLayout.addTab(tabLayout.newTab().setText(Constants.TITLE_SUGGESTION));
+		// Set the tabs to fill the entire layout.
+		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+		viewPager = (ViewPager) findViewById(R.id.pager);
 
 		//Se carga la lista de noticias
 		try {
@@ -100,11 +103,6 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 			Date fechaInicioFilter = fechaFilter.getTime();
 			fechaFilter.set(Calendar.MONTH, 2);
 			Date fechaFinFilter = fechaFilter.getTime();
-
-			//Query queryCast2 = QueryBuilder.build(Constants.HORARIO_INICIO_CASTRACION, fechaInicioFilter, QueryBuilder.Operator.GREATER_THAN_EQUALTO);
-			//Query queryCast3  = QueryBuilder.compoundOperator(queryCast1, QueryBuilder.Operator.AND, queryCast2);
-			//Query queryCast4 = QueryBuilder.build(Constants.HORARIO_FIN_CASTRACION, fechaFinFilter, QueryBuilder.Operator.LESS_THAN_EQUALTO);
-			//Query queryCast5  = QueryBuilder.compoundOperator(queryCast3, QueryBuilder.Operator.AND, queryCast4);
 
 			//Ejecurar fiiltros de preguntas frecuentes estado = 0 y habilitados
 			Query queryPreg1 = QueryBuilder.build(Constants.HABILITADO_PREGUNTA, 1, QueryBuilder.Operator.EQUALS);
@@ -121,17 +119,29 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		finally {
 			//updateAdapterLastCastrationFragment();
 		}
+	}
 
-		/*Asigna a los tabs el listener*/
-		tab_last_castration.setTabListener(new CastrationListener());
-		tab_freq_Answer_castration.setTabListener(new CastrationListener());
-		tab_suggestion.setTabListener(new CastrationListener());
-		
+	private void setAdapter(){
+		final CastrationActivity.PagerAdapter adapter = new CastrationActivity.PagerAdapter
+				(getSupportFragmentManager(), tabLayout.getTabCount());
+		viewPager.setAdapter(adapter);
+		viewPager.addOnPageChangeListener(new
+				TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+		tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+			@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				viewPager.setCurrentItem(tab.getPosition());
+			}
 
-		/* Agrega los tabs a creat */
-		actionBar.addTab(tab_last_castration);
-		actionBar.addTab(tab_freq_Answer_castration);
-		actionBar.addTab(tab_suggestion);
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+			}
+		});
 	}
 
 	@Override
@@ -148,11 +158,9 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 		switch (type) {
 			case 1://Castraciones
-				//decodeCastrationJson(response);
 				new AsyncLoadListTask().execute(response);
 				break;
 			case 2://Preguntas
-				//decodePreguntasFrecuentesJson(response);
 				new AsyncLoadFreqAnswerListTask().execute(response);
 				break;
 			default:
@@ -176,45 +184,13 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 	}
 
-	/* Lisenner para cambio de tabs */
-	private class CastrationListener implements ActionBar.TabListener {
-
-
-		@Override
-		public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-			if (tab.getPosition() == 0) {
-				LastCastrationFragment frag = new LastCastrationFragment();
-				ft.replace(android.R.id.content, frag, TAG_CASTRATION);
-			} else if (tab.getPosition() == 1) {
-				FreqAnswerCastrationFragment frag = new FreqAnswerCastrationFragment();
-				ft.replace(android.R.id.content, frag, TAG_CASTRATION);
-			} else {
-				SuggestionCastrationFragment frag = new SuggestionCastrationFragment();
-				ft.replace(android.R.id.content, frag, TAG_CASTRATION);
-			}
-		}
-
-		@Override
-		public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-			// TODO Auto-generated method stub
-
-		}
-	}
-
 	/**
 	 * Muestra un mensaje TOAST.
 	 *
 	 * @param message
 	 */
 	private void showMessage(String message) {
-		Toast.makeText(CastrationActivity.this, message, Toast.LENGTH_SHORT)
-				.show();
+		Toast.makeText(CastrationActivity.this, message, Toast.LENGTH_SHORT).show();
 	}
 
 	/*
@@ -294,6 +270,7 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 		protected void onPostExecute(Boolean result) {
 			progressDialog.dismiss();
+			setAdapter();
 			if(result)
 				updateAdapterLastCastrationFragment();
 			else
@@ -379,6 +356,36 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 
 		protected void onPostExecute(Boolean result) {
 			progressDialog.dismiss();
+			setAdapter();
+		}
+	}
+
+	/**
+	 * Control de los tabs 2017
+	 */
+	public class PagerAdapter extends FragmentStatePagerAdapter {
+		int mNumOfTabs;
+
+		public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+			super(fm);
+			this.mNumOfTabs = NumOfTabs;
+		}
+		@Override
+		public Fragment getItem(int position) {
+			switch (position) {
+				case 0:
+					return new LastCastrationFragment();
+				case 1:
+					return new FreqAnswerCastrationFragment();
+				case 2:
+					return new SuggestionCastrationFragment();
+				default:
+					return null;
+			}
+		}
+		@Override
+		public int getCount() {
+			return mNumOfTabs;
 		}
 	}
 }

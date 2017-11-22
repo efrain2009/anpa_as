@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
@@ -114,13 +114,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_contacto"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_contacto"
                     android:textColor="@color/red" />
@@ -139,13 +139,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_telefono"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_telefono"
                     android:textColor="@color/red" />
@@ -164,13 +164,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/txt_subtitle_detalle"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.4"
                     android:text="@string/txt_subtitle_detalle"
@@ -266,7 +266,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/txt_send_direction" />
             </LinearLayout>
 

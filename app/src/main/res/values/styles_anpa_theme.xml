@@ -8,7 +8,8 @@
         <item name="buttonStyle">@style/Theme.Anpa_theme.ActionButtons</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-                <!-- Light.DarkActionBar specific -->
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+
         <item name="android:actionBarWidgetTheme">@style/Theme.Anpa_theme.Widget</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -30,6 +31,12 @@
 
     <style name="PopupMenu.Anpa_theme" parent="@android:style/Widget.Holo.ListPopupWindow">
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_anpa_theme</item>	
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="DropDownListView.Anpa_theme" parent="@android:style/Widget.Holo.ListView.DropDown">

@@ -197,7 +197,7 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
             boolean hasInternet = Gps.getInstance().internetCheck(AddLostActivity.this);
             boolean gpsActive = comprobarGPS();
 
-            if (hasInternet && gpsActive) {
+            if (hasInternet && gpsActive && chkLocation.isChecked()) {
                 _locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 Location respuestaLocalizacion = Gps.getInstance().obtenerGeolocalizacion(_locationManager);
                 if (respuestaLocalizacion != null) {
@@ -209,6 +209,11 @@ public class AddLostActivity extends AnpaAppFraqmentActivity {
                     _sLongitud = Constants.LONGITUD_COSTA_RICA;
                 }
                 callbackManager = CallbackManager.Factory.create();
+                saveInfo();
+            }
+            else{
+                _sLatitud = "-1";
+                _sLongitud = "-1";
                 saveInfo();
             }
         }

@@ -81,13 +81,11 @@ public class NewsActivity extends AnpaAppFraqmentActivity implements
         tabLayout.addTab(tabLayout.newTab().setText(Constants.TITLE_SPONSOR));
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
         viewPager = (ViewPager) findViewById(R.id.pager);
 
-
-        newsList = new ArrayList<News>();
-        freqAnswerList = new ArrayList<FreqAnswer>();
-        sponsorList = new ArrayList<Sponsor>();
+        newsList = new ArrayList<>();
+        freqAnswerList = new ArrayList<>();
+        sponsorList = new ArrayList<>();
 
         //Se carga la lista de noticias
         try {
@@ -144,8 +142,6 @@ public class NewsActivity extends AnpaAppFraqmentActivity implements
 
     /**
      * Muestra un mensaje TOAST.
-     *
-     * @param message
      */
     private void showMessage(String message) {
         Toast.makeText(NewsActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -401,7 +397,7 @@ public class NewsActivity extends AnpaAppFraqmentActivity implements
     }
 
     /**
-     * Contro de los tabs 2017
+     * Control de los tabs 2017
      */
     public class PagerAdapter extends FragmentStatePagerAdapter {
         int mNumOfTabs;

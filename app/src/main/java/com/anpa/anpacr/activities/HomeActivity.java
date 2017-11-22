@@ -150,8 +150,8 @@ public class HomeActivity extends Activity {
             // TODO Auto-generated method stub
             //Como hacer mensaje System.out
             //Toast.makeText(getApplicationContext(), "Hola", Toast.LENGTH_LONG).show();
-            //startDonationActivity();
-            startCommingUpActivity();
+            startDonationActivity();
+            //startCommingUpActivity();
         }
     };
 

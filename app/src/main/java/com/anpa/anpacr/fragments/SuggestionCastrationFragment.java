@@ -1,10 +1,6 @@
 package com.anpa.anpacr.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +13,9 @@ import com.anpa.anpacr.R;
 import com.anpa.anpacr.adapter.InfoExpandListAdapter;
 import com.anpa.anpacr.domain.FreqAnswer;
 import com.anpa.anpacr.domain.GenericListItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SuggestionCastrationFragment extends android.support.v4.app.Fragment{
 		
@@ -38,9 +37,6 @@ public class SuggestionCastrationFragment extends android.support.v4.app.Fragmen
 				View view = inflater.inflate(R.layout.fragment_suggestion_castration, container, false);
 				
 				lv_suggestion = (ExpandableListView) view.findViewById(R.id.list_suggestionCastration);
-				
-				//Carga los datos obtenidos del activity, llamando al interface del activity
-				// List<FreqAnswer> suggestionCastrationlist = onLoadListListenerSuggestionCastration.loadSuggestionList();
 				
 				 List<GenericListItem> groups = new ArrayList<GenericListItem>();
 				 

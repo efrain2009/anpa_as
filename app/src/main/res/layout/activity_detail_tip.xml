@@ -132,7 +132,8 @@
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
                         android:onClick="setRating"
-                        android:paddingRight="5dp" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"/>
 
                     <ImageButton
                         android:id="@+id/img_detail_tip_star2"
@@ -141,7 +142,8 @@
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
                         android:onClick="setRating"
-                        android:paddingRight="5dp" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp" />
 
                     <ImageButton
                         android:id="@+id/img_detail_tip_star3"
@@ -150,7 +152,8 @@
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
                         android:onClick="setRating"
-                        android:paddingRight="5dp" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp" />
 
                     <ImageButton
                         android:id="@+id/img_detail_tip_star4"
@@ -159,7 +162,8 @@
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
                         android:onClick="setRating"
-                        android:paddingRight="5dp" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp" />
 
                     <ImageButton
                         android:id="@+id/img_detail_tip_star5"
@@ -168,7 +172,8 @@
                         android:background="@drawable/ic_footprint_gray"
                         android:contentDescription="@string/txt_description_image"
                         android:onClick="setRating"
-                        android:paddingRight="5dp" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
