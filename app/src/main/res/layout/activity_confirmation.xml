@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_confirmation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/anpa_background"
     tools:context="com.anpa.anpacr.activities.ConfirmationActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="@dimen/toolbar_elevation"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -16,7 +25,9 @@
         android:src="@drawable/ic_main_logo"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/tl_payment_detail"
-        android:paddingBottom="40dp"/>
+        android:layout_marginTop="15dp"
+        android:paddingBottom="20dp"
+        android:layout_below="@+id/toolbar"/>
 
     <TableLayout
         android:id="@+id/tl_payment_detail"
@@ -27,7 +38,7 @@
         android:layout_alignParentStart="true"
         android:background="@color/item_semitransparent_child">
 
-        <TableRow android:paddingBottom="10dp">
+        <TableRow android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +55,7 @@
                 android:textSize="16sp"/>
         </TableRow>
 
-        <TableRow android:paddingBottom="10dp">
+        <TableRow android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +71,7 @@
                 android:textSize="16sp"/>
         </TableRow>
 
-        <TableRow android:paddingBottom="10dp">
+        <TableRow android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

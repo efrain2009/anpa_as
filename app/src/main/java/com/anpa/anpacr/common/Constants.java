@@ -151,6 +151,7 @@ public class Constants {
     public static final String TITLE_LOST = "Adopciones";
     public final static String ID_OBJ_DETAIL_LIST = "lost_objects";
     public final static String CONSEJOS_PARA = "Consejos para: ";
+    public final static String TITLE_CONFIRMATION = "Recibo";
 
     /*Contactenos*/
     public final static String TABLE_MISCELANEOS = "micelaneos";

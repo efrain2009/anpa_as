@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.DecelerateInterpolator;
@@ -75,10 +76,11 @@ public class DetailCastrationActivity extends AnpaAppFraqmentActivity {
 		dateEndCastrationCalendar = Calendar.getInstance();
 
 		//Btn de back (anterior)
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
-		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CASTRATION);
+		getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_CASTRATION);;
 
 		//Ir GPS
 		Button btnGoLocation = (Button) findViewById(R.id.btn_send_google_maps);

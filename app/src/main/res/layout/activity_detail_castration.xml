@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_content_detail_castration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/anpa_background"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="@dimen/toolbar_elevation"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:layout_below="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -246,24 +259,16 @@
                          android:id="@+id/btn_send_google_maps"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:layout_alignParentBottom="true"
-                         android:layout_centerHorizontal="true"
-                         android:background="@color/red"
                          android:padding="10dp"
                          android:text="@string/bt_buton_How_arrive"
-                         android:textColor="@android:color/white"
                          android:layout_marginRight="10dp"/>
 
                      <Button
                          android:id="@+id/btn_add_calendar"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:layout_alignParentBottom="true"
-                         android:layout_centerHorizontal="true"
-                         android:background="@color/red"
                          android:padding="10dp"
-                         android:text="@string/bt_buton_add_calendar"
-                         android:textColor="@android:color/white" />
+                         android:text="@string/bt_buton_add_calendar" />
                  </LinearLayout>
 
 
@@ -274,13 +279,13 @@
                      android:layout_height="wrap_content"
                      android:layout_alignParentBottom="true"
                      android:layout_centerHorizontal="true"
-                     android:background="@color/com_facebook_blue"
                      android:padding="10dp"
                      android:text="@string/bt_buton_add_facebook"
                      android:textColor="@android:color/white"
                      android:layout_below="@+id/lv_buttons_block"
                      android:drawablePadding="5dp"
-                     android:drawableLeft="@drawable/com_facebook_button_icon"/>
+                     android:drawableLeft="@drawable/com_facebook_button_icon"
+                     android:background="@drawable/selector_button_style_facebook"/>
              </RelativeLayout>
         </LinearLayout>
     </ScrollView>
