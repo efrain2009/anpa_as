@@ -147,6 +147,7 @@ public class Constants {
 
     /*Preg frecuentes Activity*/
     public final static String TITLE_DESCRIPTION_LOST = "Perdidos";
+    public final static String TITLE_DESCRIPTION_LOST_DETAIL = "Mascota perdida";
     public static final String TITLE_LAST_LOST = "Ultimamente";
     public static final String TITLE_LOST = "Adopciones";
     public final static String ID_OBJ_DETAIL_LIST = "lost_objects";

@@ -1,10 +1,6 @@
 package com.anpa.anpacr.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +13,9 @@ import com.anpa.anpacr.R;
 import com.anpa.anpacr.adapter.InfoExpandListAdapter;
 import com.anpa.anpacr.domain.FreqAnswer;
 import com.anpa.anpacr.domain.GenericListItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FreqAnswerCastrationFragment extends android.support.v4.app.Fragment{
 		
@@ -35,9 +34,9 @@ public class FreqAnswerCastrationFragment extends android.support.v4.app.Fragmen
 		 */
 			@Override
 			public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-				View view = inflater.inflate(R.layout.fragment_faq_cast, container, false);
+				View view = inflater.inflate(R.layout.fragment_freq_answers, container, false);
 				
-				lv_freqAnswer = (ExpandableListView) view.findViewById(R.id.list_freqAnswerCastration);
+				lv_freqAnswer = (ExpandableListView) view.findViewById(R.id.list_freqAnswerNews);
 				
 				//Carga los datos obtenidos del activity, llamando al interface del activity
 				 List<FreqAnswer> freqAnswerCastrationlist = onLoadListListenerFreqAnswerCastration.loadFreqAnswerList();

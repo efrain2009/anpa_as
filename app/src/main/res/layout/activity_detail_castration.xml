@@ -245,8 +245,7 @@
              <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                 android:layout_marginTop="10dp"
-                android:paddingBottom="40dp" >
+                 android:layout_marginTop="10dp">
 
                  <LinearLayout
                      android:id="@+id/lv_buttons_block"
@@ -259,7 +258,7 @@
                          android:id="@+id/btn_send_google_maps"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:padding="10dp"
+                         android:layout_margin="10dp"
                          android:text="@string/bt_buton_How_arrive"
                          android:layout_marginRight="10dp"/>
 
@@ -267,23 +266,20 @@
                          android:id="@+id/btn_add_calendar"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:padding="10dp"
-                         android:text="@string/bt_buton_add_calendar" />
+                         android:layout_margin="10dp"
+                         android:text="@string/bt_buton_add_calendar"/>
                  </LinearLayout>
 
 
                  <Button
                      android:id="@+id/btn_add_facebook"
-                     android:layout_marginTop="10dp"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:layout_alignParentBottom="true"
                      android:layout_centerHorizontal="true"
-                     android:padding="10dp"
                      android:text="@string/bt_buton_add_facebook"
-                     android:textColor="@android:color/white"
                      android:layout_below="@+id/lv_buttons_block"
                      android:drawablePadding="5dp"
+                     android:layout_marginBottom="10dp"
                      android:drawableLeft="@drawable/com_facebook_button_icon"
                      android:background="@drawable/selector_button_style_facebook"/>
              </RelativeLayout>

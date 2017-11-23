@@ -271,20 +271,11 @@ public class CastrationActivity extends AnpaAppFraqmentActivity implements
 		protected void onPostExecute(Boolean result) {
 			progressDialog.dismiss();
 			setAdapter();
-			if(result)
-				updateAdapterLastCastrationFragment();
-			else
+			if(!result)
 				Toast.makeText(getApplicationContext(), "No hay castraciones registradas por el momento", Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	private void updateAdapterLastCastrationFragment(){
-		getSupportActionBar().setSelectedNavigationItem(0);
-		LastCastrationFragment frag = new LastCastrationFragment();
-		FragmentManager fm = getSupportFragmentManager();
-		fm.beginTransaction().replace(android.R.id.content, frag, TAG_CASTRATION).commit();
-		fm.popBackStackImmediate();
-	}
 
     //Obtiene la imagen desde una URL
     public static byte[] getBitmap(String url) {

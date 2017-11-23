@@ -43,7 +43,7 @@ public class DetailLostActivity extends AnpaAppFraqmentActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_LOST);
+        getSupportActionBar().setTitle(Constants.TITLE_DESCRIPTION_LOST_DETAIL);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

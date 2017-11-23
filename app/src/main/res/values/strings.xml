@@ -21,7 +21,7 @@
     <string name="txt_donation_link">http://www.anpacostarica.org/done_aqui</string>
     <string name="txt_donation_text1">Deseo donar: $</string>
     <string name="bt_send_donation">¡Donar!</string>
-    <string name="bt_send_calculate">Calcular en dólares</string>
+    <string name="bt_send_calculate">Calcular en colones</string>
     <string name="bt_send_convert">Convertir a dólares</string>
     <string name="txt_donation_exchange_rate">IMPORTANTE: Paypal recibe el pago en dólares americanos ($). El tipo de cambio según el BCCR en este momento es el siguiente:</string>
     <string name="txt_donation_colones">Deseo donar: ¢</string>
@@ -35,7 +35,7 @@
     <string name="txt_subtitle_amount">Monto:</string>
     <string name="txt_subtitle_info">Información Adicional:</string>
     <string name="bt_buton_How_arrive">¿Cómo llegar?</string>
-    <string name="bt_buton_add_calendar">Agregar a mi agenda</string>
+    <string name="bt_buton_add_calendar">Agregar a agenda</string>
     <string name="bt_buton_add_facebook">Compartir en mi Facebook</string>
 
     <!-- Tips -->
@@ -65,7 +65,7 @@
     <string name="txt_subtitle_raza_mascota">Raza*: </string>
     <string name="txt_subtitle_contacto">Contacto*: </string>
     <string name="txt_subtitle_telefono">Teléfono*: </string>
-    <string name="txt_subtitle_short_direction">¿Dirección?</string>
+    <string name="txt_subtitle_short_direction">Se perdió en:</string>
     <string name="txt_subtitle_detalle">Detalles de la mascota*: </string>
     <!--    <string name="txt_add_lost">Encontrar a mi mascota</string> -->
     <string name="txt_add_lost">Publicar mi aviso</string>

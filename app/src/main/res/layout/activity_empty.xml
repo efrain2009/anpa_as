@@ -26,6 +26,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabBackground="@drawable/bg_tabs"
+        app:tabIndicatorColor="@color/btn_color_6"
         android:elevation="@dimen/toolbar_elevation"/>
 
     <android.support.v4.view.ViewPager

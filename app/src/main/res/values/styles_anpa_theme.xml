@@ -30,7 +30,7 @@
 
 
     <style name="PopupMenu.Anpa_theme" parent="@android:style/Widget.Holo.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_anpa_theme</item>	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_anpa_theme</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -57,7 +57,7 @@
     <style name="Theme.Anpa_theme.Widget" parent="@android:style/Theme.Holo">
         <item name="android:popupMenuStyle">@style/PopupMenu.Anpa_theme</item>
     </style>
-	
+
     <!-- Tabs background -->
     <style name="Theme.Anpa_theme.ActionBar.TabBar" parent="android:style/Widget.Holo.Light.ActionBar.TabBar">
     <item name="android:background">@color/tabs_spaces_background</item>
